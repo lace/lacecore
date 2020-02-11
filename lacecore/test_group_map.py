@@ -21,6 +21,11 @@ def create_group_map():
     )
 
 
+def test_group_map_num_elements():
+    groups = create_group_map()
+    assert groups.num_elements == 12
+
+
 def test_group_map_len():
     groups = create_group_map()
     assert len(groups) == 9
@@ -36,6 +41,43 @@ def test_group_map_get_item():
         groups["empty"][3] = True
     with pytest.raises(KeyError, match="Unknown group: nope"):
         groups["nope"]
+
+
+def test_group_map_iteration():
+    groups = create_group_map()
+    names = [name for name in groups]
+    assert names == [
+        "bottom",
+        "left_side",
+        "front_side",
+        "right_side",
+        "back_side",
+        "top",
+        "sides",
+        "top_and_bottom",
+        "empty",
+    ]
+
+
+def test_group_contains():
+    groups = create_group_map()
+    assert ("front_side" in groups) == True
+    assert ("nope" in groups) == False
+
+
+def test_group_map_keys():
+    groups = create_group_map()
+    assert groups.keys() == [
+        "bottom",
+        "left_side",
+        "front_side",
+        "right_side",
+        "back_side",
+        "top",
+        "sides",
+        "top_and_bottom",
+        "empty",
+    ]
 
 
 def test_group_map_union():
@@ -89,23 +131,37 @@ def test_group_map_with_copy_false_makes_read_only():
 
 
 def test_invalid_num_elements_throws_error():
-    with pytest.raises(ValueError, match="num_elements should be a non-negative integer"):
+    with pytest.raises(
+        ValueError, match="num_elements should be a non-negative integer"
+    ):
         GroupMap(
-            num_elements=-1, group_names=["a", "b", "c"], masks=np.zeros((3, 12), dtype=np.bool)
+            num_elements=-1,
+            group_names=["a", "b", "c"],
+            masks=np.zeros((3, 12), dtype=np.bool),
         )
-    with pytest.raises(ValueError, match="num_elements should be a non-negative integer"):
+    with pytest.raises(
+        ValueError, match="num_elements should be a non-negative integer"
+    ):
         GroupMap(
-            num_elements="foo", group_names=["a", "b", "c"], masks=np.zeros((3, 12), dtype=np.bool)
+            num_elements="foo",
+            group_names=["a", "b", "c"],
+            masks=np.zeros((3, 12), dtype=np.bool),
         )
+
 
 def test_invalid_group_name_throws_error():
     with pytest.raises(ValueError, match="group_names should be a list of strings"):
         GroupMap(
-            num_elements=12, group_names=[1, 2, 3], masks=np.zeros((3, 12), dtype=np.bool)
+            num_elements=12,
+            group_names=[1, 2, 3],
+            masks=np.zeros((3, 12), dtype=np.bool),
         )
+
 
 def test_invalid_mask_throws_error():
     with pytest.raises(ValueError, match="Expected masks to be a bool array"):
         GroupMap(
-            num_elements=12, group_names=["a", "b", "c"], masks=np.zeros((3, 12), dtype=np.int)
+            num_elements=12,
+            group_names=["a", "b", "c"],
+            masks=np.zeros((3, 12), dtype=np.int),
         )

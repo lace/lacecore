@@ -4,18 +4,22 @@ import vg
 
 class GroupMap:
     """
-    An immutable map of possibly overlapping groups of elements.
+    An immutable map of groups of elements, which are allowed to overlap.
+    These can be used for face or vertex groups, as in the Wavefront OBJ
+    standard.
+
+    Args:
+        num_elements (int): The total number of elements. This determines
+            the length of the masks.
+        group_names (list): The names of the groups.
+        masks (np.array): A boolean array with a row containing a boolean
+            mask for each group.
+    
+    See also:
+        http://paulbourke.net/dataformats/obj/
     """
 
     def __init__(self, num_elements, group_names, masks, copy_masks=False):
-        """
-        Args:
-            num_elements (int): The total number of elements. This determines
-                the length of the masks.
-            group_names (list): The names of the groups.
-            masks (np.array): A boolean array with a row for each group and a
-                column for each element.
-        """
         if not isinstance(num_elements, int) or num_elements < 0:
             raise ValueError("num_elements should be a non-negative integer")
         if not all(isinstance(group_name, str) for group_name in group_names):
@@ -27,15 +31,18 @@ class GroupMap:
         if copy_masks:
             masks = masks.copy()
         masks.setflags(write=False)
+        self._num_elements = num_elements
         self._masks = masks
         self._group_names = {k: i for i, k in enumerate(group_names)}
 
     @classmethod
     def from_dict(cls, group_data, num_elements):
         """
+        Create a group map from a dictionary of elements. The keys are the
+        group names and the values are lists of element indices.
+
         Args:
-            group_data (dict): The group data. The keys are group names and
-                the values are lists of element indices.
+            group_data (dict): The group data.
             num_elements (int): The total number of elements.
         """
         masks = np.zeros((len(group_data), num_elements), dtype=np.bool)
@@ -54,11 +61,33 @@ class GroupMap:
         )
 
     def __len__(self):
-        return len(self._masks)
+        """
+        Get the number of groups.
+
+        Returns:
+            int: The number of groups.
+        """
+        return len(self._group_names)
+
+    def __iter__(self):
+        """
+        Iterate over the groups.
+
+        Returns:
+            list_iterator: An iterator over the groups.
+        """
+        return iter(self._group_names)
 
     def __getitem__(self, group_name):
         """
-        Return a read-only mask for the requested group.
+        Get the read-only mask for the requested group.
+
+        Args:
+            group_name (string): The desired group.
+
+        Returns:
+            np.array: A read-only boolean array with length equal to
+            `self.num_elements`.
         """
         try:
             index = self._group_names[group_name]
@@ -66,9 +95,29 @@ class GroupMap:
             raise KeyError("Unknown group: {}".format(group_name))
         return self._masks[index]
 
+    def keys(self):
+        """
+        Get the names of all the groups.
+
+        Returns:
+            list: A list of the group names.
+        """
+        return list(self._group_names)
+
+    @property
+    def num_elements(self):
+        return self._num_elements
+
     def union(self, *group_names):
         """
-        Return a writable mask containing the union of the requested groups.
+        Construct the union of the requested groups and return it as a
+        writable mask.
+
+        Args:
+            group_names (list): The requested groups.
+        
+        Returns:
+            np.array: A boolean mask with length equal to `self.num_elements`.
         """
         indices = []
         invalid_group_names = []
