@@ -102,10 +102,10 @@ class Selection:
         return self
 
     def union(self):
-        return cls(target=self._target, union_with=self._union_with + [self])
+        return self.__class__(target=self._target, union_with=self._union_with + [self])
 
     @staticmethod
-    def reconcile_masks(faces, face_mask, vertex_mask, prune_orphan_vertices):
+    def _reconcile_masks_helper(faces, face_mask, vertex_mask, prune_orphan_vertices):
         """
         Reconcile the vertex and face masks. When vertices are removed, their
         faces must also be removed. When faces are removed, the vertices can
@@ -149,6 +149,14 @@ class Selection:
 
         return reconciled_face_mask, reconciled_vertex_mask
 
+    def _reconciled_masks(self, prune_orphan_vertices):
+        return self._reconcile_masks_helper(
+            faces=self._target.f,
+            face_mask=self._face_mask,
+            vertex_mask=self._vertex_mask,
+            prune_orphan_vertices=prune_orphan_vertices,
+        )
+
     def end(
         self,
         prune_orphan_vertices=True,
@@ -157,31 +165,49 @@ class Selection:
         # Avoid circular import.
         from ._mesh import Mesh
 
-        face_mask_of_union = self._face_mask
-        vertex_mask_of_union = self._vertex_mask
+        # The approach here is designed to keep faces which have verts in two
+        # halves of a union, and to avoid keeping the entire mesh when faces
+        # are selected in one half of a union and verts are selected in the
+        # other.
+
+        # First, form the union of reconciled vertices.
+        _, initial_vertex_mask_of_union = self._reconciled_masks(
+            prune_orphan_vertices=prune_orphan_vertices
+        )
         for other in self._union_with:
-            face_mask_of_union = np.logical_or(face_mask_of_union, other._face_mask)
-            vertex_mask_of_union = np.logical_or(
-                vertex_mask_of_union, other._vertex_mask
+            _, this_vertex_mask = other._reconciled_masks(
+                prune_orphan_vertices=prune_orphan_vertices
+            )
+            initial_vertex_mask_of_union = np.logical_or(
+                initial_vertex_mask_of_union, this_vertex_mask
             )
 
-        reconciled_face_mask, reconciled_vertex_mask = self.reconcile_masks(
+        # Second, union the faces.
+        initial_face_mask_of_union = self._face_mask
+        for other in self._union_with:
+            initial_face_mask_of_union = np.logical_or(
+                initial_face_mask_of_union, other._face_mask
+            )
+
+        # Finally, reconcile the union of reconciled vertices with the union of
+        # faces.
+        face_mask_of_union, vertex_mask_of_union = self._reconcile_masks_helper(
             faces=self._target.f,
-            face_mask=face_mask_of_union,
-            vertex_mask=vertex_mask_of_union,
+            face_mask=initial_face_mask_of_union,
+            vertex_mask=initial_vertex_mask_of_union,
             prune_orphan_vertices=prune_orphan_vertices,
         )
 
-        new_v = self._target.v[reconciled_vertex_mask]
+        new_v = self._target.v[vertex_mask_of_union]
         indices_of_original_vertices = indices_of_original_elements_after_applying_mask(
-            reconciled_vertex_mask
+            vertex_mask_of_union
         )
-        new_f = indices_of_original_vertices[self._target.f[reconciled_face_mask]]
+        new_f = indices_of_original_vertices[self._target.f[face_mask_of_union]]
         submesh = Mesh(v=new_v, f=new_f)
 
         if ret_indices_of_original_faces_and_vertices:
             indices_of_original_faces = indices_of_original_elements_after_applying_mask(
-                reconciled_face_mask
+                face_mask_of_union
             )
             return submesh, indices_of_original_faces, indices_of_original_vertices
         else:

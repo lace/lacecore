@@ -8,7 +8,12 @@ from executor import execute
 def python_source_files():
     import glob
 
-    include_paths = glob.glob("*.py") + glob.glob("lacecore/**/*.py") + ["doc/"]
+    include_paths = (
+        glob.glob("*.py")
+        + glob.glob("lacecore/*.py")
+        + glob.glob("lacecore/**/*.py")
+        + ["doc/"]
+    )
     exclude_paths = []
     return [x for x in include_paths if x not in exclude_paths]
 
