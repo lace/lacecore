@@ -1,9 +1,8 @@
 import numpy as np
+from polliwog import Plane
 import pytest
 import vg
-from polliwog import Plane
 from ._mesh import Mesh
-from . import shapes
 from ._selection import reconcile_selection
 
 cube_vertices = np.array(

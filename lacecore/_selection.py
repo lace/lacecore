@@ -1,6 +1,6 @@
-import vg
 import numpy as np
 from polliwog import Plane
+import vg
 from ._common.reindexing import indices_of_original_elements_after_applying_mask
 from ._common.validation import check_arity, check_indices
 
@@ -52,7 +52,7 @@ def reconcile_selection(faces, face_mask, vertex_mask, prune_orphan_vertices):
 class Selection:
     """
     Encapsulate a set of submesh selection operations.
-    
+
     Apply the operations by invoking `run()`, which creates a new mesh.
     """
 
@@ -88,25 +88,25 @@ class Selection:
     #     return self
 
     def vertices_at_or_above(self, point, dim):
-        if not dim in [0, 1, 2]:
+        if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
         self._keep_vertices(self._target.v[:, dim] >= point[dim])
         return self
 
     def vertices_above(self, point, dim):
-        if not dim in [0, 1, 2]:
+        if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
         self._keep_vertices(self._target.v[:, dim] > point[dim])
         return self
 
     def vertices_at_or_below(self, point, dim):
-        if not dim in [0, 1, 2]:
+        if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
         self._keep_vertices(self._target.v[:, dim] <= point[dim])
         return self
 
     def vertices_below(self, point, dim):
-        if not dim in [0, 1, 2]:
+        if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
         self._keep_vertices(self._target.v[:, dim] < point[dim])
         return self
