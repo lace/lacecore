@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 import vg
 from polliwog import Plane
 from ._mesh import Mesh
@@ -245,3 +246,64 @@ def test_prune_orphan_vertices_has_no_effect_when_selecting_vertices():
             expected_vertex_indices=expected_vertex_indices,
             expected_face_indices=expected_face_indices,
         )
+
+def test_ret_indices_of_original_faces_and_vertices():
+    expected_vertex_indices = [2, 3, 6, 7]
+    expected_face_indices = [8, 9]
+    (submesh, indices_of_original_faces, indices_of_original_vertices) = (
+        cube_at_origin
+        .select()
+        .vertices_at_or_above(np.array([1.0, 1.0, 1.0]), 2)
+        .end(ret_indices_of_original_faces_and_vertices=True)
+    )
+    assert_subcube(
+        submesh=submesh,
+        expected_vertex_indices=expected_vertex_indices,
+        expected_face_indices=expected_face_indices,
+    )
+    np.testing.assert_array_equal(
+        indices_of_original_faces,
+        np.array([-1, -1, -1, -1, -1, -1, -1, -1,  0,  1, -1, -1])
+    )
+    np.testing.assert_array_equal(
+        indices_of_original_vertices,
+        np.array([-1, -1,  0,  1, -1, -1,  2,  3])
+    )
+
+def test_selection_validation():
+    selection = cube_at_origin.select()
+
+    for method in (
+        selection.vertices_at_or_above,
+        selection.vertices_above,
+        selection.vertices_at_or_below,
+        selection.vertices_below,
+    ):
+        with pytest.raises(ValueError, match="Expected dim to be 0, 1, or 2"):
+            method(np.zeros(3), 4)
+
+    for method in (
+        selection.vertices_in_front_of_plane,
+        selection.vertices_on_or_in_front_of_plane,
+        selection.vertices_behind_plane,
+        selection.vertices_on_or_behind_plane,
+    ):
+        with pytest.raises(ValueError, match="Expected an instance of polliwog.Plane"):
+            method("not-a-plane")
+
+
+def test_pick_vertices_list():
+    wanted_vs = [3, 7, 4]
+    submesh = cube_at_origin.select().pick_vertices(wanted_vs).end()
+
+    np.testing.assert_array_equal(submesh.v, cube_vertices[np.array([3, 4, 7])])
+    np.testing.assert_array_equal(submesh.v[submesh.f], cube_vertices[cube_faces[10:11]])
+
+def test_pick_vertices_mask():
+    wanted_v_mask = np.zeros(8, dtype=np.bool)
+    wanted_v_mask[[3, 7, 4]] = True
+    submesh = cube_at_origin.select().pick_vertices(wanted_v_mask).end()
+
+    np.testing.assert_array_equal(submesh.v, cube_vertices[np.array([3, 4, 7])])
+    np.testing.assert_array_equal(submesh.v[submesh.f], cube_vertices[cube_faces[10:11]])
+

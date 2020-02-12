@@ -22,6 +22,7 @@ class Selection:
 
     @staticmethod
     def _mask_like(value, num_elements):
+        value = np.asarray(value)
         if value.dtype == np.bool:
             vg.shape.check(locals(), "value", (num_elements,))
             return value
@@ -37,9 +38,10 @@ class Selection:
     def _keep_vertices(self, mask):
         self._vertex_mask = np.logical_and(self._vertex_mask, mask)
 
-    def face_groups(self, *group_names):
-        self._keep_faces(self._target.face_groups.union(*group_names))
-        return self
+    # TODO: Depends on https://github.com/metabolize/lacecore/pull/1
+    # def face_groups(self, *group_names):
+    #     self._keep_faces(self._target.face_groups.union(*group_names))
+    #     return self
 
     def vertices_at_or_above(self, point, dim):
         if not dim in [0, 1, 2]:
@@ -89,13 +91,13 @@ class Selection:
         self._keep_vertices(plane.sign(self._target.v) == -1)
         return self
 
-    def vertices(self, indices_or_boolean_mask):
+    def pick_vertices(self, indices_or_boolean_mask):
         self._keep_vertices(
             self._mask_like(indices_or_boolean_mask, len(self._vertex_mask))
         )
         return self
 
-    def faces(self, face_indices):
+    def pick_faces(self, face_indices):
         self._keep_faces(self._mask_like(indices_or_boolean_mask, len(self._face_mask)))
         return self
 
