@@ -359,14 +359,18 @@ def test_union_of_vertices_and_faces():
 
 
 def test_reconcile_selection_validation():
-    with pytest.raises(ValueError, match="Expected face_mask and vertex_mask to be boolean arrays"):
+    with pytest.raises(
+        ValueError, match="Expected face_mask and vertex_mask to be boolean arrays"
+    ):
         reconcile_selection(
             faces=cube_at_origin.f,
             face_mask=np.zeros(cube_at_origin.num_f),
             vertex_mask=np.zeros(cube_at_origin.num_v, dtype=np.bool),
             prune_orphan_vertices=False,
         )
-    with pytest.raises(ValueError, match="Expected face_mask and vertex_mask to be boolean arrays"):
+    with pytest.raises(
+        ValueError, match="Expected face_mask and vertex_mask to be boolean arrays"
+    ):
         reconcile_selection(
             faces=cube_at_origin.f,
             face_mask=np.zeros(cube_at_origin.num_f, dtype=np.bool),
