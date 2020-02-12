@@ -4,6 +4,7 @@ import vg
 from polliwog import Plane
 from ._mesh import Mesh
 from . import shapes
+from ._selection import reconcile_selection
 
 cube_vertices = np.array(
     [
@@ -355,3 +356,20 @@ def test_union_of_vertices_and_faces():
         expected_vertex_indices=[0, 1, 2, 3, 4, 7],
         expected_face_indices=[0, 1, 5, 10, 11],
     )
+
+
+def test_reconcile_selection_validation():
+    with pytest.raises(ValueError, match="Expected face_mask and vertex_mask to be boolean arrays"):
+        reconcile_selection(
+            faces=cube_at_origin.f,
+            face_mask=np.zeros(cube_at_origin.num_f),
+            vertex_mask=np.zeros(cube_at_origin.num_v, dtype=np.bool),
+            prune_orphan_vertices=False,
+        )
+    with pytest.raises(ValueError, match="Expected face_mask and vertex_mask to be boolean arrays"):
+        reconcile_selection(
+            faces=cube_at_origin.f,
+            face_mask=np.zeros(cube_at_origin.num_f, dtype=np.bool),
+            vertex_mask=np.zeros(cube_at_origin.num_v),
+            prune_orphan_vertices=False,
+        )

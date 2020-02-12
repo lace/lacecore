@@ -6,8 +6,8 @@ from ._selection import Selection
 class Mesh:
     def __init__(self, v, f, copy_v=False, copy_f=False):
         num_vertices = vg.shape.check(locals(), "v", (-1, 3))
-        (_, arity) = vg.shape.check(locals(), "f", (-1, -1))
-        check_arity(arity)
+        vg.shape.check(locals(), "f", (-1, -1))
+        check_arity(f)
         check_indices(f, num_vertices, "f")
 
         # TODO: Needs coverage.

@@ -4,13 +4,13 @@ from .validation import check_arity, check_indices
 
 
 def test_check_arity_valid():
-    check_arity(3)
-    check_arity(4)
+    check_arity(np.arange(24).reshape(-1, 3))
+    check_arity(np.arange(24).reshape(-1, 4))
 
 
 def test_check_arity_invalid():
     with pytest.raises(ValueError, match="Expected 3 or 4 vertices per face"):
-        check_arity(5)
+        check_arity(np.arange(24).reshape(-1, 6))
 
 
 def test_check_indices_valid():

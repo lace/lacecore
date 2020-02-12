@@ -1,8 +1,8 @@
 import numpy as np
 
 
-def check_arity(arity):
-    if arity not in [3, 4]:
+def check_arity(faces):
+    if faces.shape[1] not in [3, 4]:
         raise ValueError("Expected 3 or 4 vertices per face")
 
 
