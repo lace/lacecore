@@ -97,7 +97,7 @@ class Selection:
         )
         return self
 
-    def pick_faces(self, face_indices):
+    def pick_faces(self, indices_or_boolean_mask):
         self._keep_faces(self._mask_like(indices_or_boolean_mask, len(self._face_mask)))
         return self
 

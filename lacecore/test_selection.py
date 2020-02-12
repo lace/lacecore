@@ -307,3 +307,9 @@ def test_pick_vertices_mask():
     np.testing.assert_array_equal(submesh.v, cube_vertices[np.array([3, 4, 7])])
     np.testing.assert_array_equal(submesh.v[submesh.f], cube_vertices[cube_faces[10:11]])
 
+def test_pick_faces_list():
+    wanted_faces = [10, 11]
+    submesh = cube_at_origin.select().pick_faces(wanted_faces).end()
+
+    np.testing.assert_array_equal(submesh.v, cube_vertices[np.array([0, 3, 4, 7])])
+    np.testing.assert_array_equal(submesh.v[submesh.f], cube_vertices[cube_faces[10:]])
