@@ -4,7 +4,7 @@ from ._common.validation import check_arity, check_indices
 
 class Mesh:
     """
-    A triangular or quad mesh. Vertex and faces are represented using NumPy
+    A triangular or quad mesh. Vertices and faces are represented using NumPy
     arrays. Instances are read-only, at least for now. This class is optimized
     for cloud computation.
 
