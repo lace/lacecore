@@ -1,6 +1,5 @@
 import vg
 from ._common.validation import check_arity, check_indices
-from ._selection import Selection
 
 
 class Mesh:
@@ -40,6 +39,3 @@ class Mesh:
     @property
     def num_f(self):
         return len(self.f)
-
-    def select(self):
-        return Selection(target=self)
