@@ -17,6 +17,7 @@ class Mesh:
         copy_f (bool): When `True`, the input faces will be copied before
             they are marked read-only.
     """
+
     def __init__(self, v, f, copy_v=False, copy_f=False):
         num_vertices = vg.shape.check(locals(), "v", (-1, 3))
         vg.shape.check(locals(), "f", (-1, -1))
