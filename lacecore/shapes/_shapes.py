@@ -66,7 +66,7 @@ def triangular_prism(p1, p2, p3, height):
         height (float): The height of the prism, which should be positive.
 
     Returns:
-        lacecore.Mesh: A `Mesh` instance containing the cube.
+        lacecore.Mesh: A `Mesh` instance containing the triangular prism.
     """
     return _mesh_from_shape_fn(
         shapes.create_triangular_prism, p1=p1, p2=p2, p3=p3, height=height
@@ -78,6 +78,6 @@ def rectangle():
     Create a rectangle.
 
     Returns:
-        lacecore.Mesh: A `Mesh` instance containing the cube.
+        lacecore.Mesh: A `Mesh` instance containing the rectangle.
     """
     return _mesh_from_shape_fn(shapes.create_rectangle)
