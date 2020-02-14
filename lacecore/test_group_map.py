@@ -61,8 +61,8 @@ def test_group_map_iteration():
 
 def test_group_contains():
     groups = create_group_map()
-    assert ("front_side" in groups) == True
-    assert ("nope" in groups) == False
+    assert "front_side" in groups
+    assert "nope" not in groups
 
 
 def test_group_map_keys():
