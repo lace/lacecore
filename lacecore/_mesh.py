@@ -50,7 +50,7 @@ class Mesh:
     @property
     def num_v(self):
         """
-        Return the number of vertices.
+        The number of vertices.
 
         Return:
             int: The number of vertices.
@@ -60,7 +60,7 @@ class Mesh:
     @property
     def num_f(self):
         """
-        Return the number of faces.
+        The number of faces.
 
         Return:
             int: The number of faces.
