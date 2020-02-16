@@ -14,7 +14,7 @@ class GroupMap:
         group_names (list): The names of the groups.
         masks (np.array): A boolean array with a row containing a boolean
             mask for each group.
-    
+
     See also:
         http://paulbourke.net/dataformats/obj/
     """
@@ -115,7 +115,7 @@ class GroupMap:
 
         Args:
             group_names (list): The requested groups.
-        
+
         Returns:
             np.array: A boolean mask with length equal to `self.num_elements`.
         """
