@@ -34,7 +34,8 @@ class SelectionMixin:
     def keeping_vertices_at_or_above(self, dim, point):
         """
         Select vertices which, when projected to the given axis, are either
-        aligned with the given point or lie further along that axis.
+        coincident with the projection of the given point, or lie further
+        along the axis.
 
         Args:
             dim (int): The axis of interest: 0 for `x`, 1 for `y`, 2 for `z`.
@@ -47,8 +48,8 @@ class SelectionMixin:
 
     def keeping_vertices_above(self, dim, point):
         """
-        Select vertices which, when projected to the given axis, lie along
-        that axis after the given point.
+        Select vertices which, when projected to the given axis, lie after
+        the projection of the given point.
 
         Args:
             dim (int): The axis of interest: 0 for `x`, 1 for `y`, 2 for `z`.
@@ -62,7 +63,7 @@ class SelectionMixin:
     def keeping_vertices_at_or_below(self, dim, point):
         """
         Select vertices which, when projected to the given axis, are either
-        aligned with the given point or lie before it along that axis.
+        coincident with the projection of the given point, or lie before it.
 
         Args:
             dim (int): The axis of interest: 0 for `x`, 1 for `y`, 2 for `z`.
@@ -75,8 +76,8 @@ class SelectionMixin:
 
     def keeping_vertices_below(self, dim, point):
         """
-        Select vertices which, when projected to the given axis, lie along
-        that axis before the given point.
+        Select vertices which, when projected to the given axis, lie before
+        the projection fo the given point.
 
         Args:
             dim (int): The axis of interest: 0 for `x`, 1 for `y`, 2 for `z`.
