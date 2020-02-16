@@ -3,6 +3,7 @@ import pytest
 from .reconcile_selection import reconcile_selection
 from .. import shapes
 
+
 def test_reconcile_selection_validation():
     example_mesh = shapes.cube(np.zeros(3), 3.0)
 

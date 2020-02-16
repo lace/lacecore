@@ -1,6 +1,5 @@
 import vg
 from ._common.validation import check_arity, check_indices
-from ._selection.selection_object import Selection
 
 
 class Mesh:
@@ -69,4 +68,7 @@ class Mesh:
         return len(self.f)
 
     def select(self):
+        # Avoid circular import.
+        from ._selection.selection_object import Selection
+
         return Selection(target=self)

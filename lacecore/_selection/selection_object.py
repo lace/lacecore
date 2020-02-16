@@ -4,6 +4,7 @@ import vg
 from .reconcile_selection import reconcile_selection
 from .._common.reindexing import indices_of_original_elements_after_applying_mask
 from .._common.validation import check_indices
+from .._mesh import Mesh
 
 
 class Selection:
@@ -118,9 +119,6 @@ class Selection:
         prune_orphan_vertices=True,
         ret_indices_of_original_faces_and_vertices=False,
     ):
-        # Avoid circular import.
-        from .._mesh import Mesh
-
         # The approach here is designed to keep faces which have verts in two
         # halves of a union, and to avoid keeping the entire mesh when faces
         # are selected in one half of a union and verts are selected in the
