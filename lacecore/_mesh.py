@@ -1,8 +1,9 @@
 import vg
 from ._common.validation import check_arity, check_indices
+from ._selection.selection_mixin import SelectionMixin
 
 
-class Mesh:
+class Mesh(SelectionMixin):
     """
     A triangular or quad mesh. Vertices and faces are represented using NumPy
     arrays. Instances are read-only, at least for now. This class is optimized
@@ -66,9 +67,3 @@ class Mesh:
             int: The number of faces.
         """
         return len(self.f)
-
-    def select(self):
-        # Avoid circular import.
-        from ._selection.selection_object import Selection
-
-        return Selection(target=self)

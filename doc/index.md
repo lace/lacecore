@@ -6,6 +6,7 @@
 
 .. autoclass:: Mesh
     :members:
+    :inherited-members:
 ```
 
 ### Groups
