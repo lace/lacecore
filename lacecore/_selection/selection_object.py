@@ -9,7 +9,7 @@ from .._common.validation import check_indices
 class Selection:
     """
     Encapsulate a chained submesh selection operation.
-    
+
     Invoke `.end()` to apply the selection operation and create a submesh. By
     default, orphaned vertices are pruned. However you can keep them by
     invoking `.end(prune_orphan_vertices=True)`.
@@ -260,7 +260,7 @@ class Selection:
                 are referenced only by faces which are being removed.
             ret_indices_of_original_faces_and_vertices: When `True`, also
                 return the indices of the original faces and vertices.
-                
+
         Returns:
             object: Either the submesh as an instance of `lacecore.Mesh`, or a tuple
                 `(submesh, indices_of_original_faces, indices_of_original_vertices)`.
