@@ -63,8 +63,8 @@ class Selection:
 
     def vertices_above(self, dim, point):
         """
-        Select vertices which, when projected to the given axis, lie after
-        the projection of the given point.
+        Select vertices which, when projected to the given axis, lie further
+        along that axis than the projection of the given point.
 
         Args:
             dim (int): The axis of interest: 0 for `x`, 1 for `y`, 2 for `z`.
@@ -98,7 +98,7 @@ class Selection:
     def vertices_below(self, dim, point):
         """
         Select vertices which, when projected to the given axis, lie before
-        the projection fo the given point.
+        the projection of the given point.
 
         Args:
             dim (int): The axis of interest: 0 for `x`, 1 for `y`, 2 for `z`.
@@ -277,8 +277,8 @@ class Selection:
         Returns:
             object: Either the submesh as an instance of `lacecore.Mesh`, or a tuple
                 `(submesh, indices_of_original_faces, indices_of_original_vertices)`.
-                These arrays will contain `-1`'s for faces and vertices which are
-                removed.
+                The index arrays contain the new indices of the original vertices,
+                and `-1` for each removed face and vertex.
         """
         # The approach here is designed to keep faces which have verts in two
         # halves of a union, and to avoid keeping the entire mesh when faces

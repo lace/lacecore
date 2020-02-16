@@ -52,8 +52,8 @@ class SelectionMixin:
 
     def keeping_vertices_above(self, dim, point):
         """
-        Select vertices which, when projected to the given axis, lie after
-        the projection of the given point.
+        Select vertices which, when projected to the given axis, lie further
+        along that axis than the projection of the given point.
 
         Return a new mesh, without mutating the callee.
 
@@ -85,7 +85,7 @@ class SelectionMixin:
     def keeping_vertices_below(self, dim, point):
         """
         Select vertices which, when projected to the given axis, lie before
-        the projection fo the given point.
+        the projection of the given point.
 
         Return a new mesh, without mutating the callee.
 
