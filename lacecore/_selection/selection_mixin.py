@@ -31,17 +31,17 @@ class SelectionMixin:
 
         return Selection(target=self)
 
-    def keeping_vertices_at_or_above(self, point, dim):
-        return self.select().vertices_at_or_above(point=point, dim=dim).end()
+    def keeping_vertices_at_or_above(self, dim, point):
+        return self.select().vertices_at_or_above(dim=dim, point=point).end()
 
-    def keeping_vertices_above(self, point, dim):
-        return self.select().vertices_above(point=point, dim=dim).end()
+    def keeping_vertices_above(self, dim, point):
+        return self.select().vertices_above(dim=dim, point=point).end()
 
-    def keeping_vertices_at_or_below(self, point, dim):
-        return self.select().vertices_at_or_below(point=point, dim=dim).end()
+    def keeping_vertices_at_or_below(self, dim, point):
+        return self.select().vertices_at_or_below(dim=dim, point=point).end()
 
-    def keeping_vertices_below(self, point, dim):
-        return self.select().vertices_below(point=point, dim=dim).end()
+    def keeping_vertices_below(self, dim, point):
+        return self.select().vertices_below(dim=dim, point=point).end()
 
     def keeping_vertices_on_or_in_front_of_plane(self, plane):
         return self.select().vertices_on_or_in_front_of_plane(plane=plane).end()

@@ -8,11 +8,14 @@ from .._common.validation import check_indices
 
 class Selection:
     """
-    Encapsulate a submesh selection operation. Invoke `.end()` to apply the
-    selection operation and create a submesh.
+    Encapsulate a chained submesh selection operation.
+    
+    Invoke `.end()` to apply the selection operation and create a submesh. By
+    default, orphaned vertices are pruned. However you can keep them by
+    invoking `.end(prune_orphan_vertices=True)`.
 
-    Include `.union()` in the chain to combine multiple sets of
-    selection criteria into a single submesh.
+    Include `.union()` in the chain to combine more than one set of selection
+    criteria into a single submesh.
 
     Args:
         target (lacecore.Mesh): The mesh on which to operate.
@@ -40,49 +43,130 @@ class Selection:
     #     self._keep_faces(self._target.face_groups.union(*group_names))
     #     return self
 
-    def vertices_at_or_above(self, point, dim):
+    def vertices_at_or_above(self, dim, point):
+        """
+        Select vertices which, when projected to the given axis, are either
+        aligned with the given point or lie further along that axis.
+
+        Args:
+            dim (int): The axis of interest: 0 for `x`, 1 for `y`, 2 for `z`.
+            point (np.arraylike): The point of interest.
+
+        Returns:
+            self
+        """
         if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
         self._keep_vertices(self._target.v[:, dim] >= point[dim])
         return self
 
-    def vertices_above(self, point, dim):
+    def vertices_above(self, dim, point):
+        """
+        Select vertices which, when projected to the given axis, lie along
+        that axis after the given point.
+
+        Args:
+            dim (int): The axis of interest: 0 for `x`, 1 for `y`, 2 for `z`.
+            point (np.arraylike): The point of interest.
+
+        Returns:
+            self
+        """
         if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
         self._keep_vertices(self._target.v[:, dim] > point[dim])
         return self
 
-    def vertices_at_or_below(self, point, dim):
+    def vertices_at_or_below(self, dim, point):
+        """
+        Select vertices which, when projected to the given axis, are either
+        aligned with the given point or lie before it along that axis.
+
+        Args:
+            dim (int): The axis of interest: 0 for `x`, 1 for `y`, 2 for `z`.
+            point (np.arraylike): The point of interest.
+
+        Returns:
+            self
+        """
         if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
         self._keep_vertices(self._target.v[:, dim] <= point[dim])
         return self
 
-    def vertices_below(self, point, dim):
+    def vertices_below(self, dim, point):
+        """
+        Select vertices which, when projected to the given axis, lie along
+        that axis before the given point.
+
+        Args:
+            dim (int): The axis of interest: 0 for `x`, 1 for `y`, 2 for `z`.
+            point (np.arraylike): The point of interest.
+
+        Returns:
+            self
+        """
         if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
         self._keep_vertices(self._target.v[:, dim] < point[dim])
         return self
 
     def vertices_on_or_in_front_of_plane(self, plane):
+        """
+        Select the vertices which are either on or in front of the given
+        plane.
+
+        Args:
+            plane (polliwog.Plane): The plane of interest.
+
+        Returns:
+            self
+        """
         if not isinstance(plane, Plane):
             raise ValueError("Expected an instance of polliwog.Plane")
         self._keep_vertices(plane.sign(self._target.v) != -1)
         return self
 
     def vertices_in_front_of_plane(self, plane):
+        """
+        Select the vertices which are in front of the given plane.
+
+        Args:
+            plane (polliwog.Plane): The plane of interest.
+
+        Returns:
+            self
+        """
         if not isinstance(plane, Plane):
             raise ValueError("Expected an instance of polliwog.Plane")
         self._keep_vertices(plane.sign(self._target.v) == 1)
         return self
 
     def vertices_on_or_behind_plane(self, plane):
+        """
+        Select the vertices which are either on or behind the given plane.
+
+        Args:
+            plane (polliwog.Plane): The plane of interest.
+
+        Returns:
+            self
+        """
         if not isinstance(plane, Plane):
             raise ValueError("Expected an instance of polliwog.Plane")
         self._keep_vertices(plane.sign(self._target.v) != 1)
         return self
 
     def vertices_behind_plane(self, plane):
+        """
+        Select the vertices which are behind the given plane.
+
+        Args:
+            plane (polliwog.Plane): The plane of interest.
+
+        Returns:
+            self
+        """
         if not isinstance(plane, Plane):
             raise ValueError("Expected an instance of polliwog.Plane")
         self._keep_vertices(plane.sign(self._target.v) == -1)
@@ -101,16 +185,58 @@ class Selection:
             return mask
 
     def pick_vertices(self, indices_or_boolean_mask):
+        """
+        Select only the given vertices.
+
+        Args:
+            indices_or_boolean_mask (np.arraylike): Either a list of vertex
+                indices, or a boolean mask the same length as the vertex array.
+
+        Returns:
+            self
+        """
         self._keep_vertices(
             self._mask_like(indices_or_boolean_mask, len(self._vertex_mask))
         )
         return self
 
     def pick_faces(self, indices_or_boolean_mask):
+        """
+        Select only the given faces.
+
+        Args:
+            indices_or_boolean_mask (np.arraylike): Either a list of face
+                indices, or a boolean mask the same length as the face array.
+
+        Returns:
+            self
+        """
         self._keep_faces(self._mask_like(indices_or_boolean_mask, len(self._face_mask)))
         return self
 
     def union(self):
+        """
+        Chain on a new selection object. This works like a boolean "or" to
+        combine two sets of submesh operations.
+
+        Args:
+            indices_or_boolean_mask (np.arraylike): Either a list of face
+                indices, or a boolean mask the same length as the face array.
+
+        Returns:
+            lacecore.Selection: The new selection operation, which will
+                combine itself with `self`.
+
+        Example:
+            >>> upper_half_plus_right_half = (
+                mesh.select()
+                .vertices_above(centroid, dim=0)
+                .union()
+                .vertices_above(centroid, dim=1)
+                .end()
+            )
+
+        """
         return self.__class__(target=self._target, union_with=self._union_with + [self])
 
     def _reconciled_selection(self, prune_orphan_vertices):
@@ -126,6 +252,21 @@ class Selection:
         prune_orphan_vertices=True,
         ret_indices_of_original_faces_and_vertices=False,
     ):
+        """
+        Apply the selection to construct a submesh.
+
+        Args:
+            prune_orphan_vertices (bool): When `True`, remove vertices which
+                are referenced only by faces which are being removed.
+            ret_indices_of_original_faces_and_vertices: When `True`, also
+                return the indices of the original faces and vertices.
+                
+        Returns:
+            object: Either the submesh as an instance of `lacecore.Mesh`, or a tuple
+                `(submesh, indices_of_original_faces, indices_of_original_vertices)`.
+                These arrays will contain `-1`'s for faces and vertices which are
+                removed.
+        """
         # The approach here is designed to keep faces which have verts in two
         # halves of a union, and to avoid keeping the entire mesh when faces
         # are selected in one half of a union and verts are selected in the
