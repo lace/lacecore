@@ -122,6 +122,9 @@ class Selection:
 
         Returns:
             self
+
+        See also:
+            https://polliwog.readthedocs.io/en/latest/#polliwog.Plane
         """
         if not isinstance(plane, Plane):
             raise ValueError("Expected an instance of polliwog.Plane")
@@ -137,6 +140,9 @@ class Selection:
 
         Returns:
             self
+
+        See also:
+            https://polliwog.readthedocs.io/en/latest/#polliwog.Plane
         """
         if not isinstance(plane, Plane):
             raise ValueError("Expected an instance of polliwog.Plane")
@@ -152,6 +158,9 @@ class Selection:
 
         Returns:
             self
+
+        See also:
+            https://polliwog.readthedocs.io/en/latest/#polliwog.Plane
         """
         if not isinstance(plane, Plane):
             raise ValueError("Expected an instance of polliwog.Plane")
@@ -167,6 +176,9 @@ class Selection:
 
         Returns:
             self
+
+        See also:
+            https://polliwog.readthedocs.io/en/latest/#polliwog.Plane
         """
         if not isinstance(plane, Plane):
             raise ValueError("Expected an instance of polliwog.Plane")
