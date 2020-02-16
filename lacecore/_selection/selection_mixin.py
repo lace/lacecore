@@ -7,6 +7,9 @@ class SelectionMixin:
         Include `.union()` in the chain to combine multiple sets of
         selection criteria into a single submesh.
 
+        Returns:
+            lacecore.Selection: The selection operation.
+
         Example:
             >>> centroid = np.average(mesh.v, axis=0)
             >>> upper_right_quadrant = (

@@ -2,16 +2,23 @@ import numpy as np
 from polliwog import Plane
 import vg
 from .reconcile_selection import reconcile_selection
-from .._common.reindexing import indices_of_original_elements_after_applying_mask
+from .._common.reindexing import create_submesh
 from .._common.validation import check_indices
-from .._mesh import Mesh
 
 
 class Selection:
     """
-    Encapsulate a set of submesh selection operations.
+    Encapsulate a submesh selection operation. Invoke `.end()` to apply the
+    selection operation and create a submesh.
 
-    Apply the operations by invoking `run()`, which creates a new mesh.
+    Include `.union()` in the chain to combine multiple sets of
+    selection criteria into a single submesh.
+
+    Args:
+        target (lacecore.Mesh): The mesh on which to operate.
+        union_with (lacecore.Selection): The operation with which the new
+            instance should combine itself. Normally this is reserved for
+            internal use.
     """
 
     def __init__(
@@ -21,18 +28,6 @@ class Selection:
         self._union_with = union_with
         self._vertex_mask = np.ones(target.num_v, dtype=np.bool)
         self._face_mask = np.ones(target.num_f, dtype=np.bool)
-
-    @staticmethod
-    def _mask_like(value, num_elements):
-        value = np.asarray(value)
-        if value.dtype == np.bool:
-            vg.shape.check(locals(), "value", (num_elements,))
-            return value
-        else:
-            check_indices(value, num_elements, "mask")
-            mask = np.zeros(num_elements, dtype=np.bool)
-            mask[value] = True
-            return mask
 
     def _keep_faces(self, mask):
         self._face_mask = np.logical_and(self._face_mask, mask)
@@ -93,6 +88,18 @@ class Selection:
         self._keep_vertices(plane.sign(self._target.v) == -1)
         return self
 
+    @staticmethod
+    def _mask_like(value, num_elements):
+        value = np.asarray(value)
+        if value.dtype == np.bool:
+            vg.shape.check(locals(), "value", (num_elements,))
+            return value
+        else:
+            check_indices(value, num_elements, "mask")
+            mask = np.zeros(num_elements, dtype=np.bool)
+            mask[value] = True
+            return mask
+
     def pick_vertices(self, indices_or_boolean_mask):
         self._keep_vertices(
             self._mask_like(indices_or_boolean_mask, len(self._vertex_mask))
@@ -152,17 +159,9 @@ class Selection:
             prune_orphan_vertices=prune_orphan_vertices,
         )
 
-        new_v = self._target.v[vertex_mask_of_union]
-        indices_of_original_vertices = indices_of_original_elements_after_applying_mask(
-            vertex_mask_of_union
+        return create_submesh(
+            mesh=self._target,
+            vertex_mask=vertex_mask_of_union,
+            face_mask=face_mask_of_union,
+            ret_indices_of_original_faces_and_vertices=ret_indices_of_original_faces_and_vertices,
         )
-        new_f = indices_of_original_vertices[self._target.f[face_mask_of_union]]
-        submesh = Mesh(v=new_v, f=new_f)
-
-        if ret_indices_of_original_faces_and_vertices:
-            indices_of_original_faces = indices_of_original_elements_after_applying_mask(
-                face_mask_of_union
-            )
-            return submesh, indices_of_original_faces, indices_of_original_vertices
-        else:
-            return submesh
