@@ -1,6 +1,6 @@
 import vg
 from ._common.validation import check_arity, check_indices
-from ._selection import Selection
+from ._selection.selection_object import Selection
 
 
 class Mesh:
