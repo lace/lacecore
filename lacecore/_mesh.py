@@ -4,6 +4,21 @@ from ._selection import Selection
 
 
 class Mesh:
+    """
+    A triangular or quad mesh. Vertices and faces are represented using NumPy
+    arrays. Instances are read-only, at least for now. This class is optimized
+    for cloud computation.
+
+    Args:
+        v (np.ndarray): A `kx3` array of vertices. It will be marked read-only.
+        f (np.ndarray): A `kx3` or `kx4` array of vertex indices which make
+            up the faces. It will be marked read-only.
+        copy_v (bool): When `True`, the input vertices will be copied before
+            they are marked read-only.
+        copy_f (bool): When `True`, the input faces will be copied before
+            they are marked read-only.
+    """
+
     def __init__(self, v, f, copy_v=False, copy_f=False):
         num_vertices = vg.shape.check(locals(), "v", (-1, 3))
         vg.shape.check(locals(), "f", (-1, -1))
@@ -35,10 +50,22 @@ class Mesh:
 
     @property
     def num_v(self):
+        """
+        The number of vertices.
+
+        Return:
+            int: The number of vertices.
+        """
         return len(self.v)
 
     @property
     def num_f(self):
+        """
+        The number of faces.
+
+        Return:
+            int: The number of faces.
+        """
         return len(self.f)
 
     def select(self):
