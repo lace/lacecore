@@ -6,6 +6,16 @@
 
 .. autoclass:: Mesh
     :members:
+    :inherited-members:
+```
+
+### Selection operations
+
+```eval_rst
+.. py:currentmodule:: lacecore
+
+.. autoclass:: Selection
+    :members:
 ```
 
 ### Groups
