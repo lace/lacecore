@@ -38,7 +38,7 @@ class Selection:
     def _keep_vertices(self, mask):
         self._vertex_mask = np.logical_and(self._vertex_mask, mask)
 
-    # TODO: Depends on https://github.com/metabolize/lacecore/pull/1
+    # TODO: Depends on https://github.com/lace/lacecore/pull/1
     # def face_groups(self, *group_names):
     #     self._keep_faces(self._target.face_groups.union(*group_names))
     #     return self
