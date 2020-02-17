@@ -4,7 +4,7 @@
 [![python versions](https://img.shields.io/pypi/pyversions/lacecore.svg?style=flat-square)][pypi]
 [![license](https://img.shields.io/pypi/l/lacecore.svg?style=flat-square)][pypi]
 [![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen?style=flat-square)][coverage]
-[![build](https://img.shields.io/circleci/project/github/metabolize/lacecore/master.svg?style=flat-square)][build]
+[![build](https://img.shields.io/circleci/project/github/lace/lacecore/master.svg?style=flat-square)][build]
 [![code style](https://img.shields.io/badge/code%20style-black-black.svg?style=flat-square)][black]
 
 Polygonal mesh library optimized for cloud computation.
@@ -39,8 +39,8 @@ The goals of this project are:
 
 ## Contribute
 
-- Issue Tracker: https://github.com/metabolize/lacecore/issues
-- Source Code: https://github.com/metabolize/lacecore
+- Issue Tracker: https://github.com/lace/lacecore/issues
+- Source Code: https://github.com/lace/lacecore
 
 Pull requests welcome!
 

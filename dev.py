@@ -76,11 +76,11 @@ def clean():
     execute("find . -name '__pycache__' -delete")
 
 
-# @cli.command()
-# def publish():
-#     execute("rm -rf dist/ build/")
-#     execute("python3 setup.py sdist bdist_wheel")
-#     execute("twine upload dist/*")
+@cli.command()
+def publish():
+    execute("rm -rf dist/ build/")
+    execute("python3 setup.py sdist bdist_wheel")
+    execute("twine upload dist/*")
 
 
 if __name__ == "__main__":
