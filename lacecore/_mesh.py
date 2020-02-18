@@ -4,7 +4,7 @@ from ._selection import Selection
 
 
 class Mesh:
-    def __init__(self, v, f, copy_v=False, copy_f=False):
+    def __init__(self, v, f, copy_v=False, copy_f=False, segm=None):
         num_vertices = vg.shape.check(locals(), "v", (-1, 3))
         vg.shape.check(locals(), "f", (-1, -1))
         check_arity(f)
@@ -19,6 +19,7 @@ class Mesh:
         v.setflags(write=False)
         self.f = f
         self.v = v
+        self.segm = segm
 
     # TODO: Needs coverage.
     # @classmethod

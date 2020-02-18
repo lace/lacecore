@@ -3,8 +3,8 @@ import pytest
 
 def test_loads_from_local_path_using_serializer_success_1():
     m = load("./examples/tinyobjloader/models/cube.obj")
-    assert(len(m.v) == 8)
-    assert(len(m.f) == 6)
+    assert(m.num_v == 8)
+    assert(m.num_f == 6)
 
 def test_loads_from_local_path_using_serializer_failure_1():
     #test for failure2
