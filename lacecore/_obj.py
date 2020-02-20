@@ -1,5 +1,6 @@
 import numpy as np
 from ._mesh import Mesh
+from ._group_map import GroupMap
 from collections import OrderedDict
 from pprint import pprint
 
@@ -45,9 +46,7 @@ def load(mesh_path, triangulate=False):
                 segm[name] = []
             segm[name] = segm[name] + list(range(start, end))
 
-    #convert segm to numpy arrays
-    for k, v in segm.items():
-        segm[k] = np.array(v)
-    return Mesh(v=tinyobj_vertices, f=all_faces, face_groups=segm)
+    group_map = GroupMap.from_dict(segm, len(all_faces))
+    return Mesh(v=tinyobj_vertices, f=all_faces, face_groups=group_map)
 
 
