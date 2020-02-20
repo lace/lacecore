@@ -35,10 +35,10 @@ setup(
     long_description_content_type="text/markdown",
     author="Metabolize, Minnow Software, Body Labs, and other contributors",
     author_email="github@paulmelnikow.com",
-    url="https://github.com/metabolize/lacecore",
+    url="https://github.com/lace/lacecore",
     project_urls={
-        "Issue Tracker": "https://github.com/metabolize/lacecore/issues",
-        # "Documentation": "https://lacecore.readthedocs.io/en/stable/",
+        "Issue Tracker": "https://github.com/lace/lacecore/issues",
+        "Documentation": "https://lacecore.readthedocs.io/en/stable/",
     },
     packages=find_packages(),
     install_requires=install_requires,
