@@ -48,6 +48,6 @@ def load(mesh_path, triangulate=False):
     #convert segm to numpy arrays
     for k, v in segm.items():
         segm[k] = np.array(v)
-    return Mesh(v=tinyobj_vertices, f=all_faces, segm=segm)
+    return Mesh(v=tinyobj_vertices, f=all_faces, face_groups=segm)
 
 

@@ -3,8 +3,6 @@ from ._common.validation import check_arity, check_indices
 from ._selection.selection_mixin import SelectionMixin
 
 
-
-
 class Mesh(SelectionMixin):
     """
     A triangular or quad mesh. Vertices and faces are represented using NumPy
@@ -63,10 +61,6 @@ class Mesh(SelectionMixin):
 
     @property
     def num_f(self):
-        return len(self.f)
-
-    def select(self):
-        return Selection(target=self)
         """
         The number of faces.
 
