@@ -2,8 +2,6 @@ import numpy as np
 from ._mesh import Mesh
 from ._group_map import GroupMap
 from collections import OrderedDict
-from pprint import pprint
-
 from tinyobjloader import ObjReader, ObjReaderConfig
 
 class LoadException(Exception):
@@ -13,6 +11,16 @@ class ArityException(Exception):
     pass
 
 def load(mesh_path, triangulate=False):
+    """
+    Load a `Mesh` from a path to an OBJ file.
+
+    Args:
+        mesh_path (str): A path to an OBJ file
+        triangulate (bool): A flag that indicates whether to triangulate the mesh on load.
+
+    Returns:
+        lacecore.Mesh: A `Mesh` instance
+    """
     reader = ObjReader()
     config = ObjReaderConfig()
     config.triangulate = triangulate 
@@ -22,9 +30,6 @@ def load(mesh_path, triangulate=False):
     attrib = reader.GetAttrib()
     shapes = reader.GetShapes()
     tinyobj_vertices = attrib.numpy_vertices().reshape(-1, 3)
-    aggregate_tinyobj_faces = []
-    arities = set()
-
     all_vertices_per_face = np.concatenate([ shape.mesh.numpy_num_face_vertices() for shape in shapes ])
     first_arity = all_vertices_per_face[0]
     if np.any(all_vertices_per_face != first_arity) or np.any(all_vertices_per_face > 4) or np.any(all_vertices_per_face < 3):
