@@ -1,8 +1,8 @@
-import numpy as np
-from ._mesh import Mesh
-from ._group_map import GroupMap
 from collections import OrderedDict
+import numpy as np
 from tinyobjloader import ObjReader, ObjReaderConfig
+from ._group_map import GroupMap
+from ._mesh import Mesh
 
 
 class LoadException(Exception):
@@ -28,7 +28,7 @@ def load(mesh_path, triangulate=False):
     config = ObjReaderConfig()
     config.triangulate = triangulate
     success = reader.ParseFromFile(mesh_path, config)
-    if success == False:
+    if success is False:
         raise LoadException(reader.Warning() or reader.Error())
     attrib = reader.GetAttrib()
     shapes = reader.GetShapes()

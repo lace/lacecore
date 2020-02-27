@@ -1,7 +1,7 @@
-from ._obj import load, LoadException, ArityException
-from ._group_map import GroupMap
 import numpy as np
 import pytest
+from ._group_map import GroupMap
+from ._obj import ArityException, LoadException, load
 
 
 def test_loads_from_local_path_using_serializer_success_1():
@@ -26,10 +26,10 @@ def test_loads_from_local_path_using_serializer_success_1():
 def test_loads_from_local_path_using_serializer_failure_1():
     # test for failure2
     with pytest.raises(LoadException):
-        m = load("./thispathdoesnotexist")
+        load("./thispathdoesnotexist")
 
 
 def test_loads_from_local_path_using_serializer_failure_2():
     # test for failure
     with pytest.raises(ArityException):
-        m = load("./examples/tinyobjloader/models/smoothing-group-two-squares.obj")
+        load("./examples/tinyobjloader/models/smoothing-group-two-squares.obj")
