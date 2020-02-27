@@ -2,4 +2,4 @@ numpy
 ounce>=1.1.0,<2.0
 polliwog==1.0.0b6
 vg>=1.7.0,<2.0
-tinymetabobjloader==0.1.1
+tinyobjloader==2.0.0rc5
