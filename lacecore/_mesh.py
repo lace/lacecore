@@ -1,9 +1,11 @@
 import vg
+from ._analysis.analysis_mixin import AnalysisMixin
 from ._common.validation import check_arity, check_indices
 from ._selection.selection_mixin import SelectionMixin
+from ._transform.transform_mixin import TransformMixin
 
 
-class Mesh(SelectionMixin):
+class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
     """
     A triangular or quad mesh. Vertices and faces are represented using NumPy
     arrays. Instances are read-only, at least for now. This class is optimized
