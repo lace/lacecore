@@ -2,7 +2,7 @@
 numpy
 ounce>=1.1.0,<2.0
 vg>=1.7.0,<2.0
-polliwog==1.0.0b6
+-e git://github.com/lace/polliwog.git@b18ab1c07c9be3b9762ae105488a8800d0547c41#egg=polliwog
 
 # Used in dev.py.
 executor >= 21.0
