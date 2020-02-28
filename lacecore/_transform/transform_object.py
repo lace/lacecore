@@ -137,7 +137,8 @@ class Transform:
 
         if preserve_vertex_centroid:
             translation = np.zeros(3)
-            # -2 to take it all the way back to the other side of the axis.
+            # `2 * vertex_centroid[dim]` takes it all the way back to the other
+            # side of the axis.
             translation[dim] = 2 * self.target.vertex_centroid[dim]
             self._transform.translate(translation=translation)
 
