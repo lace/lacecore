@@ -150,6 +150,7 @@ def test_flip_preserve_vertex_centroid():
     )
     np.testing.assert_array_equal(np.unique(cube_at_origin.v), np.unique(transformed.v))
 
+
 def test_flip_error():
     with pytest.raises(ValueError, match="Expected dim to be 0, 1, or 2"):
         cube_at_origin.flipped(-1)
