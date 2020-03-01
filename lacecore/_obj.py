@@ -8,11 +8,10 @@ ERROR_MESSAGE = "tinyobjloader library has not been installed. You will not be a
 
 try:
     from tinyobjloader import ObjReader, ObjReaderConfig
-except Exception:
+except Exception:  # pragma: no cover
     ObjReader = None
     ObjReaderConfig = None
     import sys
-
     print("WARNING: %s" % ERROR_MESSAGE, file=sys.stderr)
 
 
@@ -35,7 +34,7 @@ def load(mesh_path, triangulate=False):
     Returns:
         lacecore.Mesh: A `Mesh` instance
     """
-    if ObjReader is None:
+    if ObjReader is None:  # pragma: no cover
         raise Exception(ERROR_MESSAGE)
     reader = ObjReader()
     config = ObjReaderConfig()
