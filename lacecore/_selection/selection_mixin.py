@@ -1,3 +1,6 @@
+from .selection_object import Selection
+
+
 class SelectionMixin:
     def select(self):
         """
@@ -28,9 +31,6 @@ class SelectionMixin:
                 .end()
             )
         """
-        # Avoid circular import in .._mesh.
-        from .selection_object import Selection
-
         return Selection(target=self)
 
     def keeping_vertices_at_or_above(self, dim, point):
