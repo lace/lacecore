@@ -12,6 +12,7 @@ except Exception:  # pragma: no cover
     ObjReader = None
     ObjReaderConfig = None
     import sys
+
     print("WARNING: %s" % ERROR_MESSAGE, file=sys.stderr)
 
 
