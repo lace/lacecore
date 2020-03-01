@@ -5,12 +5,13 @@ import numpy as np
 
 ERROR_MESSAGE = "tinyobjloader library has not been installed. You will not be able to load OBJ files"
 
-try: 
+try:
     from tinyobjloader import ObjReader, ObjReaderConfig
-except:
-    ObjReader = None 
+except Exception as ex:
+    ObjReader = None
     ObjReaderConfig = None
     import sys
+
     print("WARNING: %s" % ERROR_MESSAGE, file=sys.stderr)
 
 
