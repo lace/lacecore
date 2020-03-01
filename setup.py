@@ -42,6 +42,9 @@ setup(
     },
     packages=find_packages(),
     install_requires=install_requires,
+    extras_require={
+        "obj":  ["tinyobjloader==2.0.0rc5"],
+    },
     cmdclass={"build_py": build_py},
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",

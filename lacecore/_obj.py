@@ -1,8 +1,17 @@
 from collections import OrderedDict
-import numpy as np
-from tinyobjloader import ObjReader, ObjReaderConfig
 from ._group_map import GroupMap
 from ._mesh import Mesh
+import numpy as np
+
+ERROR_MESSAGE = "tinyobjloader library has not been installed. You will not be able to load OBJ files"
+
+try: 
+    from tinyobjloader import ObjReader, ObjReaderConfig
+except:
+    ObjReader = None 
+    ObjReaderConfig = None
+    import sys
+    print("WARNING: %s" % ERROR_MESSAGE, file=sys.stderr)
 
 
 class LoadException(Exception):
@@ -24,6 +33,8 @@ def load(mesh_path, triangulate=False):
     Returns:
         lacecore.Mesh: A `Mesh` instance
     """
+    if ObjReader is None:
+        raise Exception(ERROR_MESSAGE)
     reader = ObjReader()
     config = ObjReaderConfig()
     config.triangulate = triangulate

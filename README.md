@@ -74,3 +74,9 @@ Body Labs, the fork has been merged back into the original.
 ## License
 
 The project is licensed under the two-clause BSD license.
+
+### Install with support for loading OBJ 
+
+In order to keep the package lightweight, support for loading obj is an optional dependency:
+
+`pip install lacecore[obj]`
