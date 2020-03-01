@@ -11,21 +11,13 @@ class TransformMixin:
         Does not mutate the callee.
 
         Returns:
-            lacecore.Selection: The selection operation.
+            lacecore.Transform: The transform operation.
 
         Example:
-            >>> centroid = np.average(mesh.v, axis=0)
-            >>> upper_right_quadrant = (
-                mesh.select()
-                .vertices_above(centroid, dim=0)
-                .vertices_above(centroid, dim=1)
-                .end()
-            )
-            >>> upper_half_plus_right_half = (
-                mesh.select()
-                .vertices_above(centroid, dim=0)
-                .union()
-                .vertices_above(centroid, dim=1)
+            >>> transformed = (
+                mesh.transform()
+                .translate(3.0 * vg.basis.x)
+                .uniform_scale(3.0)
                 .end()
             )
         """
