@@ -58,6 +58,7 @@ class Selection:
         """
         if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
+        vg.shape.check(locals(), "point", (3,))
         self._keep_vertices(self._target.v[:, dim] >= point[dim])
         return self
 
@@ -75,6 +76,7 @@ class Selection:
         """
         if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
+        vg.shape.check(locals(), "point", (3,))
         self._keep_vertices(self._target.v[:, dim] > point[dim])
         return self
 
@@ -92,6 +94,7 @@ class Selection:
         """
         if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
+        vg.shape.check(locals(), "point", (3,))
         self._keep_vertices(self._target.v[:, dim] <= point[dim])
         return self
 
@@ -109,6 +112,7 @@ class Selection:
         """
         if dim not in [0, 1, 2]:
             raise ValueError("Expected dim to be 0, 1, or 2")
+        vg.shape.check(locals(), "point", (3,))
         self._keep_vertices(self._target.v[:, dim] < point[dim])
         return self
 
