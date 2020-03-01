@@ -1,13 +1,14 @@
 from collections import OrderedDict
+import numpy as np
+
 from ._group_map import GroupMap
 from ._mesh import Mesh
-import numpy as np
 
 ERROR_MESSAGE = "tinyobjloader library has not been installed. You will not be able to load OBJ files"
 
 try:
     from tinyobjloader import ObjReader, ObjReaderConfig
-except Exception as ex:
+except Exception:
     ObjReader = None
     ObjReaderConfig = None
     import sys
