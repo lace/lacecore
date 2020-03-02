@@ -51,8 +51,7 @@ def load(mesh_path, triangulate=False):
     first_arity = all_vertices_per_face[0]
     if (
         np.any(all_vertices_per_face != first_arity)
-        or np.any(all_vertices_per_face > 4)
-        or np.any(all_vertices_per_face < 3)
+        or first_arity not in (3, 4)
     ):
         raise ArityException(
             "OBJ Loader does not support mixed arities, or arities greater than 4 or less than 3"
