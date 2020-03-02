@@ -204,3 +204,15 @@ class SelectionMixin:
             .pick_faces(indices_or_boolean_mask=indices_or_boolean_mask)
             .end()
         )
+
+    def picking_face_groups(self, *group_names):
+        """
+        Select faces which belong to the given face groups.
+
+        Args:
+            group_names (list): The face groups to keep.
+
+        Returns:
+            lacecore.Mesh: A submesh containing the selection.
+        """
+        return self.select().pick_face_groups(*group_names).end()
