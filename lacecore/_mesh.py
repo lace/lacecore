@@ -21,7 +21,7 @@ class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
             they are marked read-only.
     """
 
-    def __init__(self, v, f, copy_v=False, copy_f=False):
+    def __init__(self, v, f, copy_v=False, copy_f=False, face_groups=None):
         num_vertices = vg.shape.check(locals(), "v", (-1, 3))
         vg.shape.check(locals(), "f", (-1, -1))
         check_arity(f)
@@ -36,6 +36,7 @@ class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
         v.setflags(write=False)
         self.f = f
         self.v = v
+        self.face_groups = face_groups
 
     # TODO: Needs coverage.
     # @classmethod
