@@ -4,16 +4,15 @@ import numpy as np
 from ._group_map import GroupMap
 from ._mesh import Mesh
 
-ERROR_MESSAGE = "tinyobjloader library has not been installed. You will not be able to load OBJ files. To fix, run `pip install lacecore[obj]`"
+ERROR_MESSAGE = "tinyobjloader library has not been installed. \
+You will not be able to load OBJ files. \
+To fix, run `pip install lacecore[obj]`"
 
 try:
     from tinyobjloader import ObjReader, ObjReaderConfig
 except Exception:  # pragma: no cover
     ObjReader = None
     ObjReaderConfig = None
-    import sys
-
-    print("WARNING: %s" % ERROR_MESSAGE, file=sys.stderr)
 
 
 class LoadException(Exception):
