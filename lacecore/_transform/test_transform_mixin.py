@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 import vg
-from .._mesh import Mesh
 from .._group_map import GroupMap
+from .._mesh import Mesh
 
 cube_vertices = np.array(
     [
@@ -159,7 +159,7 @@ def test_flip_error():
 
 def test_transform_preserves_face_groups():
     face_group_dict = {"bottom": [0, 1]}
-    result = cube_with_groups = Mesh(
+    result = Mesh(
         v=cube_vertices,
         f=cube_faces,
         face_groups=GroupMap.from_dict(face_group_dict, len(cube_faces)),
