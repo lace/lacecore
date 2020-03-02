@@ -41,7 +41,7 @@ def load(mesh_path, triangulate=False):
     config = ObjReaderConfig()
     config.triangulate = triangulate
     success = reader.ParseFromFile(mesh_path, config)
-    if success is False:
+    if not success:
         raise LoadException(reader.Warning() or reader.Error())
     attrib = reader.GetAttrib()
     shapes = reader.GetShapes()
