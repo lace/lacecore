@@ -35,7 +35,7 @@ def load(mesh_path, triangulate=False):
         lacecore.Mesh: A `Mesh` instance
     """
     if ObjReader is None:  # pragma: no cover
-        raise Exception(ERROR_MESSAGE)
+        raise ImportError(ERROR_MESSAGE)
     reader = ObjReader()
     config = ObjReaderConfig()
     config.triangulate = triangulate
