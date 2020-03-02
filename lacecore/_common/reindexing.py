@@ -16,7 +16,8 @@ def create_submesh(
     mesh, vertex_mask, face_mask, ret_indices_of_original_faces_and_vertices=False
 ):
     """
-    Apply the requested mask to the vertices and faces to create a submesh.
+    Apply the requested mask to the vertices and faces to create a submesh,
+    discarding the face groups.
     """
     from .._mesh import Mesh
 
