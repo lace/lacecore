@@ -39,7 +39,7 @@ def test_triangulation_is_abc_acd(tmp_path):
     """
     There is some complex code in tinyobjloader which occasionally switches
     the axes of triangulation based on the vertex positions. This is
-    undesirable in lacecore; we always want ABC + ACD.
+    undesirable in lacecore as it scrambles correspondence.
     """
     test_mesh_path = str(tmp_path / "example.obj")
     test_mesh_contents = """

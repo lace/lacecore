@@ -38,7 +38,10 @@ def load(mesh_path, triangulate=False):
         raise ImportError(ERROR_MESSAGE)
     reader = ObjReader()
     config = ObjReaderConfig()
-    config.triangulate = triangulate
+    # There is some complex code in tinyobjloader which occasionally switches
+    # the axes of triangulation based on the vertex positions. This is
+    # undesirable in lacecore as it scrambles correspondence.
+    config.triangulate = False
     success = reader.ParseFromFile(mesh_path, config)
     if not success:
         raise LoadException(reader.Warning() or reader.Error())
@@ -60,6 +63,9 @@ def load(mesh_path, triangulate=False):
     for shape in shapes:
         tinyobj_all_indices = shape.mesh.numpy_indices().reshape(-1, 3)[:, 0]
         faces = tinyobj_all_indices.reshape(-1, first_arity)
+        if triangulate and first_arity == 4:
+            # Triangulate ABCD as ABC + ACD.
+            faces = faces[:, [[0, 1, 2], [0, 2, 3]]].reshape(-1, 3)
         start = len(all_faces) if all_faces is not None else 0
         end = start + len(faces)
         all_faces = faces if all_faces is None else np.concatenate((all_faces, faces))
