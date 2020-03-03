@@ -61,8 +61,4 @@ def reindex_vertices(mesh, ordering):
             )
         )
 
-    return Mesh(
-        v=mesh.v[ordering],
-        f=inverse[mesh.f],
-        face_groups=mesh.face_groups,
-    )
+    return Mesh(v=mesh.v[ordering], f=inverse[mesh.f], face_groups=mesh.face_groups,)

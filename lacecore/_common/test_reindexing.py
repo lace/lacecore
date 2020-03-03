@@ -42,8 +42,10 @@ def test_reindex_vertices():
 
 
 def test_reindex_vertices_error():
-    with pytest.raises(ValueError, match="Expected new vertex indices to be unique, and range from 0 to 8"):
+    with pytest.raises(
+        ValueError,
+        match="Expected new vertex indices to be unique, and range from 0 to 8",
+    ):
         reindex_vertices(
-            shapes.cube(np.zeros(3), 3.0),
-            np.array([0, 0, 1, 2, 3, 4, 5, 6])
+            shapes.cube(np.zeros(3), 3.0), np.array([0, 0, 1, 2, 3, 4, 5, 6])
         )
