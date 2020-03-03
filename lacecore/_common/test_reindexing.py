@@ -2,6 +2,7 @@ import numpy as np
 import pytest
 from .reindexing import (
     indices_of_original_elements_after_applying_mask,
+    reindex_faces,
     reindex_vertices,
 )
 from .. import shapes
@@ -44,8 +45,29 @@ def test_reindex_vertices():
 def test_reindex_vertices_error():
     with pytest.raises(
         ValueError,
-        match="Expected new vertex indices to be unique, and range from 0 to 8",
+        match="Expected new vertex indices to be unique, and range from 0 to 7",
     ):
         reindex_vertices(
             shapes.cube(np.zeros(3), 3.0), np.array([0, 0, 1, 2, 3, 4, 5, 6])
+        )
+
+
+def test_reindex_faces():
+    cube = shapes.cube(np.zeros(3), 3.0)
+
+    ordering = np.random.permutation(12)
+    reindexed_cube = reindex_faces(cube, ordering)
+
+    np.testing.assert_array_equal(reindexed_cube.f, cube.f[ordering])
+    np.testing.assert_array_equal(reindexed_cube.v, cube.v)
+
+
+def test_reindex_faces_error():
+    with pytest.raises(
+        ValueError,
+        match="Expected new face indices to be unique, and range from 0 to 11",
+    ):
+        reindex_faces(
+            shapes.cube(np.zeros(3), 3.0),
+            np.array([0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
         )
