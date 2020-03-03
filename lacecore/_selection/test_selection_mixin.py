@@ -2,6 +2,8 @@ import numpy as np
 from polliwog import Plane
 import vg
 from .._mesh import Mesh
+from ..test_group_map import create_group_map
+
 
 cube_vertices = np.array(
     [
@@ -245,6 +247,15 @@ def test_pick_vertices_mask():
 def test_pick_faces_list():
     wanted_faces = [10, 11]
     submesh = cube_at_origin.picking_faces(wanted_faces)
+
+    np.testing.assert_array_equal(submesh.v, cube_vertices[np.array([0, 3, 4, 7])])
+    np.testing.assert_array_equal(submesh.v[submesh.f], cube_vertices[cube_faces[10:]])
+
+
+def test_pick_face_groups():
+    submesh = Mesh(
+        v=cube_vertices, f=cube_faces, face_groups=create_group_map()
+    ).picking_face_groups("top")
 
     np.testing.assert_array_equal(submesh.v, cube_vertices[np.array([0, 3, 4, 7])])
     np.testing.assert_array_equal(submesh.v[submesh.f], cube_vertices[cube_faces[10:]])

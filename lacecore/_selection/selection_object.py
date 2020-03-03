@@ -38,11 +38,6 @@ class Selection:
     def _keep_vertices(self, mask):
         self._vertex_mask = np.logical_and(self._vertex_mask, mask)
 
-    # TODO: Depends on https://github.com/lace/lacecore/pull/1
-    # def face_groups(self, *group_names):
-    #     self._keep_faces(self._target.face_groups.union(*group_names))
-    #     return self
-
     def vertices_at_or_above(self, dim, point):
         """
         Select vertices which, when projected to the given axis, are either
@@ -229,6 +224,19 @@ class Selection:
             self
         """
         self._keep_faces(self._mask_like(indices_or_boolean_mask, len(self._face_mask)))
+        return self
+
+    def pick_face_groups(self, *group_names):
+        """
+        Select faces which belong to the given face groups.
+
+        Args:
+            group_names (list): The face groups to keep.
+
+        Returns:
+            self
+        """
+        self._keep_faces(self._target.face_groups.union(*group_names))
         return self
 
     def union(self):
