@@ -4,10 +4,11 @@
 
 ### New features
 
+- Optional OBJ loading with `pip install lacecore[obj]`.
 - Add transform methods.
+- Add group selection.
 - Add `apex()` method.
 - Add `vertex_centroid` and `bounding_box` properties.
-- Optional OBJ loading with `pip install lacecore[obj]`.
 
 ### Bug fixes
 
