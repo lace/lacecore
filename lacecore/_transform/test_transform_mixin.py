@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 import vg
+from .._group_map import GroupMap
 from .._mesh import Mesh
 
 cube_vertices = np.array(
@@ -154,3 +155,15 @@ def test_flip_preserve_vertex_centroid():
 def test_flip_error():
     with pytest.raises(ValueError, match="Expected dim to be 0, 1, or 2"):
         cube_at_origin.flipped(-1)
+
+
+def test_transform_preserves_face_groups():
+    face_group_dict = {"bottom": [0, 1]}
+    result = Mesh(
+        v=cube_vertices,
+        f=cube_faces,
+        face_groups=GroupMap.from_dict(face_group_dict, len(cube_faces)),
+    ).uniformly_scaled(3.0)
+    np.testing.assert_array_equal(
+        result.face_groups["bottom"].nonzero()[0], face_group_dict["bottom"]
+    )

@@ -160,4 +160,5 @@ class Transform:
         return Mesh(
             v=self._transform(self.target.v),
             f=flip_faces(self.target.f) if self._flip_faces else self.target.f,
+            face_groups=self.target.face_groups,
         )
