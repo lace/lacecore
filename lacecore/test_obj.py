@@ -62,6 +62,7 @@ f 5 6 7 8
     triangulated_mesh = load(test_mesh_path, triangulate=True)
     np.testing.assert_array_equal(triangulated_mesh.f, expected_triangle_faces)
 
+
 def test_parity_with_lace(tmp_path):
     from lace.mesh import Mesh
 
@@ -72,7 +73,7 @@ f 1 1 1 1
     """
     with open(test_mesh_path, "w") as f:
         f.write(test_mesh_contents)
-    
+
     mesh = load(test_mesh_path)
     lace_mesh = Mesh(filename=test_mesh_path)
 
