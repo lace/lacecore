@@ -61,3 +61,17 @@ f 5 6 7 8
     expected_triangle_faces = np.array([[0, 1, 2], [0, 2, 3], [4, 5, 6], [4, 6, 7]])
     triangulated_mesh = load(test_mesh_path, triangulate=True)
     np.testing.assert_array_equal(triangulated_mesh.f, expected_triangle_faces)
+
+def test_mesh_with_no_faces_has_empty_triangle_f(tmp_path):
+    from lace.mesh import Mesh
+
+    test_mesh_path = str(tmp_path / "example.obj")
+    test_mesh_contents = """
+v 0.0 0.0 0.0
+    """
+    with open(test_mesh_path, "w") as f:
+        f.write(test_mesh_contents)
+
+    mesh = load(test_mesh_path)
+    np.testing.assert_array_equal(mesh.v, np.zeros((1, 3)))
+    np.testing.assert_array_equal(mesh.f, np.zeros((0, 3)))
