@@ -64,8 +64,6 @@ f 5 6 7 8
 
 
 def test_mesh_with_no_faces_has_empty_triangle_f(tmp_path):
-    from lace.mesh import Mesh
-
     test_mesh_path = str(tmp_path / "example.obj")
     test_mesh_contents = """
 v 0.0 0.0 0.0
