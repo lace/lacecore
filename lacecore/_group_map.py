@@ -119,6 +119,8 @@ class GroupMap:
         Returns:
             np.array: A boolean mask with length equal to `self.num_elements`.
         """
+        if not all(isinstance(group_name, str) for group_name in group_names):
+            raise ValueError("Group names must be strings")
         indices = []
         invalid_group_names = []
         for group_name in group_names:

@@ -102,6 +102,9 @@ def test_group_map_union():
     with pytest.raises(KeyError, match="Unknown groups: a, b, c"):
         groups.union("a", "left_side", "b", "c")
 
+    with pytest.raises(ValueError, match="Group names must be strings"):
+        groups.union(["a", "left_side", "b", "c"])
+
 
 def test_group_map_indices_out_of_range():
     with pytest.raises(ValueError, match="Element indices should be less than 12"):
