@@ -1,4 +1,5 @@
 import numpy as np
+import vg
 
 
 def indices_of_original_elements_after_applying_mask(mask):
@@ -35,3 +36,55 @@ def create_submesh(
         return submesh, indices_of_original_faces, indices_of_original_vertices
     else:
         return submesh
+
+
+def reindex_vertices(mesh, ordering):
+    """
+    Reorder the vertices of the given mesh, returning a new mesh.
+
+    Args:
+        mesh (lacecore.Mesh): The mesh on which to operate.
+        ordering (np.arraylike): An array specifying the order in which
+            the original vertices should be arranged.
+
+    Returns:
+        lacecore.Mesh: The reindexed mesh.
+    """
+    from .._mesh import Mesh
+
+    vg.shape.check(locals(), "ordering", (mesh.num_v,))
+    unique_values, inverse = np.unique(ordering, return_index=True)
+    if not np.array_equal(unique_values, np.arange(mesh.num_v)):
+        raise ValueError(
+            "Expected new vertex indices to be unique, and range from 0 to {}".format(
+                mesh.num_v - 1
+            )
+        )
+
+    return Mesh(v=mesh.v[ordering], f=inverse[mesh.f], face_groups=mesh.face_groups)
+
+
+def reindex_faces(mesh, ordering):
+    """
+    Reorder the faces of the given mesh, returning a new mesh.
+
+    Args:
+        mesh (lacecore.Mesh): The mesh on which to operate.
+        ordering (np.arraylike): An array specifying the order in which
+            the original faces should be arranged.
+
+    Returns:
+        lacecore.Mesh: The reindexed mesh.
+    """
+    from .._mesh import Mesh
+
+    vg.shape.check(locals(), "ordering", (mesh.num_f,))
+    unique_values = np.unique(ordering)
+    if not np.array_equal(unique_values, np.arange(mesh.num_f)):
+        raise ValueError(
+            "Expected new face indices to be unique, and range from 0 to {}".format(
+                mesh.num_f - 1
+            )
+        )
+
+    return Mesh(v=mesh.v, f=mesh.f[ordering], face_groups=mesh.face_groups)
