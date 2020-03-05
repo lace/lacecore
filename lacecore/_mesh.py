@@ -93,5 +93,12 @@ class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
         return self.f.shape[1] == 4
 
     def write_obj(self, filename):
+        """
+        Save a mesh's faces, vertices, and face groups to a Wavefront OBJ file.
+
+        Args:
+            filename (str): The file to write. If it exists, it will be
+                overwritten.
+        """
         with open(filename, "w") as f:
             write_obj(f, self)
