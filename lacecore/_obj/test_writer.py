@@ -76,6 +76,7 @@ f 1 2 3 4
 """
     )
 
+
 def test_write_mesh_with_face_groups():
     f = io.StringIO()
 
