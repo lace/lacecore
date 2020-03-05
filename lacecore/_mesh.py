@@ -1,6 +1,7 @@
 import vg
 from ._analysis.analysis_mixin import AnalysisMixin
 from ._common.validation import check_arity, check_indices
+from ._obj.writer import write as write_obj
 from ._selection.selection_mixin import SelectionMixin
 from ._transform.transform_mixin import TransformMixin
 
@@ -70,3 +71,27 @@ class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
             int: The number of faces.
         """
         return len(self.f)
+
+    @property
+    def is_tri(self):
+        """
+        `True` if a triangular mesh.
+
+        Return:
+            bool: `True` if a triangular mesh.
+        """
+        return self.f.shape[1] == 3
+
+    @property
+    def is_quad(self):
+        """
+        `True` if a triangular mesh.
+
+        Return:
+            bool: `True` if a triangular mesh.
+        """
+        return self.f.shape[1] == 4
+
+    def write_obj(self, filename):
+        with open(filename, "w") as f:
+            write_obj(f, self)

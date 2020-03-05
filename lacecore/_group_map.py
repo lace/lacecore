@@ -128,7 +128,7 @@ class GroupMap:
         Args:
             element_mask (np.array): An element mask (e.g. a return value from
                 `mask_for_element()`).
-            
+
         Returns:
             list: The group membership represented by the element mask.
         """
