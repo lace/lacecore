@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
-from ._group_map import GroupMap
-from ._obj import ArityException, LoadException, load
+from .._group_map import GroupMap
+from .loader import ArityException, LoadException, load
 
 
 @pytest.fixture
