@@ -108,6 +108,34 @@ class GroupMap:
     def num_elements(self):
         return self._num_elements
 
+    def mask_for_element(self, element):
+        """
+        Get the read-only group mask for the requested element.
+
+        Args:
+            element (int): The desired element.
+
+        Returns:
+            np.array: A read-only boolean array corresponding to the
+                group names in `self.keys()`.
+        """
+        return self._masks[:, element]
+
+    def group_names_for_element_mask(self, element_mask):
+        """
+        Translate an element mask to a list of group names.
+
+        Args:
+            element_mask (np.array): An element mask (e.g. a return value from
+                `mask_for_element()`).
+
+        Returns:
+            list: The group membership represented by the element mask.
+        """
+        vg.shape.check(locals(), "element_mask", (len(self._group_names),))
+        group_names = self.keys()
+        return [group_names[index] for index in element_mask.nonzero()[0]]
+
     def union(self, *group_names):
         """
         Construct the union of the requested groups and return it as a

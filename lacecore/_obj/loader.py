@@ -1,8 +1,7 @@
 from collections import OrderedDict
 import numpy as np
-
-from ._group_map import GroupMap
-from ._mesh import Mesh
+from .._group_map import GroupMap
+from .._mesh import Mesh
 
 ERROR_MESSAGE = "tinyobjloader library has not been installed. \
 You will not be able to load OBJ files. \
