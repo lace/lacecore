@@ -102,6 +102,9 @@ def test_group_map_union():
     with pytest.raises(KeyError, match="Unknown groups: a, b, c"):
         groups.union("a", "left_side", "b", "c")
 
+    with pytest.raises(ValueError, match="Group names must be strings"):
+        groups.union(["a", "left_side", "b", "c"])
+
 
 def test_group_map_indices_out_of_range():
     with pytest.raises(ValueError, match="Element indices should be less than 12"):
@@ -165,3 +168,27 @@ def test_invalid_mask_throws_error():
             group_names=["a", "b", "c"],
             masks=np.zeros((3, 12), dtype=np.int),
         )
+
+
+def test_mask_for_element():
+    groups = create_group_map()
+    np.testing.assert_array_equal(
+        groups.mask_for_element(0),
+        np.array([True, False, False, False, False, False, False, True, False]),
+    )
+    np.testing.assert_array_equal(
+        groups.mask_for_element(2),
+        np.array([False, True, False, False, False, False, True, False, False]),
+    )
+
+
+def test_group_names_for_element_mask():
+    groups = create_group_map()
+    assert groups.group_names_for_element_mask(groups.mask_for_element(0)) == [
+        "bottom",
+        "top_and_bottom",
+    ]
+    assert groups.group_names_for_element_mask(groups.mask_for_element(2)) == [
+        "left_side",
+        "sides",
+    ]

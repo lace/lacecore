@@ -1,8 +1,7 @@
 from collections import OrderedDict
 import numpy as np
-
-from ._group_map import GroupMap
-from ._mesh import Mesh
+from .._group_map import GroupMap
+from .._mesh import Mesh
 
 ERROR_MESSAGE = "tinyobjloader library has not been installed. \
 You will not be able to load OBJ files. \
@@ -48,14 +47,15 @@ def load(mesh_path, triangulate=False):
     attrib = reader.GetAttrib()
     shapes = reader.GetShapes()
     tinyobj_vertices = attrib.numpy_vertices().reshape(-1, 3)
-    all_vertices_per_face = np.concatenate(
-        [shape.mesh.numpy_num_face_vertices() for shape in shapes]
-    )
-    first_arity = all_vertices_per_face[0]
-    if np.any(all_vertices_per_face != first_arity) or first_arity not in (3, 4):
-        raise ArityException(
-            "OBJ Loader does not support mixed arities, or arities greater than 4 or less than 3"
+    if len(shapes) > 0:
+        all_vertices_per_face = np.concatenate(
+            [shape.mesh.numpy_num_face_vertices() for shape in shapes]
         )
+        first_arity = all_vertices_per_face[0]
+        if np.any(all_vertices_per_face != first_arity) or first_arity not in (3, 4):
+            raise ArityException(
+                "OBJ Loader does not support mixed arities, or arities greater than 4 or less than 3"
+            )
 
     segm = OrderedDict()
     all_faces = None
@@ -75,6 +75,10 @@ def load(mesh_path, triangulate=False):
             if name not in segm:
                 segm[name] = []
             segm[name] = segm[name] + list(range(start, end))
+
+    if all_faces is None:
+        # No faces; assume an empty set of triangles to avoid edge cases.
+        all_faces = np.zeros((0, 3))
 
     group_map = GroupMap.from_dict(segm, len(all_faces))
     return Mesh(v=tinyobj_vertices, f=all_faces, face_groups=group_map)
