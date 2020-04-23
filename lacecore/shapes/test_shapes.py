@@ -25,9 +25,3 @@ def test_triangular_prism():
     )
     assert mesh.num_v == 6
     assert mesh.num_f == 8
-
-
-def test_rectangle():
-    mesh = shapes.rectangle()
-    assert mesh.num_v == 4
-    assert mesh.num_f == 2
