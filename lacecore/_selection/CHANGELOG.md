@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- Upgrade to polliwog 1.0.0b8.
+- Remove `lacecore.shapes.rectangle()`.
+
 ## 0.2.0
 
 ### New features
