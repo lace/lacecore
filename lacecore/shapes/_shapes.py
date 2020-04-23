@@ -30,9 +30,7 @@ def rectangular_prism(origin, size):
     Returns:
         lacecore.Mesh: A `Mesh` instance containing the rectangular prism.
     """
-    return _mesh_from_shape_fn(
-        shapes.rectangular_prism, origin=origin, size=size
-    )
+    return _mesh_from_shape_fn(shapes.rectangular_prism, origin=origin, size=size)
 
 
 def cube(origin, size):
