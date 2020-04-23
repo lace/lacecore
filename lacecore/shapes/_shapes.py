@@ -6,7 +6,6 @@ __all__ = [
     "rectangular_prism",
     "cube",
     "triangular_prism",
-    "rectangle",
 ]
 
 
@@ -31,9 +30,7 @@ def rectangular_prism(origin, size):
     Returns:
         lacecore.Mesh: A `Mesh` instance containing the rectangular prism.
     """
-    return _mesh_from_shape_fn(
-        shapes.create_rectangular_prism, origin=origin, size=size
-    )
+    return _mesh_from_shape_fn(shapes.rectangular_prism, origin=origin, size=size)
 
 
 def cube(origin, size):
@@ -50,7 +47,7 @@ def cube(origin, size):
     Returns:
         lacecore.Mesh: A `Mesh` instance containing the cube.
     """
-    return _mesh_from_shape_fn(shapes.create_cube, origin=origin, size=size)
+    return _mesh_from_shape_fn(shapes.cube, origin=origin, size=size)
 
 
 def triangular_prism(p1, p2, p3, height):
@@ -69,15 +66,5 @@ def triangular_prism(p1, p2, p3, height):
         lacecore.Mesh: A `Mesh` instance containing the triangular prism.
     """
     return _mesh_from_shape_fn(
-        shapes.create_triangular_prism, p1=p1, p2=p2, p3=p3, height=height
+        shapes.triangular_prism, p1=p1, p2=p2, p3=p3, height=height
     )
-
-
-def rectangle():
-    """
-    Create a rectangle.
-
-    Returns:
-        lacecore.Mesh: A `Mesh` instance containing the rectangle.
-    """
-    return _mesh_from_shape_fn(shapes.create_rectangle)
