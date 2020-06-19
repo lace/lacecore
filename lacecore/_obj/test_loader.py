@@ -83,3 +83,20 @@ v 0.0 0.0 0.0
     mesh = load(mesh_path)
     np.testing.assert_array_equal(mesh.v, np.zeros((1, 3)))
     np.testing.assert_array_equal(mesh.f, np.zeros((0, 3)))
+
+
+def test_parity_with_lace(tmp_path):
+    from lace.mesh import Mesh
+
+    test_mesh_path = str(tmp_path / "example.obj")
+    test_mesh_contents = """
+v 4.312835 153.546067 8.506993
+f 1 1 1 1
+    """
+    with open(test_mesh_path, "w") as f:
+        f.write(test_mesh_contents)
+
+    mesh = load(test_mesh_path)
+    lace_mesh = Mesh(filename=test_mesh_path)
+
+    np.testing.assert_array_equal(mesh.v, lace_mesh.v)
