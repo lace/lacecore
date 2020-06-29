@@ -73,6 +73,24 @@ f 5 6 7 8
     np.testing.assert_array_equal(triangulated_mesh.f, expected_triangle_faces)
 
 
+def test_mesh_with_mixed_tris_and_quads_returns_expected(write_tmp_mesh):
+    mesh_path = write_tmp_mesh(
+        """
+v 0 1 1
+v 0 2 2
+v 0 3 3
+v 0 4 4
+v 0 5 5
+f 1 2 3 4
+f 1 4 5
+    """
+    )
+
+    expected_triangle_faces = np.array([[0, 1, 2], [0, 2, 3], [0, 3, 4]])
+    mesh = load(mesh_path, triangulate=True)
+    np.testing.assert_array_equal(mesh.f, expected_triangle_faces)
+
+
 def test_mesh_with_no_faces_has_empty_triangle_f(write_tmp_mesh):
     mesh_path = write_tmp_mesh(
         """
@@ -83,3 +101,22 @@ v 0.0 0.0 0.0
     mesh = load(mesh_path)
     np.testing.assert_array_equal(mesh.v, np.zeros((1, 3)))
     np.testing.assert_array_equal(mesh.f, np.zeros((0, 3)))
+
+
+def test_mesh_with_ngons_raises_expected_error(write_tmp_mesh):
+    mesh_path = write_tmp_mesh(
+        """
+v 0 0 0
+v 0 0 0
+v 0 0 0
+v 0 0 0
+v 0 0 0
+f 1 2 3 4 5
+    """
+    )
+
+    with pytest.raises(
+        ArityException,
+        match="OBJ Loader does not support arities greater than 4 or less than 3",
+    ):
+        load(mesh_path)

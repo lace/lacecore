@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import click
@@ -40,7 +40,7 @@ def coverage():
 
 @cli.command()
 def coverage_report():
-    execute("coverage html")
+    execute("coverage html --fail-under=0")
     execute("open htmlcov/index.html")
 
 
