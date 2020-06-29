@@ -2,7 +2,7 @@
 numpy
 ounce>=1.1.0,<2.0
 vg>=1.7.0,<2.0
-polliwog==1.0.0b8
+polliwog==1.0.0b10
 
 # Used in dev.py.
 executor >= 21.0
