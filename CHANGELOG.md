@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+- Ensure faces have integral dtype.
+
 ## 0.4.0
 
 - obj: Add support for triangulating mixed arities.
