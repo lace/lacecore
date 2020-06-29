@@ -1,1 +1,1 @@
-tinyobjloader==2.0.0rc5
+tinyobjloader==2.0.0rc6
