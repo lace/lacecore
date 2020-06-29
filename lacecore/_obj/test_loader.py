@@ -16,14 +16,14 @@ def write_tmp_mesh(tmp_path):
 
 
 def test_loads_from_local_path_using_serializer_success_1():
-    m = load("./examples/tinyobjloader/models/cube.obj")
-    assert m.num_v == 8
-    np.testing.assert_array_equal(m.v[0], np.array([0.0, 2.0, 2.0]))
-    np.testing.assert_array_equal(m.f[0], np.array([0, 1, 2, 3]))
-    np.testing.assert_array_equal(m.f[-1], np.array([1, 5, 6, 2]))
-    assert m.num_f == 6
-    assert isinstance(m.face_groups, GroupMap)
-    assert m.face_groups.keys() == [
+    mesh = load("./examples/tinyobjloader/models/cube.obj")
+    assert mesh.num_v == 8
+    np.testing.assert_array_equal(mesh.v[0], np.array([0.0, 2.0, 2.0]))
+    np.testing.assert_array_equal(mesh.f[0], np.array([0, 1, 2, 3]))
+    np.testing.assert_array_equal(mesh.f[-1], np.array([1, 5, 6, 2]))
+    assert mesh.num_f == 6
+    assert isinstance(mesh.face_groups, GroupMap)
+    assert mesh.face_groups.keys() == [
         "front",
         "cube",
         "back",
@@ -32,6 +32,7 @@ def test_loads_from_local_path_using_serializer_success_1():
         "left",
         "bottom",
     ]
+    assert np.issubdtype(mesh.f.dtype, np.integer)
 
 
 def test_loads_from_local_path_using_serializer_failure_1():
@@ -69,8 +70,9 @@ f 5 6 7 8
 
     # ABC + ACD
     expected_triangle_faces = np.array([[0, 1, 2], [0, 2, 3], [4, 5, 6], [4, 6, 7]])
-    triangulated_mesh = load(mesh_path, triangulate=True)
-    np.testing.assert_array_equal(triangulated_mesh.f, expected_triangle_faces)
+    mesh = load(mesh_path, triangulate=True)
+    np.testing.assert_array_equal(mesh.f, expected_triangle_faces)
+    assert np.issubdtype(mesh.f.dtype, np.integer)
 
 
 def test_mesh_with_mixed_tris_and_quads_returns_expected(write_tmp_mesh):
@@ -89,6 +91,7 @@ f 1 4 5
     expected_triangle_faces = np.array([[0, 1, 2], [0, 2, 3], [0, 3, 4]])
     mesh = load(mesh_path, triangulate=True)
     np.testing.assert_array_equal(mesh.f, expected_triangle_faces)
+    assert np.issubdtype(mesh.f.dtype, np.integer)
 
 
 def test_mesh_with_no_faces_has_empty_triangle_f(write_tmp_mesh):
@@ -101,6 +104,7 @@ v 0.0 0.0 0.0
     mesh = load(mesh_path)
     np.testing.assert_array_equal(mesh.v, np.zeros((1, 3)))
     np.testing.assert_array_equal(mesh.f, np.zeros((0, 3)))
+    assert np.issubdtype(mesh.f.dtype, np.integer)
 
 
 def test_mesh_with_ngons_raises_expected_error(write_tmp_mesh):
