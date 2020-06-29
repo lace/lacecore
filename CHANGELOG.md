@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- obj: Add support for triangulating mixed arities.
+- Upgrade to tinyobjloader 2.0.0rc6.
+- Upgrade to polliwog 1.0.0b10.
+
 ## 0.3.0
 
 - Upgrade to polliwog 1.0.0b8.
