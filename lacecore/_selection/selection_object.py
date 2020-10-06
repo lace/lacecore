@@ -25,7 +25,9 @@ class Selection:
     """
 
     def __init__(
-        self, target, union_with=[],
+        self,
+        target,
+        union_with=[],
     ):
         self._target = target
         self._union_with = union_with
