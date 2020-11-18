@@ -46,7 +46,7 @@ def test_loads_from_string():
     assert_is_cube_mesh(mesh)
 
 
-def test_loads_from_string_with_exception():
+def test_loads_from_string_with_error():
     contents = """
     f 0 0 0
     """
