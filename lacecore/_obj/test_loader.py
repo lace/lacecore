@@ -55,7 +55,9 @@ def test_loads_from_string_with_error():
 
 
 def test_loads_from_local_path_with_nonexistent_file():
-    with pytest.raises(LoadException, match=r"^Cannot open file \[./thispathdoesnotexist\]"):
+    with pytest.raises(
+        LoadException, match=r"^Cannot open file \[./thispathdoesnotexist\]"
+    ):
         load("./thispathdoesnotexist")
 
 
