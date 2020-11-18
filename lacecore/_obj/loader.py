@@ -3,10 +3,6 @@ import numpy as np
 from .._group_map import GroupMap
 from .._mesh import Mesh
 
-ERROR_MESSAGE = "tinyobjloader library has not been installed. \
-You will not be able to load OBJ files. \
-To fix, run `pip install lacecore[obj]`"
-
 try:
     from tinyobjloader import ObjReader, ObjReaderConfig
 except Exception:  # pragma: no cover
@@ -42,28 +38,25 @@ def unstack(stacked_result, slice_lengths, safe=True):
         last_index = new_last_index
 
 
-def load(mesh_path, triangulate=False):
-    """
-    Load a `Mesh` from a path to an OBJ file.
-
-    Args:
-        mesh_path (str): A path to an OBJ file
-        triangulate (bool): A flag that indicates whether to triangulate the mesh on load.
-
-    Returns:
-        lacecore.Mesh: A `Mesh` instance
-    """
+def create_reader_and_config():
     if ObjReader is None:  # pragma: no cover
-        raise ImportError(ERROR_MESSAGE)
+        raise ImportError(
+            """
+            tinyobjloader library has not been installed.
+            You will not be able to load OBJ files.
+            To fix, run `pip install lacecore[obj]`.
+            """
+        )
     reader = ObjReader()
     config = ObjReaderConfig()
     # There is some complex code in tinyobjloader which occasionally switches
     # the axes of triangulation based on the vertex positions. This is
     # undesirable in lacecore as it scrambles correspondence.
     config.triangulate = False
-    success = reader.ParseFromFile(mesh_path, config)
-    if not success:
-        raise LoadException(reader.Warning() or reader.Error())
+    return reader, config
+
+
+def _finalize(reader, triangulate):
     attrib = reader.GetAttrib()
     shapes = reader.GetShapes()
     tinyobj_vertices = attrib.numpy_vertices().reshape(-1, 3)
@@ -124,3 +117,39 @@ def load(mesh_path, triangulate=False):
 
     group_map = GroupMap.from_dict(segm, len(all_faces))
     return Mesh(v=tinyobj_vertices, f=all_faces, face_groups=group_map)
+
+
+def load(mesh_path, triangulate=False):
+    """
+    Load a `Mesh` from a path to an OBJ file.
+
+    Args:
+        mesh_path (str): A path to an OBJ file
+        triangulate (bool): A flag that indicates whether to triangulate the mesh on load.
+
+    Returns:
+        lacecore.Mesh: A `Mesh` instance
+    """
+    reader, config = create_reader_and_config()
+    success = reader.ParseFromFile(mesh_path, config)
+    if not success:
+        raise LoadException(reader.Warning() or reader.Error())
+    return _finalize(reader=reader, triangulate=triangulate)
+
+
+def loads(mesh_string, triangulate=False):
+    """
+    Load `Mesh` contents from a string.
+
+    Args:
+        mesh_string (str): The contents of an OBJ file.
+        triangulate (bool): A flag that indicates whether to triangulate the mesh on load.
+
+    Returns:
+        lacecore.Mesh: A `Mesh` instance
+    """
+    reader, config = create_reader_and_config()
+    success = reader.ParseFromString(mesh_string, "", config)
+    if not success:
+        raise LoadException(reader.Warning() or reader.Error())
+    return _finalize(reader=reader, triangulate=triangulate)
