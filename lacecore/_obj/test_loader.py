@@ -46,14 +46,20 @@ def test_loads_from_string():
     assert_is_cube_mesh(mesh)
 
 
-def test_loads_from_local_path_using_serializer_failure_1():
-    # test for failure2
-    with pytest.raises(LoadException):
+def test_loads_from_string_with_exception():
+    contents = """
+    f 0 0 0
+    """
+    with pytest.raises(LoadException, match="^Failed parse `f' line"):
+        loads(contents)
+
+
+def test_loads_from_local_path_with_nonexistent_file():
+    with pytest.raises(LoadException, match=r"^Cannot open file \[./thispathdoesnotexist\]"):
         load("./thispathdoesnotexist")
 
 
-def test_loads_from_local_path_using_serializer_failure_2():
-    # test for failure
+def test_loads_from_local_path_with_mixed_arities():
     with pytest.raises(ArityException):
         load("./examples/tinyobjloader/models/smoothing-group-two-squares.obj")
 
