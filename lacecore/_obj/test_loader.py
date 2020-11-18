@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from .loader import ArityException, LoadException, load
+from .loader import ArityException, LoadException, load, loads
 from .._group_map import GroupMap
 
 
@@ -15,8 +15,7 @@ def write_tmp_mesh(tmp_path):
     return _write_tmp_mesh
 
 
-def test_loads_from_local_path_using_serializer_success_1():
-    mesh = load("./examples/tinyobjloader/models/cube.obj")
+def assert_is_cube_mesh(mesh):
     assert mesh.num_v == 8
     np.testing.assert_array_equal(mesh.v[0], np.array([0.0, 2.0, 2.0]))
     np.testing.assert_array_equal(mesh.f[0], np.array([0, 1, 2, 3]))
@@ -35,14 +34,34 @@ def test_loads_from_local_path_using_serializer_success_1():
     assert np.issubdtype(mesh.f.dtype, np.integer)
 
 
-def test_loads_from_local_path_using_serializer_failure_1():
-    # test for failure2
-    with pytest.raises(LoadException):
+def test_loads_from_local_path():
+    mesh = load("./examples/tinyobjloader/models/cube.obj")
+    assert_is_cube_mesh(mesh)
+
+
+def test_loads_from_string():
+    with open("./examples/tinyobjloader/models/cube.obj", "r") as f:
+        contents = f.read()
+    mesh = loads(contents)
+    assert_is_cube_mesh(mesh)
+
+
+def test_loads_from_string_with_error():
+    contents = """
+    f 0 0 0
+    """
+    with pytest.raises(LoadException, match="^Failed parse `f' line"):
+        loads(contents)
+
+
+def test_loads_from_local_path_with_nonexistent_file():
+    with pytest.raises(
+        LoadException, match=r"^Cannot open file \[./thispathdoesnotexist\]"
+    ):
         load("./thispathdoesnotexist")
 
 
-def test_loads_from_local_path_using_serializer_failure_2():
-    # test for failure
+def test_loads_from_local_path_with_mixed_arities():
     with pytest.raises(ArityException):
         load("./examples/tinyobjloader/models/smoothing-group-two-squares.obj")
 
