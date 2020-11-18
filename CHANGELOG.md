@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0
+
+- Add `load_obj_string()` function.
+- Upgrade to tinyobjloader 2.0.0rc7.
+
 ## 0.4.1
 
 - Ensure faces have integral dtype.
