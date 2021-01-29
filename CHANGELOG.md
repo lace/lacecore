@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0
+
+- Add `faces_triangulated()` method.
+- Correctly preserve groups when reindexing faces.
+- Upgrade to tinyobjloader 2.0.0rc8.
+
 ## 0.5.0
 
 - Add `load_obj_string()` function.
