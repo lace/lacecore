@@ -121,3 +121,28 @@ class TransformMixin:
             lacecore.Mesh: A mesh with transformed vertices.
         """
         return self.transform().rotate(rotation=rotation).end()
+
+    def faces_triangulated(self):
+        """
+        Triangulate the mesh's quad faces to triangles. Raise an error if the
+        mesh is already triangulated.
+
+        Returns:
+            lacecore.Mesh: A mesh with transformed vertices.
+        """
+        import numpy as np
+        from polliwog.tri import quads_to_tris
+        from .._mesh import Mesh  # Avoid circular import.
+
+        if self.is_tri:
+            raise ValueError("Mesh is already triangulated")
+
+        new_f = quads_to_tris(self.f)
+
+        if self.face_groups is None:
+            new_face_groups = None
+        else:
+            f_new_to_old = np.repeat(np.arange(self.num_f), 2)
+            new_face_groups = self.face_groups.reindexed(f_new_to_old)
+
+        return Mesh(v=self.v, f=new_f, face_groups=new_face_groups)

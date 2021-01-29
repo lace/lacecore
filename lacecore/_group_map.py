@@ -159,3 +159,29 @@ class GroupMap:
         if len(invalid_group_names):
             raise KeyError("Unknown groups: {}".format(", ".join(invalid_group_names)))
         return np.any(self._masks[indices], axis=0)
+
+    def reindexed(self, f_new_to_old):
+        """
+        Given a mapping from new face indices to old face indices, construct
+        a group map which preserves the original groups but references the
+        new set of indices. When reindexing a mesh, invoke this function on
+        the old group map to construct a new group map which preserves the
+        original segments wherever possible.
+
+        Args:
+            f_new_to_old (np.ndarray): The old face index
+                corresponding to each of the new faces.
+
+        Returns:
+            GroupMap: A new group map suitable for use with the new faces.
+        """
+        num_elements = len(f_new_to_old)
+        # new_masks =np.zeros((len(self), num_elements), dtype=np.bool)
+        # new_masks[f_new_to_old] = self._masks
+        new_masks = np.asarray(self._masks[:, f_new_to_old])
+        return GroupMap(
+            num_elements=num_elements,
+            group_names=self._group_names,
+            masks=new_masks,
+            copy_masks=False,
+        )

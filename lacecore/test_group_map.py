@@ -192,3 +192,28 @@ def test_group_names_for_element_mask():
         "left_side",
         "sides",
     ]
+
+
+def test_reindexed():
+    groups = create_group_map()
+
+    # Split each face in two.
+    f_new_to_old = np.repeat(np.arange(groups.num_elements), 2)
+    reindexed = groups.reindexed(f_new_to_old)
+
+    expected_groups = {
+        "bottom": [0, 1, 2, 3],
+        "left_side": [4, 5, 6, 7],
+        "front_side": [8, 9, 10, 11],
+        "right_side": [12, 13, 14, 15],
+        "back_side": [16, 17, 18, 19],
+        "top": [20, 21, 22, 23],
+        "sides": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        "top_and_bottom": [0, 1, 2, 3, 20, 21, 22, 23],
+        "empty": [],
+    }
+
+    for group_name in reindexed:
+        np.testing.assert_array_equal(
+            reindexed[group_name].nonzero()[0], expected_groups[group_name]
+        )
