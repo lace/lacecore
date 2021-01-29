@@ -6,6 +6,26 @@ from .reindexing import (
     reindex_vertices,
 )
 from .. import shapes
+from .._group_map import GroupMap
+from .._mesh import Mesh
+
+
+def create_cube_with_face_group():
+    cube = shapes.cube(np.zeros(3), 3.0)
+    selection = np.array([0, 1, 5, 9])
+    return Mesh(
+        v=cube.v,
+        f=cube.f,
+        face_groups=GroupMap.from_dict(
+            {"selection": selection}, num_elements=cube.num_f
+        ),
+    )
+
+
+def assert_has_same_rows(first, second):
+    assert first.shape == second.shape
+    assert np.all([row in first for row in second])
+    assert np.all([row in second for row in first])
 
 
 def test_reindexing_mask():
@@ -42,6 +62,17 @@ def test_reindex_vertices():
     np.testing.assert_array_equal(reindexed_cube.v[reindexed_cube.f], cube.v[cube.f])
 
 
+def test_reindex_vertices_with_face_groups():
+    cube = create_cube_with_face_group()
+
+    reindexed_cube = reindex_vertices(cube, np.random.permutation(8))
+
+    assert_has_same_rows(
+        reindexed_cube.v[reindexed_cube.f[reindexed_cube.face_groups["selection"]]],
+        cube.v[cube.f[cube.face_groups["selection"]]],
+    )
+
+
 def test_reindex_vertices_error():
     with pytest.raises(
         ValueError,
@@ -60,6 +91,17 @@ def test_reindex_faces():
 
     np.testing.assert_array_equal(reindexed_cube.f, cube.f[ordering])
     np.testing.assert_array_equal(reindexed_cube.v, cube.v)
+
+
+def test_reindex_faces_with_face_groups():
+    cube = create_cube_with_face_group()
+
+    reindexed_cube = reindex_faces(cube, np.random.permutation(12))
+
+    assert_has_same_rows(
+        reindexed_cube.f[reindexed_cube.face_groups["selection"]],
+        cube.f[cube.face_groups["selection"]],
+    )
 
 
 def test_reindex_faces_error():

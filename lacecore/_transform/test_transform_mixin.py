@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 import vg
+from .._common.test_reindexing import assert_has_same_rows
 from .._group_map import GroupMap
 from .._mesh import Mesh
 
@@ -16,7 +17,7 @@ cube_vertices = np.array(
         [0.0, 3.0, 3.0],
     ]
 )
-cube_faces = np.array(
+cube_tri_faces = np.array(
     [
         [0, 1, 2],
         [0, 2, 3],
@@ -32,7 +33,17 @@ cube_faces = np.array(
         [3, 4, 0],
     ]
 )
-cube_at_origin = Mesh(v=cube_vertices, f=cube_faces)
+cube_quad_faces = np.array(
+    [
+        [0, 1, 2, 3],
+        [7, 6, 5, 4],
+        [4, 5, 1, 0],
+        [5, 6, 2, 1],
+        [6, 7, 3, 2],
+        [3, 7, 4, 0],
+    ]
+)
+cube_at_origin = Mesh(v=cube_vertices, f=cube_tri_faces)
 
 
 def test_append_transform():
@@ -161,9 +172,29 @@ def test_transform_preserves_face_groups():
     face_group_dict = {"bottom": [0, 1]}
     result = Mesh(
         v=cube_vertices,
-        f=cube_faces,
-        face_groups=GroupMap.from_dict(face_group_dict, len(cube_faces)),
+        f=cube_tri_faces,
+        face_groups=GroupMap.from_dict(face_group_dict, len(cube_tri_faces)),
     ).uniformly_scaled(3.0)
     np.testing.assert_array_equal(
         result.face_groups["bottom"].nonzero()[0], face_group_dict["bottom"]
     )
+
+
+def test_faces_triangulated():
+    transformed = Mesh(v=cube_vertices, f=cube_quad_faces).faces_triangulated()
+    assert_has_same_rows(transformed.f, cube_tri_faces)
+
+
+def test_faces_triangulated_preserves_face_groups():
+    face_group_dict = {"bottom": [0]}
+    result = Mesh(
+        v=cube_vertices,
+        f=cube_quad_faces,
+        face_groups=GroupMap.from_dict(face_group_dict, len(cube_quad_faces)),
+    ).faces_triangulated()
+    np.testing.assert_array_equal(result.face_groups["bottom"].nonzero()[0], [0, 1])
+
+
+def test_faces_triangulated_error():
+    with pytest.raises(ValueError, match="Mesh is already triangulated"):
+        cube_at_origin.faces_triangulated()
