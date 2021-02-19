@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0
+
+- Temporarily use the [Curvewise fork of tinyobjloader][fork].
+
+[fork]: https://github.com/curvewise-forks/tinyobjloader
+
 ## 0.6.0
 
 - Add `faces_triangulated()` method.
