@@ -1,9 +1,13 @@
+from lacecore import Mesh
 import numpy as np
 import pytest
 from .test_selection_mixin import (
     assert_subcube,
     cube_at_origin,
+    cube_faces,
+    cube_vertices,
 )
+from ..test_group_map import create_group_map
 
 
 def test_prune_orphan_vertices_has_no_effect_when_selecting_vertices():
@@ -97,3 +101,16 @@ def test_union_of_vertices_and_faces():
         expected_vertex_indices=[0, 1, 2, 3, 4, 7],
         expected_face_indices=[0, 1, 5, 10, 11],
     )
+
+
+def test_pick_vertices_of_face_groups():
+    submesh = (
+        Mesh(v=cube_vertices, f=cube_faces, face_groups=create_group_map())
+        .select()
+        .pick_vertices_of_face_groups("top")
+        .pick_vertices_of_face_groups("left_side")
+        .end(prune_orphan_vertices=False)
+    )
+
+    # We're expecting the intersection of top and left side.
+    np.testing.assert_array_equal(submesh.v, cube_vertices[np.array([4, 7])])

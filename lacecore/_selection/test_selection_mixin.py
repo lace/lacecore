@@ -19,16 +19,22 @@ cube_vertices = np.array(
 )
 cube_faces = np.array(
     [
+        # Bottom.
         [0, 1, 2],
         [0, 2, 3],
+        # Left side.
         [7, 6, 5],
         [7, 5, 4],
+        # Front side.
         [4, 5, 1],
         [4, 1, 0],
+        # Right side.
         [5, 6, 2],
         [5, 2, 1],
+        # Back side.
         [6, 7, 3],
         [6, 3, 2],
+        # Top.
         [3, 7, 4],
         [3, 4, 0],
     ]

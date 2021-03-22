@@ -241,6 +241,21 @@ class Selection:
         self._keep_faces(self._target.face_groups.union(*group_names))
         return self
 
+    def pick_vertices_of_face_groups(self, *group_names):
+        """
+        Select vertices which belong to any of the given face groups.
+
+        Args:
+            group_names (list): The face groups to keep.
+
+        Returns:
+            self
+        """
+        face_indices = self._target.face_groups.union(*group_names)
+        vertex_indices = self._target.f[face_indices].flatten()
+        self._keep_vertices(self._mask_like(vertex_indices, len(self._vertex_mask)))
+        return self
+
     def union(self):
         """
         Chain on a new selection object. This works like a boolean "or" to
