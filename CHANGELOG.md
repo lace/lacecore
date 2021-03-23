@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0
+
+- Selection: add `pick_vertices_of_face_groups()` method.
+
 ## 0.7.0
 
 - Temporarily use the [Curvewise fork of tinyobjloader][fork].
