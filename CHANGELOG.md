@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0
+
+- Upgrade to polliwog 1.0.0b13.
+
 ## 0.8.0
 
 - Selection: add `pick_vertices_of_face_groups()` method.
