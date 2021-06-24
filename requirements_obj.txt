@@ -1,2 +1,2 @@
 #tinyobjloader==2.0.0rc8
-tinymetabobjloader ==2.0.0rc9.dev0
+tinymetabobjloader ==2.0.0a0
