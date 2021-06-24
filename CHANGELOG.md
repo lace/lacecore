@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.0
+
+- Bump tinyobjloader to work around an issue in Poetry. Poetry will not
+  install dependency versions like 2.0.0rc9.dev0.
+
 ## 0.9.0
 
 - Upgrade to polliwog 1.0.0b13.
