@@ -51,9 +51,12 @@ jobs:
           command: ./dev.py doc
 
       - run:
-          name: Test that the build runs
+          name: Run the build
           when: always
           command: poetry build
+
+      - store_artifacts:
+          path: dist
 
   lint:
     <<: *with_python
