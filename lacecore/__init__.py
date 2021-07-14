@@ -10,4 +10,3 @@ from ._obj.loader import (  # noqa: F401
 from ._obj.writer import write as write_obj  # noqa: F401
 from ._selection.selection_object import Selection  # noqa: F401
 from ._transform.transform_object import Transform  # noqa: F401
-from .package_version import __version__  # noqa: F401

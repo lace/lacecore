@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S poetry run python
 
 import os
 import click
@@ -24,8 +24,8 @@ def cli():
 
 
 @cli.command()
-def init():
-    execute("pip3 install --upgrade -r requirements_dev.txt")
+def install():
+    execute("poetry install --remove-untracked --extras obj")
 
 
 @cli.command()

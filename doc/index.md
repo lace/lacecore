@@ -1,7 +1,7 @@
 # lacecore
 
 
-```eval_rst
+```{eval-rst}
 .. py:currentmodule:: lacecore
 
 .. autoclass:: Mesh
@@ -9,27 +9,27 @@
     :inherited-members:
 ```
 
-### Selection operations
+## Selection operations
 
-```eval_rst
+```{eval-rst}
 .. py:currentmodule:: lacecore
 
 .. autoclass:: Selection
     :members:
 ```
 
-### Groups
+## Groups
 
-```eval_rst
+```{eval-rst}
 .. py:currentmodule:: lacecore
 
 .. autoclass:: GroupMap
     :members:
 ```
 
-### Tesselated shapes
+## Tesselated shapes
 
-```eval_rst
+```{eval-rst}
 
 .. automodule:: lacecore.shapes
     :members:
@@ -39,7 +39,7 @@
 
 # Indices and tables
 
-```eval_rst
+```{eval-rst}
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
