@@ -1,5 +1,5 @@
+from lacecore import shapes
 import numpy as np
-from .. import shapes
 
 
 def test_vertex_centroid():

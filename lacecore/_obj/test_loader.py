@@ -1,7 +1,6 @@
+from lacecore import ArityException, GroupMap, LoadException, load_obj, load_obj_string
 import numpy as np
 import pytest
-from .loader import ArityException, LoadException, load, loads
-from .._group_map import GroupMap
 
 
 @pytest.fixture
@@ -35,14 +34,14 @@ def assert_is_cube_mesh(mesh):
 
 
 def test_loads_from_local_path():
-    mesh = load("./examples/tinyobjloader/models/cube.obj")
+    mesh = load_obj("./examples/tinyobjloader/models/cube.obj")
     assert_is_cube_mesh(mesh)
 
 
 def test_loads_from_string():
     with open("./examples/tinyobjloader/models/cube.obj", "r") as f:
         contents = f.read()
-    mesh = loads(contents)
+    mesh = load_obj_string(contents)
     assert_is_cube_mesh(mesh)
 
 
@@ -51,19 +50,19 @@ def test_loads_from_string_with_error():
     f 0 0 0
     """
     with pytest.raises(LoadException, match="^Failed parse `f' line"):
-        loads(contents)
+        load_obj_string(contents)
 
 
 def test_loads_from_local_path_with_nonexistent_file():
     with pytest.raises(
         LoadException, match=r"^Cannot open file \[./thispathdoesnotexist\]"
     ):
-        load("./thispathdoesnotexist")
+        load_obj("./thispathdoesnotexist")
 
 
 def test_loads_from_local_path_with_mixed_arities():
     with pytest.raises(ArityException):
-        load("./examples/tinyobjloader/models/smoothing-group-two-squares.obj")
+        load_obj("./examples/tinyobjloader/models/smoothing-group-two-squares.obj")
 
 
 def test_triangulation_is_abc_acd(write_tmp_mesh):
@@ -89,7 +88,7 @@ f 5 6 7 8
 
     # ABC + ACD
     expected_triangle_faces = np.array([[0, 1, 2], [0, 2, 3], [4, 5, 6], [4, 6, 7]])
-    mesh = load(mesh_path, triangulate=True)
+    mesh = load_obj(mesh_path, triangulate=True)
     np.testing.assert_array_equal(mesh.f, expected_triangle_faces)
     assert np.issubdtype(mesh.f.dtype, np.integer)
 
@@ -108,7 +107,7 @@ f 1 4 5
     )
 
     expected_triangle_faces = np.array([[0, 1, 2], [0, 2, 3], [0, 3, 4]])
-    mesh = load(mesh_path, triangulate=True)
+    mesh = load_obj(mesh_path, triangulate=True)
     np.testing.assert_array_equal(mesh.f, expected_triangle_faces)
     assert np.issubdtype(mesh.f.dtype, np.integer)
 
@@ -120,7 +119,7 @@ v 0.0 0.0 0.0
     """
     )
 
-    mesh = load(mesh_path)
+    mesh = load_obj(mesh_path)
     np.testing.assert_array_equal(mesh.v, np.zeros((1, 3)))
     np.testing.assert_array_equal(mesh.f, np.zeros((0, 3)))
     assert np.issubdtype(mesh.f.dtype, np.integer)
@@ -142,4 +141,4 @@ f 1 2 3 4 5
         ArityException,
         match="OBJ Loader does not support arities greater than 4 or less than 3",
     ):
-        load(mesh_path)
+        load_obj(mesh_path)
