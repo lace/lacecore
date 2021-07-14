@@ -1,6 +1,6 @@
 import numpy as np
 from polliwog import Plane
-import vg
+from vg.compat import v1 as vg
 from .reconcile_selection import reconcile_selection
 from .._common.reindexing import create_submesh
 from .._common.validation import check_indices

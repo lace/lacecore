@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-import vg
+from vg.compat import v1 as vg
 from .._common.test_reindexing import assert_has_same_rows
 from .._group_map import GroupMap
 from .._mesh import Mesh

@@ -1,6 +1,6 @@
 import numpy as np
 from polliwog import Plane
-import vg
+from vg.compat import v1 as vg
 from .._mesh import Mesh
 from ..test_group_map import create_group_map
 
