@@ -79,7 +79,7 @@ def clean():
 @cli.command()
 def publish():
     execute("rm -rf dist/ build/")
-    execute("python3 setup.py sdist bdist_wheel")
+    execute("poetry build")
     execute("twine upload dist/*")
 
 
