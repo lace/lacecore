@@ -1,6 +1,6 @@
+from lacecore import GroupMap
 import numpy as np
 import pytest
-from ._group_map import GroupMap
 
 
 def create_group_map():

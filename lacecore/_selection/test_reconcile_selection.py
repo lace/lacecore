@@ -1,7 +1,7 @@
+from lacecore import shapes
 import numpy as np
 import pytest
 from .reconcile_selection import reconcile_selection
-from .. import shapes
 
 
 def test_reconcile_selection_validation():

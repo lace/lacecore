@@ -1,7 +1,7 @@
+from lacecore import Mesh
 import numpy as np
 from polliwog import Plane
 import vg
-from .._mesh import Mesh
 from ..test_group_map import create_group_map
 
 

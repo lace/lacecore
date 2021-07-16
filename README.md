@@ -1,13 +1,13 @@
 # lacecore
 
-[![version](https://img.shields.io/pypi/v/lacecore.svg?style=flat-square)][pypi]
-[![python versions](https://img.shields.io/pypi/pyversions/lacecore.svg?style=flat-square)][pypi]
-[![license](https://img.shields.io/pypi/l/lacecore.svg?style=flat-square)][pypi]
+[![version](https://img.shields.io/pypi/v/lacecore?style=flat-square)][pypi]
+[![python versions](https://img.shields.io/pypi/pyversions/lacecore?style=flat-square)][pypi]
+[![license](https://img.shields.io/pypi/l/lacecore?style=flat-square)][pypi]
 [![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen?style=flat-square)][coverage]
-[![build](https://img.shields.io/circleci/project/github/lace/lacecore/master.svg?style=flat-square)][build]
-[![code style](https://img.shields.io/badge/code%20style-black-black.svg?style=flat-square)][black]
+[![build](https://img.shields.io/circleci/project/github/lace/lacecore/main?style=flat-square)][build]
+[![code style](https://img.shields.io/badge/code%20style-black-black?style=flat-square)][black]
 
-Polygonal mesh library optimized for cloud computation.
+Polygonal meshes optimized for cloud computation.
 
 Relies on the scientific-computing package [NumPy][], the cloud-ready
 computational geometry library [polliwog][] and the linear-algebra toolbelt
@@ -37,17 +37,30 @@ The goals of this project are:
 [polliwog]: https://github.com/lace/polliwog
 [vg]: https://github.com/lace/vg
 
-## Contribute
 
-- Issue Tracker: https://github.com/lace/lacecore/issues
-- Source Code: https://github.com/lace/lacecore
+## Installation
 
-Pull requests welcome!
+```sh
+pip install lacecore
+```
+
+In order to keep the package lightweight, support for loading OBJs is optional:
+
+```sh
+pip install lacecore[obj]
+```
 
 
-## Support
+## Development
 
-If you are having issues, please let us know.
+First, [install Poetry][].
+
+After cloning the repo, run `./bootstrap.zsh` to initialize a virtual
+environment with the project's dependencies.
+
+Subsequently, run `./dev.py install` to update the dependencies.
+
+[install poetry]: https://python-poetry.org/docs/#installation
 
 
 ## Acknowledgements
@@ -74,9 +87,3 @@ Body Labs, the fork has been merged back into the original.
 ## License
 
 The project is licensed under the two-clause BSD license.
-
-### Install with support for loading OBJ 
-
-In order to keep the package lightweight, support for loading obj is an optional dependency:
-
-`pip install lacecore[obj]`
