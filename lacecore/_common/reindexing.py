@@ -1,5 +1,5 @@
 import numpy as np
-import vg
+from vg.compat import v1 as vg
 
 
 def indices_of_original_elements_after_applying_mask(mask):

@@ -1,4 +1,4 @@
-import vg
+from vg.compat import v1 as vg
 from ._analysis.analysis_mixin import AnalysisMixin
 from ._common.validation import check_arity, check_indices
 from ._obj.writer import write as write_obj
