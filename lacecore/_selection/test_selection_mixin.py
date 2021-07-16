@@ -1,3 +1,4 @@
+from lacecore import Mesh
 import numpy as np
 from polliwog import Plane
 from vg.compat import v1 as vg

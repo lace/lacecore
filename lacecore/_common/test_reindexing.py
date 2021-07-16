@@ -1,3 +1,4 @@
+from lacecore import GroupMap, Mesh, shapes
 import numpy as np
 import pytest
 from .reindexing import (
@@ -5,9 +6,6 @@ from .reindexing import (
     reindex_faces,
     reindex_vertices,
 )
-from .. import shapes
-from .._group_map import GroupMap
-from .._mesh import Mesh
 
 
 def create_cube_with_face_group():

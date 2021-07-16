@@ -1,5 +1,5 @@
+from lacecore import shapes
 import numpy as np
-from . import _shapes as shapes
 
 
 def test_cube():

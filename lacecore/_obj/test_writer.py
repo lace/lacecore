@@ -1,8 +1,6 @@
 import io
+from lacecore import Mesh, shapes, write_obj
 import numpy as np
-from .writer import write
-from .. import shapes
-from .._mesh import Mesh
 from ..test_group_map import create_group_map
 
 
@@ -10,7 +8,7 @@ def test_write_empty_mesh():
     f = io.StringIO()
 
     mesh = Mesh(v=np.zeros((0, 3)), f=np.zeros((0, 4)))
-    write(f, mesh)
+    write_obj(f, mesh)
 
     assert f.getvalue() == ""
 
@@ -19,7 +17,7 @@ def test_write_pointcloud():
     f = io.StringIO()
 
     mesh = Mesh(v=np.array([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]), f=np.zeros((0, 4)))
-    write(f, mesh)
+    write_obj(f, mesh)
 
     assert (
         f.getvalue()
@@ -39,7 +37,7 @@ def test_write_mesh_without_face_groups():
         ),
         f=np.array([[0, 1, 2], [0, 1, 3]]),
     )
-    write(f, mesh)
+    write_obj(f, mesh)
 
     assert (
         f.getvalue()
@@ -63,7 +61,7 @@ def test_write_quads():
         ),
         f=np.array([[0, 1, 2, 3]]),
     )
-    write(f, mesh)
+    write_obj(f, mesh)
 
     assert (
         f.getvalue()
@@ -82,7 +80,7 @@ def test_write_mesh_with_face_groups():
 
     mesh = shapes.cube(np.zeros(3), 3.0)
     mesh = Mesh(v=mesh.v, f=mesh.f, face_groups=create_group_map())
-    write(f, mesh)
+    write_obj(f, mesh)
 
     assert (
         f.getvalue()
