@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0
+
+- Upgrade to polliwog 1.0.0b14 and vg >= 1.11.1.
+
 ## 0.10.0
 
 - Bump tinyobjloader to work around an issue in Poetry. Poetry will not
