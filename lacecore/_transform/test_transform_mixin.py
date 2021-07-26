@@ -1,7 +1,7 @@
 from lacecore import GroupMap, Mesh
 import numpy as np
 import pytest
-from vg.compat import v1 as vg
+from vg.compat import v2 as vg
 from .._common.test_reindexing import assert_has_same_rows
 
 cube_vertices = np.array(
