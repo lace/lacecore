@@ -10,7 +10,7 @@ homepage = "https://github.com/lace/lacecore"
 repository = "https://github.com/lace/lacecore"
 documentation = "https://lacecore.readthedocs.io/en/stable/"
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "Intended Audience :: Manufacturing",
