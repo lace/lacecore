@@ -1,5 +1,5 @@
 from polliwog import Box
-from vg.compat import v1 as vg
+from vg.compat import v2 as vg
 
 
 class AnalysisMixin:
