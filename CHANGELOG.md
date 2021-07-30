@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+
+- Upgrade to polliwog >= 1.0.0 and vg >= 2.0.0.
+
 ## 0.11.0
 
 - Upgrade to polliwog 1.0.0b14 and vg >= 1.11.1.
