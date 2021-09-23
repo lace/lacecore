@@ -41,11 +41,6 @@ class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
 
     # TODO: Needs coverage.
     # @classmethod
-    # def from_lace(cls, mesh):
-    #     return cls(v=mesh.v, f=mesh.f)
-
-    # TODO: Needs coverage.
-    # @classmethod
     # def from_trimesh(cls, mesh):
     #     return cls(v=mesh.vertices, f=mesh.faces)
 
