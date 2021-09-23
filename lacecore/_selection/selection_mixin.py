@@ -236,8 +236,11 @@ class SelectionMixin:
         See also:
             https://polliwog.readthedocs.io/en/latest/#polliwog.Plane
         """
+        from polliwog import Plane
         from polliwog.plane import slice_triangles_by_plane
         from .._mesh import Mesh
+
+        assert isinstance(plane, Plane)
 
         vertices, faces = slice_triangles_by_plane(
             vertices=self.v,
