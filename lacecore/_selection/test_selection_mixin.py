@@ -37,7 +37,8 @@ cube_faces = np.array(
         # Top.
         [3, 7, 4],
         [3, 4, 0],
-    ]
+    ],
+    dtype=np.uint64,
 )
 cube_at_origin = Mesh(v=cube_vertices, f=cube_faces)
 
@@ -265,3 +266,13 @@ def test_pick_face_groups():
 
     np.testing.assert_array_equal(submesh.v, cube_vertices[np.array([0, 3, 4, 7])])
     np.testing.assert_array_equal(submesh.v[submesh.f], cube_vertices[cube_faces[10:]])
+
+
+def test_sliced_by_plane():
+    extent = np.max(cube_at_origin.v, axis=0)
+
+    sliced = cube_at_origin.sliced_by_plane(Plane(extent - 0.05, np.array([1, 1, 1])))
+
+    np.testing.assert_array_almost_equal(np.min(sliced.v, axis=0), extent - 0.15)
+    np.testing.assert_array_almost_equal(np.max(sliced.v, axis=0), extent)
+    assert len(sliced.f) == 4

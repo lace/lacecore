@@ -216,3 +216,36 @@ class SelectionMixin:
             lacecore.Mesh: A submesh containing the selection.
         """
         return self.select().pick_face_groups(*group_names).end()
+
+    def sliced_by_plane(self, plane):
+        """
+        Slice the triangles, keeping the portion in front of the given plane.
+
+        - Faces partially in front of the plane are sliced.
+        - Faces fully in front of the plane are kept as is.
+        - Faces fully behind the plane are culled.
+
+        Return a new mesh, without mutating the callee.
+
+        Args:
+            plane (polliwog.Plane): The plane of interest.
+
+        Returns:
+            lacecore.Mesh: The sliced mesh.
+
+        See also:
+            https://polliwog.readthedocs.io/en/latest/#polliwog.Plane
+        """
+        from polliwog import Plane
+        from polliwog.plane import slice_triangles_by_plane
+        from .._mesh import Mesh
+
+        assert isinstance(plane, Plane)
+
+        vertices, faces = slice_triangles_by_plane(
+            vertices=self.v,
+            faces=self.f,
+            point_on_plane=plane.reference_point,
+            plane_normal=plane.normal,
+        )
+        return Mesh(v=vertices, f=faces)
