@@ -402,23 +402,16 @@ dev = ["pre-commit", "tox"]
 
 [[package]]
 name = "polliwog"
-version = "1.0.1"
+version = "1.1.0"
 description = "2D and 3D computational geometry library"
 category = "main"
 optional = false
 python-versions = ">=3.7,<4"
-develop = false
 
 [package.dependencies]
 numpy = "<1.19.0"
 ounce = ">=1.1.0,<2.0"
 vg = ">=2.0.0"
-
-[package.source]
-type = "git"
-url = "https://github.com/lace/polliwog.git"
-reference = "slice-triangles"
-resolved_reference = "4d80be640f9a75ac4fd1c14f6f593ad46d7e8a80"
 
 [[package]]
 name = "property-manager"
@@ -780,7 +773,7 @@ obj = ["tinymetabobjloader"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<4"
-content-hash = "cb2ffd70dc7dc299997369ed6bae20a69f5806f9bee3ef329c412a54630f1a56"
+content-hash = "ffecce4f9886cd4109454cbeb57282f664eaf989e9b74b46b64d880c742d5c09"
 
 [metadata.files]
 alabaster = [
@@ -1044,7 +1037,10 @@ pluggy = [
     {file = "pluggy-0.13.1-py2.py3-none-any.whl", hash = "sha256:966c145cd83c96502c3c3868f50408687b38434af77734af1e9ca461a4081d2d"},
     {file = "pluggy-0.13.1.tar.gz", hash = "sha256:15b2acde666561e1298d71b523007ed7364de07029219b604cf808bfa1c765b0"},
 ]
-polliwog = []
+polliwog = [
+    {file = "polliwog-1.1.0-py3-none-any.whl", hash = "sha256:20515fbf9c2db28031a5c088a44e8672a4ee16bf15be7e5596450cf09c7f1873"},
+    {file = "polliwog-1.1.0.tar.gz", hash = "sha256:0fdb294d8140b6e246ce2e1bfdc631ef9642b138210d40cabc388d0d76d994f9"},
+]
 property-manager = [
     {file = "property-manager-3.0.tar.gz", hash = "sha256:93e76da9ae7af13cccc2cd1e3b47219950c56c125cd962aaed693894af267c54"},
     {file = "property_manager-3.0-py2.py3-none-any.whl", hash = "sha256:d5d648053e669cf9cb2f157e4a41ef46174eaa8ee13bfa49e1530c17d65bfe45"},
