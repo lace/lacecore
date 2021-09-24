@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+- Add `sliced_by_plane()` method.
+- Upgrade to polliwog >= 1.1.0.
+
 ## 1.0.0
 
 - Upgrade to polliwog >= 1.0.0 and vg >= 2.0.0.
