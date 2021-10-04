@@ -30,8 +30,7 @@ class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
     def __init__(self, v, f, copy_v=False, copy_f=False, face_groups=None):
         num_vertices = vg.shape.check(locals(), "v", (-1, 3))
         vg.shape.check(locals(), "f", (-1, -1))
-        if f.dtype != FACE_DTYPE:
-            raise ValueError(f"Expected faces to have dtype {FACE_DTYPE}")
+        assert f.dtype == FACE_DTYPE
         check_arity(f)
         check_indices(f, num_vertices, "f")
 
