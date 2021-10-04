@@ -3,6 +3,7 @@
 ## 2.0.0
 
 - Mesh constructor requires face indices to have dtype `np.int64`.
+- Add `lacecore.FACE_DTYPE` property.
 
 While this restriction may be a little inconvenient for the caller, it improves
 interoperability and performance, simplifies the implementation, and produces
