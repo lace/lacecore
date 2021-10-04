@@ -1,7 +1,7 @@
 from collections import OrderedDict
 import numpy as np
 from .._group_map import GroupMap
-from .._mesh import Mesh
+from .._mesh import FACE_DTYPE, Mesh
 
 try:
     from tinyobjloader import ObjReader, ObjReaderConfig
@@ -70,11 +70,9 @@ def _finalize(reader, triangulate):
                 "OBJ Loader does not support arities greater than 4 or less than 3"
             )
         is_mixed_arity = np.any(all_vertices_per_face != first_arity)
-        index_dtype = all_vertices_per_face.dtype
-        all_faces = np.zeros((0, 3 if triangulate else first_arity), dtype=index_dtype)
+        all_faces = np.zeros((0, 3 if triangulate else first_arity), dtype=FACE_DTYPE)
     else:
-        index_dtype = np.int32
-        all_faces = np.zeros((0, 3), dtype=index_dtype)
+        all_faces = np.zeros((0, 3), dtype=FACE_DTYPE)
 
     segm = OrderedDict()
 
@@ -86,7 +84,7 @@ def _finalize(reader, triangulate):
             )
         elif is_mixed_arity:
             these_vertices_per_face = shape.mesh.numpy_num_face_vertices()
-            these_faces = np.zeros((0, 3), dtype=index_dtype)
+            these_faces = np.zeros((0, 3), dtype=FACE_DTYPE)
             for this_face in unstack(tinyobj_all_indices, these_vertices_per_face):
                 if len(this_face) == 3:
                     these_faces = np.concatenate([these_faces, this_face.reshape(1, 3)])

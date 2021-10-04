@@ -236,6 +236,7 @@ class SelectionMixin:
         See also:
             https://polliwog.readthedocs.io/en/latest/#polliwog.Plane
         """
+        import numpy as np
         from polliwog import Plane
         from polliwog.plane import slice_triangles_by_plane
         from .._mesh import Mesh
@@ -244,8 +245,9 @@ class SelectionMixin:
 
         vertices, faces = slice_triangles_by_plane(
             vertices=self.v,
-            faces=self.f,
+            # TODO: Fix this in polliwog.
+            faces=self.f.astype(np.uint64),
             point_on_plane=plane.reference_point,
             plane_normal=plane.normal,
         )
-        return Mesh(v=vertices, f=faces)
+        return Mesh(v=vertices, f=faces.astype(np.int64))

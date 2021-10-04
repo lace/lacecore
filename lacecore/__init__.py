@@ -1,6 +1,6 @@
 from ._common.reindexing import reindex_faces, reindex_vertices  # noqa: F401
 from ._group_map import GroupMap  # noqa: F401
-from ._mesh import Mesh  # noqa: F401
+from ._mesh import FACE_DTYPE, Mesh  # noqa: F401
 from ._obj.loader import (  # noqa: F401
     ArityException,
     LoadException,

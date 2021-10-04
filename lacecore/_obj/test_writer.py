@@ -1,5 +1,5 @@
 import io
-from lacecore import Mesh, shapes, write_obj
+from lacecore import FACE_DTYPE, Mesh, shapes, write_obj
 import numpy as np
 from ..test_group_map import create_group_map
 
@@ -7,7 +7,7 @@ from ..test_group_map import create_group_map
 def test_write_empty_mesh():
     f = io.StringIO()
 
-    mesh = Mesh(v=np.zeros((0, 3)), f=np.zeros((0, 4)))
+    mesh = Mesh(v=np.zeros((0, 3)), f=np.zeros((0, 4), dtype=FACE_DTYPE))
     write_obj(f, mesh)
 
     assert f.getvalue() == ""
@@ -16,7 +16,10 @@ def test_write_empty_mesh():
 def test_write_pointcloud():
     f = io.StringIO()
 
-    mesh = Mesh(v=np.array([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]), f=np.zeros((0, 4)))
+    mesh = Mesh(
+        v=np.array([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]),
+        f=np.zeros((0, 4), dtype=FACE_DTYPE),
+    )
     write_obj(f, mesh)
 
     assert (

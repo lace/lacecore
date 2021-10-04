@@ -1,5 +1,5 @@
 from polliwog import shapes
-from .._mesh import Mesh
+from .._mesh import FACE_DTYPE, Mesh
 
 
 __all__ = [
@@ -13,7 +13,8 @@ def _mesh_from_shape_fn(shape_factory_fn, *args, **kwargs):
     vertices, faces = shape_factory_fn(
         *args, ret_unique_vertices_and_faces=True, **kwargs
     )
-    return Mesh(v=vertices, f=faces)
+    # TODO: Update this in polliwog.
+    return Mesh(v=vertices, f=faces.astype(FACE_DTYPE))
 
 
 def rectangular_prism(origin, size):
