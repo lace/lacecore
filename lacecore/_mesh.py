@@ -1,4 +1,3 @@
-from multiprocessing.sharedctypes import Value
 import numpy as np
 from vg.compat import v2 as vg
 from ._analysis.analysis_mixin import AnalysisMixin
