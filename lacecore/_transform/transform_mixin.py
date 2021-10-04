@@ -132,13 +132,13 @@ class TransformMixin:
         """
         import numpy as np
         from polliwog.tri import quads_to_tris
-        from .._mesh import FACE_DTYPE, Mesh  # Avoid circular import.
+        from .._mesh import Mesh  # Avoid circular import.
 
         if self.is_tri:
             raise ValueError("Mesh is already triangulated")
 
         # TODO: Fix this in polliwog.
-        new_f = quads_to_tris(self.f).astype(FACE_DTYPE)
+        new_f = quads_to_tris(self.f)
 
         if self.face_groups is None:
             new_face_groups = None
