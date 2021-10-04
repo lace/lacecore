@@ -137,7 +137,6 @@ class TransformMixin:
         if self.is_tri:
             raise ValueError("Mesh is already triangulated")
 
-        # TODO: Fix this in polliwog.
         new_f = quads_to_tris(self.f)
 
         if self.face_groups is None:
