@@ -1,9 +1,13 @@
+import numpy as np
 from vg.compat import v2 as vg
 from ._analysis.analysis_mixin import AnalysisMixin
 from ._common.validation import check_arity, check_indices
 from ._obj.writer import write as write_obj
 from ._selection.selection_mixin import SelectionMixin
 from ._transform.transform_mixin import TransformMixin
+
+
+FACE_DTYPE = np.int64
 
 
 class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
@@ -25,6 +29,7 @@ class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
     def __init__(self, v, f, copy_v=False, copy_f=False, face_groups=None):
         num_vertices = vg.shape.check(locals(), "v", (-1, 3))
         vg.shape.check(locals(), "f", (-1, -1))
+        assert f.dtype == FACE_DTYPE
         check_arity(f)
         check_indices(f, num_vertices, "f")
 

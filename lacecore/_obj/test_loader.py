@@ -1,6 +1,7 @@
 from lacecore import ArityException, GroupMap, LoadException, load_obj, load_obj_string
 import numpy as np
 import pytest
+from .._mesh import FACE_DTYPE
 
 
 @pytest.fixture
@@ -30,7 +31,7 @@ def assert_is_cube_mesh(mesh):
         "left",
         "bottom",
     ]
-    assert np.issubdtype(mesh.f.dtype, np.integer)
+    assert mesh.f.dtype == FACE_DTYPE
 
 
 def test_loads_from_local_path():
@@ -90,7 +91,7 @@ f 5 6 7 8
     expected_triangle_faces = np.array([[0, 1, 2], [0, 2, 3], [4, 5, 6], [4, 6, 7]])
     mesh = load_obj(mesh_path, triangulate=True)
     np.testing.assert_array_equal(mesh.f, expected_triangle_faces)
-    assert np.issubdtype(mesh.f.dtype, np.integer)
+    assert mesh.f.dtype == FACE_DTYPE
 
 
 def test_mesh_with_mixed_tris_and_quads_returns_expected(write_tmp_mesh):
@@ -109,7 +110,7 @@ f 1 4 5
     expected_triangle_faces = np.array([[0, 1, 2], [0, 2, 3], [0, 3, 4]])
     mesh = load_obj(mesh_path, triangulate=True)
     np.testing.assert_array_equal(mesh.f, expected_triangle_faces)
-    assert np.issubdtype(mesh.f.dtype, np.integer)
+    assert mesh.f.dtype == FACE_DTYPE
 
 
 def test_mesh_with_no_faces_has_empty_triangle_f(write_tmp_mesh):
@@ -122,7 +123,7 @@ v 0.0 0.0 0.0
     mesh = load_obj(mesh_path)
     np.testing.assert_array_equal(mesh.v, np.zeros((1, 3)))
     np.testing.assert_array_equal(mesh.f, np.zeros((0, 3)))
-    assert np.issubdtype(mesh.f.dtype, np.integer)
+    assert mesh.f.dtype == FACE_DTYPE
 
 
 def test_mesh_with_ngons_raises_expected_error(write_tmp_mesh):

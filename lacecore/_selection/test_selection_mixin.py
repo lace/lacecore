@@ -37,8 +37,7 @@ cube_faces = np.array(
         # Top.
         [3, 7, 4],
         [3, 4, 0],
-    ],
-    dtype=np.uint64,
+    ]
 )
 cube_at_origin = Mesh(v=cube_vertices, f=cube_faces)
 
