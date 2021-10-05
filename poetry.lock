@@ -249,7 +249,7 @@ python-versions = "*"
 
 [[package]]
 name = "jinja2"
-version = "3.0.1"
+version = "3.0.2"
 description = "A very fast and expressive template engine."
 category = "dev"
 optional = false
@@ -402,23 +402,16 @@ dev = ["pre-commit", "tox"]
 
 [[package]]
 name = "polliwog"
-version = "1.2.0"
+version = "2.0.0"
 description = "2D and 3D computational geometry library"
 category = "main"
 optional = false
 python-versions = ">=3.7,<4"
-develop = false
 
 [package.dependencies]
 numpy = "<1.19.0"
 ounce = ">=1.1.0,<2.0"
 vg = ">=2.0.0"
-
-[package.source]
-type = "git"
-url = "https://github.com/lace/polliwog.git"
-reference = "face-dtype"
-resolved_reference = "302109ec974361784085237d1a3f86d9fc4e2785"
 
 [[package]]
 name = "property-manager"
@@ -780,7 +773,7 @@ obj = ["tinymetabobjloader"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<4"
-content-hash = "e23708cc7cc9c0e796d2744cb409ff0e78fd4cebb6365c3a6b1f6b1f22cf3aff"
+content-hash = "24d85e62573a714f779b66ed5e584b44aa886126a3762ddba35882828df48aef"
 
 [metadata.files]
 alabaster = [
@@ -922,8 +915,8 @@ iniconfig = [
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
 ]
 jinja2 = [
-    {file = "Jinja2-3.0.1-py3-none-any.whl", hash = "sha256:1f06f2da51e7b56b8f238affdd6b4e2c61e39598a378cc49345bc1bd42a978a4"},
-    {file = "Jinja2-3.0.1.tar.gz", hash = "sha256:703f484b47a6af502e743c9122595cc812b0271f661722403114f71a79d0f5a4"},
+    {file = "Jinja2-3.0.2-py3-none-any.whl", hash = "sha256:8569982d3f0889eed11dd620c706d39b60c36d6d25843961f33f77fb6bc6b20c"},
+    {file = "Jinja2-3.0.2.tar.gz", hash = "sha256:827a0e32839ab1600d4eb1c4c33ec5a8edfbc5cb42dafa13b81f182f97784b45"},
 ]
 markdown-it-py = [
     {file = "markdown-it-py-1.1.0.tar.gz", hash = "sha256:36be6bb3ad987bfdb839f5ba78ddf094552ca38ccbd784ae4f74a4e1419fc6e3"},
@@ -1044,7 +1037,10 @@ pluggy = [
     {file = "pluggy-0.13.1-py2.py3-none-any.whl", hash = "sha256:966c145cd83c96502c3c3868f50408687b38434af77734af1e9ca461a4081d2d"},
     {file = "pluggy-0.13.1.tar.gz", hash = "sha256:15b2acde666561e1298d71b523007ed7364de07029219b604cf808bfa1c765b0"},
 ]
-polliwog = []
+polliwog = [
+    {file = "polliwog-2.0.0-py3-none-any.whl", hash = "sha256:e8fc7459796759310eaaf85017a94faeb71214cb1ef8540b01b928d57096b07a"},
+    {file = "polliwog-2.0.0.tar.gz", hash = "sha256:2736417e06bc98e64f67ecc5336bf39bea2696db9289c20a1fd69a5feeada21e"},
+]
 property-manager = [
     {file = "property-manager-3.0.tar.gz", hash = "sha256:93e76da9ae7af13cccc2cd1e3b47219950c56c125cd962aaed693894af267c54"},
     {file = "property_manager-3.0-py2.py3-none-any.whl", hash = "sha256:d5d648053e669cf9cb2f157e4a41ef46174eaa8ee13bfa49e1530c17d65bfe45"},
