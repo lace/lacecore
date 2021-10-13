@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+- Add `.face_normals()` method.
+
 ## 2.0.0
 
 - Mesh constructor requires face indices to have dtype `np.int64`.
