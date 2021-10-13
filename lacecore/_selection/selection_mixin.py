@@ -217,7 +217,7 @@ class SelectionMixin:
         """
         return self.select().pick_face_groups(*group_names).end()
 
-    def sliced_by_plane(self, plane):
+    def sliced_by_plane(self, *planes, select_fn=None):
         """
         Slice the triangles, keeping the portion in front of the given plane.
 
@@ -229,6 +229,8 @@ class SelectionMixin:
 
         Args:
             plane (polliwog.Plane): The plane of interest.
+            select_fn (function): A function which receives a
+                `lacecore.Selection` and should invoke selection methods on it.
 
         Returns:
             lacecore.Mesh: The sliced mesh.
@@ -240,12 +242,27 @@ class SelectionMixin:
         from polliwog.plane import slice_triangles_by_plane
         from .._mesh import Mesh
 
-        assert isinstance(plane, Plane)
+        for plane in planes:
+            assert isinstance(plane, Plane)
 
-        vertices, faces = slice_triangles_by_plane(
-            vertices=self.v,
-            faces=self.f,
-            point_on_plane=plane.reference_point,
-            plane_normal=plane.normal,
-        )
-        return Mesh(v=vertices, f=faces)
+        working = self
+        for plane in planes:
+            # Since slicing renumbers the faces, recompute `faces_to_slice`
+            # after each slice.
+            if select_fn is None:
+                faces_to_slice = None
+            else:
+                selection = working.select()
+                select_fn(selection)
+                faces_to_slice, _ = selection.generate_masks()
+
+            vertices, faces = slice_triangles_by_plane(
+                vertices=working.v,
+                faces=working.f,
+                point_on_plane=plane.reference_point,
+                plane_normal=plane.normal,
+                faces_to_slice=faces_to_slice,
+            )
+
+            working = Mesh(v=vertices, f=faces)
+        return working

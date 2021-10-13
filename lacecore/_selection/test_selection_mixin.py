@@ -275,3 +275,17 @@ def test_sliced_by_plane():
     np.testing.assert_array_almost_equal(np.min(sliced.v, axis=0), extent - 0.15)
     np.testing.assert_array_almost_equal(np.max(sliced.v, axis=0), extent)
     assert len(sliced.f) == 4
+
+
+def test_sliced_by_plane_two_planes():
+    extent = np.max(cube_at_origin.v, axis=0)
+
+    sliced = cube_at_origin.sliced_by_plane(
+        Plane(extent - 0.05, np.array([1, 1, 1])),
+        Plane(extent - 0.1, vg.basis.x),
+    )
+
+    np.testing.assert_array_almost_equal(np.max(sliced.v, axis=0), extent)
+    np.testing.assert_array_almost_equal(
+        np.min(sliced.v, axis=0), extent - np.array([0.1, 0.15, 0.15])
+    )
