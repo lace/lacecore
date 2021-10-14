@@ -1,4 +1,3 @@
-from polliwog import Box
 from vg.compat import v2 as vg
 
 
@@ -21,6 +20,8 @@ class AnalysisMixin:
         See also:
             https://polliwog.readthedocs.io/en/latest/#polliwog.Box
         """
+        from polliwog import Box
+
         return Box.from_points(self.v)
 
     def apex(self, along):
@@ -35,3 +36,18 @@ class AnalysisMixin:
                 in the direction of interest.
         """
         return vg.apex(self.v, along=along)
+
+    def face_normals(self, normalize=True):
+        """
+        Compute surface normals of each face. The direction of the normal
+        follows conventional counter-clockwise winding and the right-hand rule.
+
+        Args:
+            normalize (bool): When True, return unit-length normals.
+
+        Returns:
+            np.ndarray: Face normals as `(k, 3)`.
+        """
+        from polliwog.tri import surface_normals
+
+        return surface_normals(self.v[self.f], normalize=normalize)
