@@ -256,13 +256,18 @@ class SelectionMixin:
                 select_fn(selection)
                 faces_to_slice, _ = selection.generate_masks()
 
-            vertices, faces = slice_triangles_by_plane(
+            vertices, faces, face_mapping = slice_triangles_by_plane(
                 vertices=working.v,
                 faces=working.f,
                 point_on_plane=plane.reference_point,
                 plane_normal=plane.normal,
                 faces_to_slice=faces_to_slice,
+                ret_face_mapping=True,
             )
-
-            working = Mesh(v=vertices, f=faces)
+            face_groups = (
+                None
+                if working.face_groups is None
+                else working.face_groups.reindexed(face_mapping)
+            )
+            working = Mesh(v=vertices, f=faces, face_groups=face_groups)
         return working
