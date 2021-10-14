@@ -39,7 +39,7 @@ cube_faces = np.array(
         [3, 4, 0],
     ]
 )
-cube_at_origin = Mesh(v=cube_vertices, f=cube_faces)
+cube_at_origin = Mesh(v=cube_vertices, f=cube_faces, face_groups=create_group_map())
 
 
 def assert_subcube(submesh, expected_vertex_indices, expected_face_indices):
@@ -259,9 +259,7 @@ def test_pick_faces_list():
 
 
 def test_pick_face_groups():
-    submesh = Mesh(
-        v=cube_vertices, f=cube_faces, face_groups=create_group_map()
-    ).picking_face_groups("top")
+    submesh = cube_at_origin.picking_face_groups("top")
 
     np.testing.assert_array_equal(submesh.v, cube_vertices[np.array([0, 3, 4, 7])])
     np.testing.assert_array_equal(submesh.v[submesh.f], cube_vertices[cube_faces[10:]])
@@ -289,3 +287,24 @@ def test_sliced_by_plane_two_planes():
     np.testing.assert_array_almost_equal(
         np.min(sliced.v, axis=0), extent - np.array([0.1, 0.15, 0.15])
     )
+
+
+def test_sliced_by_plane_selection():
+    extent = np.max(cube_at_origin.v, axis=0)
+
+    sliced = cube_at_origin.sliced_by_plane(
+        Plane(extent - 0.05, np.array([1, 1, 1])),
+        # This should leave untouched the bottom, which lies along the xy-plane,
+        # where `z == 0`.
+        select_fn=lambda selection: selection.pick_face_groups("top", "sides"),
+    )
+
+    # Ensure the bottom is still there.
+    bottom_tris = cube_at_origin.v[
+        cube_at_origin.f[cube_at_origin.face_groups["bottom"]]
+    ]
+    assert np.isin(bottom_tris, sliced.v[sliced.f]).all()
+
+    np.testing.assert_array_almost_equal(np.min(sliced.v, axis=0), np.array([0, 0, 0]))
+    np.testing.assert_array_almost_equal(np.max(sliced.v, axis=0), extent)
+    assert len(sliced.f) == 6
