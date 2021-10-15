@@ -39,6 +39,7 @@ cube_faces = np.array(
     ]
 )
 
+
 def create_group_map():
     return GroupMap.from_dict(
         {
