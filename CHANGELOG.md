@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.2.0
+
+- Improve `.sliced_by_plane()`:
+  - Slice a submesh by passing `only_for_selection`
+  - Slice by several planes at once
+  - Preserve `face_groups` when slicing
+- Selection: Add `generate_masks()`method
+- Selection: Improve error message for `.pick_face_groups()` on meshes without
+  face groups.
+- Upgrade to polliwog >= 2.1.0.
+
 ## 2.1.0
 
 - Add `.face_normals()` method.
@@ -8,6 +19,7 @@
 
 - Mesh constructor requires face indices to have dtype `np.int64`.
 - Add `lacecore.FACE_DTYPE` property.
+- Upgrade to pollliwog >= 2.0.0.
 
 While this restriction may be a little inconvenient for the caller, it improves
 interoperability and performance, simplifies the implementation, and produces
