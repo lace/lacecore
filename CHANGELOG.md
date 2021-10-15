@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.2.0
+
+- Improve `.sliced_by_plane()`:
+  - Slice a submesh by passing `only_for_selection`
+  - Slice by several planes at once
+  - Preserve `face_groups` when slicing
+- Selection: Add `generate_masks()`method
+- Selection: Improve error message for `.pick_face_groups()` on meshes without
+  face groups.
+
 ## 2.1.0
 
 - Add `.face_normals()` method.
