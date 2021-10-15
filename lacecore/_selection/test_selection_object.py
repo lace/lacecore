@@ -118,9 +118,11 @@ def test_pick_vertices_of_face_groups():
 
 def test_pick_face_groups_error():
     with pytest.raises(ValueError, match="Mesh has no face groups"):
-        cube_at_origin.select().pick_face_groups("anything")
+        Mesh(v=cube_vertices, f=cube_faces).select().pick_face_groups("anything")
 
 
 def test_pick_vertices_of_face_groups_error():
     with pytest.raises(ValueError, match="Mesh has no face groups"):
-        cube_at_origin.select().pick_vertices_of_face_groups("anything")
+        Mesh(v=cube_vertices, f=cube_faces).select().pick_vertices_of_face_groups(
+            "anything"
+        )
