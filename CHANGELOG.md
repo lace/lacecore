@@ -9,6 +9,7 @@
 - Selection: Add `generate_masks()`method
 - Selection: Improve error message for `.pick_face_groups()` on meshes without
   face groups.
+- Upgrade to polliwog >= 2.1.0.
 
 ## 2.1.0
 
@@ -18,6 +19,7 @@
 
 - Mesh constructor requires face indices to have dtype `np.int64`.
 - Add `lacecore.FACE_DTYPE` property.
+- Upgrade to pollliwog >= 2.0.0.
 
 While this restriction may be a little inconvenient for the caller, it improves
 interoperability and performance, simplifies the implementation, and produces
