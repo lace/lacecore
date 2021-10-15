@@ -99,19 +99,19 @@ v 0.0 3.0 3.0
 g bottom top_and_bottom
 f 1 2 3
 f 1 3 4
-g left_side sides
+g top top_and_bottom
 f 8 7 6
 f 8 6 5
-g front_side sides
+g back_side sides
 f 5 6 2
 f 5 2 1
 g right_side sides
 f 6 7 3
 f 6 3 2
-g back_side sides
+g front_side sides
 f 7 8 4
 f 7 4 3
-g top top_and_bottom
+g left_side sides
 f 4 8 5
 f 4 5 1
 """

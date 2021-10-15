@@ -175,13 +175,9 @@ class GroupMap:
         Returns:
             GroupMap: A new group map suitable for use with the new faces.
         """
-        num_elements = len(f_new_to_old)
-        # new_masks =np.zeros((len(self), num_elements), dtype=np.bool)
-        # new_masks[f_new_to_old] = self._masks
-        new_masks = np.asarray(self._masks[:, f_new_to_old])
         return GroupMap(
-            num_elements=num_elements,
+            num_elements=len(f_new_to_old),
             group_names=self._group_names,
-            masks=new_masks,
+            masks=np.asarray(self._masks[:, f_new_to_old]),
             copy_masks=False,
         )

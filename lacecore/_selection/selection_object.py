@@ -293,25 +293,18 @@ class Selection:
             prune_orphan_vertices=prune_orphan_vertices,
         )
 
-    def end(
-        self,
-        prune_orphan_vertices=True,
-        ret_indices_of_original_faces_and_vertices=False,
-    ):
+    def generate_masks(self, prune_orphan_vertices=True):
         """
-        Apply the selection to construct a submesh.
+        Apply the selection to generate vertex and face masks.
 
         Args:
             prune_orphan_vertices (bool): When `True`, remove vertices which
                 are referenced only by faces which are being removed.
-            ret_indices_of_original_faces_and_vertices: When `True`, also
-                return the indices of the original faces and vertices.
 
         Returns:
-            object: Either the submesh as an instance of `lacecore.Mesh`, or a tuple
-                `(submesh, indices_of_original_faces, indices_of_original_vertices)`.
-                The index arrays contain the new indices of the original vertices,
-                and `-1` for each removed face and vertex.
+            tuple: `(face_mask, vertex_mask)`. The index arrays contain the new
+                indices of the original vertices, and `-1` for each removed face
+                and vertex.
         """
         # The approach here is designed to keep faces which have verts in two
         # halves of a union, and to avoid keeping the entire mesh when faces
@@ -339,16 +332,40 @@ class Selection:
 
         # Finally, reconcile the union of reconciled vertices with the union of
         # faces.
-        face_mask_of_union, vertex_mask_of_union = reconcile_selection(
+        return reconcile_selection(
             faces=self._target.f,
             face_mask=initial_face_mask_of_union,
             vertex_mask=initial_vertex_mask_of_union,
             prune_orphan_vertices=prune_orphan_vertices,
         )
 
+    def end(
+        self,
+        prune_orphan_vertices=True,
+        ret_indices_of_original_faces_and_vertices=False,
+    ):
+        """
+        Apply the selection to construct a submesh.
+
+        Args:
+            prune_orphan_vertices (bool): When `True`, remove vertices which
+                are referenced only by faces which are being removed.
+            ret_indices_of_original_faces_and_vertices: When `True`, also
+                return the indices of the original faces and vertices.
+
+        Returns:
+            object: Either the submesh as an instance of `lacecore.Mesh`, or a tuple
+                `(submesh, indices_of_original_faces, indices_of_original_vertices)`.
+                The index arrays contain the new indices of the original vertices,
+                and `-1` for each removed face and vertex.
+        """
+
+        face_mask, vertex_mask = self.generate_masks(
+            prune_orphan_vertices=prune_orphan_vertices
+        )
         return create_submesh(
             mesh=self._target,
-            vertex_mask=vertex_mask_of_union,
-            face_mask=face_mask_of_union,
+            vertex_mask=vertex_mask,
+            face_mask=face_mask,
             ret_indices_of_original_faces_and_vertices=ret_indices_of_original_faces_and_vertices,
         )

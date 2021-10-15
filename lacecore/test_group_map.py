@@ -1,24 +1,7 @@
 from lacecore import GroupMap
 import numpy as np
 import pytest
-
-
-def create_group_map():
-    # Test with a cube with triangular faces.
-    return GroupMap.from_dict(
-        {
-            "bottom": [0, 1],
-            "left_side": [2, 3],
-            "front_side": [4, 5],
-            "right_side": [6, 7],
-            "back_side": [8, 9],
-            "top": [10, 11],
-            "sides": [2, 3, 4, 5, 6, 7, 8, 9],
-            "top_and_bottom": [0, 1, 10, 11],
-            "empty": [],
-        },
-        12,
-    )
+from ._selection.test_selection_mixin import create_group_map
 
 
 def test_group_map_num_elements():
@@ -48,11 +31,11 @@ def test_group_map_iteration():
     names = [name for name in groups]
     assert names == [
         "bottom",
-        "left_side",
-        "front_side",
-        "right_side",
-        "back_side",
         "top",
+        "back_side",
+        "right_side",
+        "front_side",
+        "left_side",
         "sides",
         "top_and_bottom",
         "empty",
@@ -69,11 +52,11 @@ def test_group_map_keys():
     groups = create_group_map()
     assert groups.keys() == [
         "bottom",
-        "left_side",
-        "front_side",
-        "right_side",
-        "back_side",
         "top",
+        "back_side",
+        "right_side",
+        "front_side",
+        "left_side",
         "sides",
         "top_and_bottom",
         "empty",
@@ -86,14 +69,15 @@ def test_group_map_union():
         groups.union("bottom"), np.array([True] * 2 + [False] * 10)
     )
     np.testing.assert_array_equal(
-        groups.union("bottom", "sides"), np.array([True] * 10 + [False] * 2)
+        groups.union("bottom", "sides"), np.array([True] * 2 + [False] * 2 + [True] * 8)
     )
     np.testing.assert_array_equal(
         groups.union("top_and_bottom", "top"),
-        np.array([True] * 2 + [False] * 8 + [True] * 2),
+        np.array([True] * 4 + [False] * 8),
     )
     np.testing.assert_array_equal(
-        groups.union("left_side", "bottom"), np.array([True] * 4 + [False] * 8)
+        groups.union("left_side", "bottom"),
+        np.array([True] * 2 + [False] * 8 + [True] * 2),
     )
 
     # Verify is writable.
@@ -173,12 +157,11 @@ def test_invalid_mask_throws_error():
 def test_mask_for_element():
     groups = create_group_map()
     np.testing.assert_array_equal(
-        groups.mask_for_element(0),
-        np.array([True, False, False, False, False, False, False, True, False]),
+        groups.mask_for_element(0), np.array([True] + [False] * 6 + [True, False])
     )
     np.testing.assert_array_equal(
-        groups.mask_for_element(2),
-        np.array([False, True, False, False, False, False, True, False, False]),
+        groups.mask_for_element(10),
+        np.array([False] * 5 + [True] * 2 + [False] * 2),
     )
 
 
@@ -188,7 +171,7 @@ def test_group_names_for_element_mask():
         "bottom",
         "top_and_bottom",
     ]
-    assert groups.group_names_for_element_mask(groups.mask_for_element(2)) == [
+    assert groups.group_names_for_element_mask(groups.mask_for_element(10)) == [
         "left_side",
         "sides",
     ]
@@ -203,13 +186,13 @@ def test_reindexed():
 
     expected_groups = {
         "bottom": [0, 1, 2, 3],
-        "left_side": [4, 5, 6, 7],
-        "front_side": [8, 9, 10, 11],
+        "top": [4, 5, 6, 7],
+        "back_side": [8, 9, 10, 11],
         "right_side": [12, 13, 14, 15],
-        "back_side": [16, 17, 18, 19],
-        "top": [20, 21, 22, 23],
-        "sides": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-        "top_and_bottom": [0, 1, 2, 3, 20, 21, 22, 23],
+        "front_side": [16, 17, 18, 19],
+        "left_side": [20, 21, 22, 23],
+        "sides": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        "top_and_bottom": [0, 1, 2, 3, 4, 5, 6, 7],
         "empty": [],
     }
 
