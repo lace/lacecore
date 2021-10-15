@@ -334,7 +334,7 @@ def test_sliced_by_plane_selection():
         Plane(extent - 0.05, np.array([1, 1, 1])),
         # This should leave untouched the bottom, which lies along the xy-plane,
         # where `z == 0`.
-        select_fn=lambda selection: selection.pick_face_groups("top", "sides"),
+        only_for_selection=lambda selection: selection.pick_face_groups("top", "sides"),
     )
 
     # Ensure the bottom is still there.

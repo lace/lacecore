@@ -217,7 +217,7 @@ class SelectionMixin:
         """
         return self.select().pick_face_groups(*group_names).end()
 
-    def sliced_by_plane(self, *planes, select_fn=None):
+    def sliced_by_plane(self, *planes, only_for_selection=None):
         """
         Slice the triangles, keeping the portion in front of the given plane.
 
@@ -229,7 +229,7 @@ class SelectionMixin:
 
         Args:
             plane (polliwog.Plane): The plane of interest.
-            select_fn (function): A function which receives a
+            only_for_selection (function): A function which receives a
                 `lacecore.Selection` and should invoke selection methods on it.
 
         Returns:
@@ -249,11 +249,11 @@ class SelectionMixin:
         for plane in planes:
             # Since slicing renumbers the faces, recompute `faces_to_slice`
             # after each slice.
-            if select_fn is None:
+            if only_for_selection is None:
                 faces_to_slice = None
             else:
                 selection = working.select()
-                select_fn(selection)
+                only_for_selection(selection)
                 faces_to_slice, _ = selection.generate_masks()
 
             vertices, faces, face_mapping = slice_triangles_by_plane(
