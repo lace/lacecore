@@ -114,3 +114,13 @@ def test_pick_vertices_of_face_groups():
 
     # We're expecting the intersection of top and left side.
     np.testing.assert_array_equal(submesh.v, cube_vertices[np.array([4, 7])])
+
+
+def test_pick_face_groups_error():
+    with pytest.raises(ValueError, match="Mesh has no face groups"):
+        cube_at_origin.select().pick_face_groups("anything")
+
+
+def test_pick_vertices_of_face_groups_error():
+    with pytest.raises(ValueError, match="Mesh has no face groups"):
+        cube_at_origin.select().pick_vertices_of_face_groups("anything")
