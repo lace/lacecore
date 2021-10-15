@@ -238,6 +238,8 @@ class Selection:
         Returns:
             self
         """
+        if self._target.face_groups is None:
+            raise ValueError("Mesh has no face groups")
         self._keep_faces(self._target.face_groups.union(*group_names))
         return self
 
@@ -251,6 +253,8 @@ class Selection:
         Returns:
             self
         """
+        if self._target.face_groups is None:
+            raise ValueError("Mesh has no face groups")
         face_indices = self._target.face_groups.union(*group_names)
         vertex_indices = self._target.f[face_indices].flatten()
         self._keep_vertices(self._mask_like(vertex_indices, len(self._vertex_mask)))
