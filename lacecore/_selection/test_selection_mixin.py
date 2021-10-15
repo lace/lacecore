@@ -299,19 +299,16 @@ def test_sliced_by_plane():
         np.array([vg.basis.y, vg.basis.x, vg.basis.z, vg.basis.z]),
     )
 
-    for expected_empty_group in "bottom", "front_side", "empty":
+    for expected_empty_group in "bottom", "back_side", "empty":
         np.testing.assert_array_equal(
             sliced.face_groups[expected_empty_group].nonzero()[0], np.zeros(0)
         )
-    import pdb
-
-    pdb.set_trace()
     np.testing.assert_array_equal(sliced.face_groups["top"].nonzero()[0], np.array([0]))
     np.testing.assert_array_equal(
         sliced.face_groups["right_side"].nonzero()[0], np.array([1])
     )
     np.testing.assert_array_equal(
-        sliced.face_groups["back_side"].nonzero()[0], np.array([2, 3])
+        sliced.face_groups["front_side"].nonzero()[0], np.array([2, 3])
     )
 
 
