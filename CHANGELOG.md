@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.0
+
+- `check_arity()` and `check_indices()`: Add to public interface.
+
+
 ## 2.2.0
 
 - Improve `.sliced_by_plane()`:
