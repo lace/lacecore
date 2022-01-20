@@ -10,7 +10,6 @@ def read_groups(reader):
     groups = []
 
     for shape in shapes:
-        print(shape.name)
         these_face_indices = shape.mesh.numpy_indices().reshape(-1, 3)[:, 0]
         groups.append({"name": shape.name, "num_faces": len(these_face_indices)})
 
