@@ -56,28 +56,34 @@ def create_reader_and_config():
     return reader, config
 
 
-def _finalize(reader, triangulate):
-    attrib = reader.GetAttrib()
-    shapes = reader.GetShapes()
-    tinyobj_vertices = attrib.numpy_vertices().reshape(-1, 3)
-    if len(shapes) > 0:
-        all_vertices_per_face = np.concatenate(
-            [shape.mesh.numpy_num_face_vertices() for shape in shapes]
-        )
-        first_arity = all_vertices_per_face[0]
-        if np.any(all_vertices_per_face < 3) or np.any(all_vertices_per_face > 4):
-            raise ArityException(
-                "OBJ Loader does not support arities greater than 4 or less than 3"
-            )
-        is_mixed_arity = np.any(all_vertices_per_face != first_arity)
-        all_faces = np.zeros((0, 3 if triangulate else first_arity), dtype=FACE_DTYPE)
-    else:
-        all_faces = np.zeros((0, 3), dtype=FACE_DTYPE)
+def _get_arity(shapes):
+    if len(shapes) == 0:
+        return 3
 
+    all_vertices_per_face = np.concatenate(
+        [shape.mesh.numpy_num_face_vertices() for shape in shapes]
+    )
+    first_arity = all_vertices_per_face[0]
+    if np.any(all_vertices_per_face < 3) or np.any(all_vertices_per_face > 4):
+        raise ArityException(
+            "OBJ Loader does not support arities greater than 4 or less than 3"
+        )
+    is_mixed_arity = ~np.all(all_vertices_per_face == first_arity)
+    return tuple(all_vertices_per_face) if is_mixed_arity else all_vertices_per_face[0]
+
+
+def _finalize(reader, triangulate):
+    shapes = reader.GetShapes()
+
+    arity = _get_arity(shapes)
+    is_mixed_arity = isinstance(arity, tuple)
+    first_arity = arity[0] if is_mixed_arity else arity
+
+    all_faces = np.zeros((0, 3 if triangulate else first_arity), dtype=FACE_DTYPE)
     segm = OrderedDict()
 
     for shape in shapes:
-        tinyobj_all_indices = shape.mesh.numpy_indices().reshape(-1, 3)[:, 0]
+        these_face_indices = shape.mesh.numpy_indices().reshape(-1, 3)[:, 0]
         if is_mixed_arity and not triangulate:
             raise ArityException(
                 "OBJ Loader does not support mixed arities with triangulate=False"
@@ -85,7 +91,7 @@ def _finalize(reader, triangulate):
         elif is_mixed_arity:
             these_vertices_per_face = shape.mesh.numpy_num_face_vertices()
             these_faces = np.zeros((0, 3), dtype=FACE_DTYPE)
-            for this_face in unstack(tinyobj_all_indices, these_vertices_per_face):
+            for this_face in unstack(these_face_indices, these_vertices_per_face):
                 if len(this_face) == 3:
                     these_faces = np.concatenate([these_faces, this_face.reshape(1, 3)])
                 else:
@@ -97,7 +103,7 @@ def _finalize(reader, triangulate):
                         ]
                     )
         else:
-            these_faces = tinyobj_all_indices.reshape(-1, first_arity)
+            these_faces = these_face_indices.reshape(-1, first_arity)
             if triangulate and first_arity == 4:
                 # Triangulate ABCD as ABC + ACD.
                 these_faces = these_faces[:, [[0, 1, 2], [0, 2, 3]]].reshape(-1, 3)
@@ -114,7 +120,12 @@ def _finalize(reader, triangulate):
             segm[name] = segm[name] + these_face_indices
 
     group_map = GroupMap.from_dict(segm, len(all_faces))
-    return Mesh(v=tinyobj_vertices, f=all_faces, face_groups=group_map)
+
+    return Mesh(
+        v=reader.GetAttrib().numpy_vertices().reshape(-1, 3),
+        f=all_faces,
+        face_groups=group_map,
+    )
 
 
 def load(mesh_path, triangulate=False):
