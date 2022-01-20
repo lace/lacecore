@@ -29,5 +29,6 @@ def main():
 
     print(json.dumps(extract_group_slices("examples/tinyobjloader/models/cube.obj")))
 
+
 if __name__ == "__main__":
     main()
