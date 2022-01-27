@@ -7,11 +7,14 @@ def read_groups(reader):
     if _get_arity(shapes) != 3:
         raise ValueError("Only supported for triangulated meshes")
 
-    groups = []
+    groups, start = [], 0
 
     for shape in shapes:
         these_face_indices = shape.mesh.numpy_indices().reshape(-1, 3)[:, 0]
-        groups.append({"name": shape.name, "num_faces": len(these_face_indices)})
+        groups.append(
+            {"name": shape.name, "start": start, "count": len(these_face_indices)}
+        )
+        start += len(these_face_indices)
 
     return groups
 
