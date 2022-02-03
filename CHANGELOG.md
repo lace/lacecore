@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.0
+
+- GroupMap: Add `defragment()` and `to_dict()` methods.
+
+
 ## 2.3.0
 
 - `check_arity()` and `check_indices()`: Add to public interface.
