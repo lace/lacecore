@@ -1,4 +1,4 @@
-from lacecore._obj.loader import create_reader_and_config, _get_arity, LoadException
+from lacecore._obj.loader import LoadException, _get_arity, create_reader_and_config
 
 
 def read_groups(reader):
