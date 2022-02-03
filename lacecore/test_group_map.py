@@ -200,3 +200,37 @@ def test_reindexed():
         np.testing.assert_array_equal(
             reindexed[group_name].nonzero()[0], expected_groups[group_name]
         )
+
+
+def test_defragment():
+    groups = create_group_map()
+    groups.defragment()
+
+
+def test_defragment_errors():
+    groups = create_group_map()
+
+    with pytest.raises(
+        ValueError,
+        match=r"group_order is missing groups: back_side, bottom, front_side, right_side, sides, top, top_and_bottom",
+    ):
+        groups.defragment(group_order=["left_side"])
+
+    with pytest.raises(
+        ValueError,
+        match=r"group_order contains unknown groups: foo",
+    ):
+        groups.defragment(
+            group_order=[
+                "bottom",
+                "top",
+                "back_side",
+                "right_side",
+                "front_side",
+                "left_side",
+                "sides",
+                "top_and_bottom",
+                "empty",
+                "foo",
+            ]
+        )

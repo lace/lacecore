@@ -181,3 +181,38 @@ class GroupMap:
             masks=np.asarray(self._masks[:, f_new_to_old]),
             copy_masks=False,
         )
+
+    def defragment(self, group_order=None):
+        """
+        Reorder the faces to keep groups together.
+
+        Overlapping groups are not supported.
+
+        Args:
+            group_order (list): The desired order of the groups. The default is
+                to order by the first face in which the group appears.
+
+        Returns:
+            np.ndarray: The new order of the old faces.
+        """
+        from collections import Counter
+
+        if group_order is None:
+            # Inspired by https://stackoverflow.com/a/22150003/893113
+            group_order = [
+                item[0] for item in Counter(self._group_names).most_common()
+            ].reverse()
+        else:
+            nonempty_groups = [
+                group_name for group_name in self if np.any(self[group_name])
+            ]
+            missing_groups = set(nonempty_groups) - set(group_order)
+            if len(missing_groups) > 0:
+                raise ValueError(
+                    f"group_order is missing groups: {', '.join(sorted(list(missing_groups)))}"
+                )
+            unknown_groups = set(group_order) - set(self.keys())
+            if len(unknown_groups) > 0:
+                raise ValueError(
+                    f"group_order contains unknown groups: {', '.join(sorted(list(unknown_groups)))}"
+                )
