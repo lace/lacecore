@@ -1,13 +1,13 @@
 from lacecore import GroupMap
 import numpy as np
 import pytest
+from ._common.reindexing import reindex_faces
+from ._mesh import Mesh
 from ._selection.test_selection_mixin import (
     create_group_map,
     cube_at_origin,
     groups as group_data,
 )
-from ._common.reindexing import reindex_faces
-from ._mesh import Mesh
 
 # Remove overlapping groups.
 non_overlapping_group_data = dict(group_data)
@@ -267,7 +267,7 @@ def test_defragment_and_reindex():
 
     # Confidence check.
     np.testing.assert_array_equal(defragmented.v, original.v)
-    assert np.all(defragmented.f == original.f) == False
+    assert not np.all(defragmented.f == original.f)
 
     # Assert.
     np.testing.assert_array_equal(
