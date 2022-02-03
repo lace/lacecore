@@ -108,6 +108,12 @@ class GroupMap:
     def num_elements(self):
         return self._num_elements
 
+    def to_dict(self):
+        return {
+            group_name: list(self[group_name].nonzero()[0])
+            for group_name in self.keys()
+        }
+
     def mask_for_element(self, element):
         """
         Get the read-only group mask for the requested element.
@@ -193,15 +199,15 @@ class GroupMap:
                 to order by the first face in which the group appears.
 
         Returns:
-            np.ndarray: The new order of the old faces.
+            np.ndarray: The new order of the faces, suitable for passing to
+            `lacecore.reindex_faces()`.
         """
         from collections import Counter
 
         if group_order is None:
             # Inspired by https://stackoverflow.com/a/22150003/893113
-            group_order = [
-                item[0] for item in Counter(self._group_names).most_common()
-            ].reverse()
+            group_order = [item[0] for item in Counter(self._group_names).most_common()]
+            group_order.reverse()
         else:
             nonempty_groups = [
                 group_name for group_name in self if np.any(self[group_name])
@@ -216,3 +222,14 @@ class GroupMap:
                 raise ValueError(
                     f"group_order contains unknown groups: {', '.join(sorted(list(unknown_groups)))}"
                 )
+
+        ordering = np.repeat(-1, self.num_elements)
+        next_index = 0
+        for group_name in group_order:
+            this_mask = self[group_name]
+            num_these_elements = np.count_nonzero(this_mask)
+            if not np.all(ordering[this_mask] == -1):
+                raise ValueError(f'Group "{group_name}" overlaps with previous groups')
+            ordering[this_mask] = np.arange(next_index, next_index + num_these_elements)
+            next_index += num_these_elements
+        return ordering
