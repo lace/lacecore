@@ -236,7 +236,7 @@ def test_defragment():
     ]
     ordering = groups.defragment(group_order=group_order)
     np.testing.assert_array_equal(
-        ordering, np.array([8, 9, 10, 11, 6, 7, 2, 3, 4, 5, 0, 1])
+        ordering, np.array([10, 11, 6, 7, 8, 9, 4, 5, 0, 1, 2, 3])
     )
 
 
@@ -246,23 +246,15 @@ def test_defragment_and_reindex():
         v=cube_at_origin.v,
         f=cube_at_origin.f,
         face_groups=GroupMap.from_dict(
-            non_overlapping_group_data, cube_at_origin.num_f
+            {"even": np.arange(0, 12, 2), "odd": np.arange(1, 12, 2)},
+            cube_at_origin.num_f,
         ),
     )
 
     # Act.
     defragmented = reindex_faces(
         mesh=original,
-        ordering=original.face_groups.defragment(
-            group_order=[
-                "left_side",
-                "right_side",
-                "front_side",
-                "back_side",
-                "bottom",
-                "top",
-            ]
-        ),
+        ordering=original.face_groups.defragment(group_order=["odd", "even"]),
     )
 
     # Confidence check.
@@ -271,12 +263,18 @@ def test_defragment_and_reindex():
 
     # Assert.
     np.testing.assert_array_equal(
-        defragmented.v[defragmented.f[defragmented.face_groups["front_side"]]],
-        original.v[original.f[original.face_groups["front_side"]]],
+        defragmented.face_groups["odd"].nonzero()[0], np.arange(6)
     )
     np.testing.assert_array_equal(
-        defragmented.v[defragmented.f[defragmented.face_groups["top"]]],
-        original.v[original.f[original.face_groups["top"]]],
+        defragmented.face_groups["even"].nonzero()[0], np.arange(6, 12)
+    )
+    np.testing.assert_array_equal(
+        defragmented.f[defragmented.face_groups["odd"]],
+        original.f[original.face_groups["odd"]],
+    )
+    np.testing.assert_array_equal(
+        defragmented.f[defragmented.face_groups["even"]],
+        original.f[original.face_groups["even"]],
     )
 
 

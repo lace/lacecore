@@ -203,6 +203,7 @@ class GroupMap:
             `lacecore.reindex_faces()`.
         """
         from collections import Counter
+        from ._mesh import FACE_DTYPE
 
         if group_order is None:
             # Inspired by https://stackoverflow.com/a/22150003/893113
@@ -223,13 +224,11 @@ class GroupMap:
                     f"group_order contains unknown groups: {', '.join(sorted(list(unknown_groups)))}"
                 )
 
-        ordering = np.repeat(-1, self.num_elements)
-        next_index = 0
+        ordering = np.zeros(0, dtype=FACE_DTYPE)
         for group_name in group_order:
             this_mask = self[group_name]
-            num_these_elements = np.count_nonzero(this_mask)
-            if not np.all(ordering[this_mask] == -1):
+            these_elements = this_mask.nonzero()[0]
+            if len(np.intersect1d(ordering, these_elements)) > 0:
                 raise ValueError(f'Group "{group_name}" overlaps with previous groups')
-            ordering[this_mask] = np.arange(next_index, next_index + num_these_elements)
-            next_index += num_these_elements
+            ordering = np.append(ordering, these_elements)
         return ordering
