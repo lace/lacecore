@@ -236,7 +236,7 @@ def test_defragment():
     ]
     ordering = groups.defragment(group_order=group_order)
     np.testing.assert_array_equal(
-        ordering, np.array([8, 9, 10, 11, 6, 7, 2, 3, 4, 5, 0, 1])
+        ordering, np.array([10, 11, 6, 7, 8, 9, 4, 5, 0, 1, 2, 3])
     )
 
 
@@ -262,6 +262,12 @@ def test_defragment_and_reindex():
     assert not np.all(defragmented.f == original.f)
 
     # Assert.
+    np.testing.assert_array_equal(
+        defragmented.face_groups["odd"].nonzero()[0], np.arange(6)
+    )
+    np.testing.assert_array_equal(
+        defragmented.face_groups["even"].nonzero()[0], np.arange(6, 12)
+    )
     np.testing.assert_array_equal(
         defragmented.f[defragmented.face_groups["odd"]],
         original.f[original.face_groups["odd"]],
