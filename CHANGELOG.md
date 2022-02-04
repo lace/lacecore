@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.1
+
+- GroupMap: Fix `defragment()`.
+
+
 ## 2.4.0
 
 - GroupMap: Add `defragment()` and `to_dict()` methods.
