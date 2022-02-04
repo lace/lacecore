@@ -228,8 +228,10 @@ class GroupMap:
         for group_name in group_order:
             this_mask = self[group_name]
             num_these_elements = np.count_nonzero(this_mask)
-            if not np.all(ordering[this_mask] == -1):
+            if not np.all(ordering[next_index : next_index + num_these_elements] == -1):
                 raise ValueError(f'Group "{group_name}" overlaps with previous groups')
-            ordering[this_mask] = np.arange(next_index, next_index + num_these_elements)
+            ordering[
+                next_index : next_index + num_these_elements
+            ] = this_mask.nonzero()[0]
             next_index += num_these_elements
         return ordering
