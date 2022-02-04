@@ -1,7 +1,18 @@
 from lacecore import GroupMap
 import numpy as np
 import pytest
-from ._selection.test_selection_mixin import create_group_map
+from ._common.reindexing import reindex_faces
+from ._mesh import Mesh
+from ._selection.test_selection_mixin import (
+    create_group_map,
+    cube_at_origin,
+    groups as group_data,
+)
+
+# Remove overlapping groups.
+non_overlapping_group_data = dict(group_data)
+del non_overlapping_group_data["sides"]
+del non_overlapping_group_data["top_and_bottom"]
 
 
 def test_group_map_num_elements():
@@ -154,6 +165,10 @@ def test_invalid_mask_throws_error():
         )
 
 
+def test_to_dict():
+    assert GroupMap.from_dict(group_data, 12).to_dict() == group_data
+
+
 def test_mask_for_element():
     groups = create_group_map()
     np.testing.assert_array_equal(
@@ -200,3 +215,100 @@ def test_reindexed():
         np.testing.assert_array_equal(
             reindexed[group_name].nonzero()[0], expected_groups[group_name]
         )
+
+
+def test_defragment():
+    groups = GroupMap.from_dict(non_overlapping_group_data, 12)
+
+    # Since these groups aren't fragmented, this preserves the original group
+    # order and is a no-op.
+    ordering = groups.defragment()
+    np.testing.assert_array_equal(ordering, np.arange(12))
+
+    # Specifying a different order should put the groups in that order.
+    group_order = [
+        "left_side",
+        "right_side",
+        "front_side",
+        "back_side",
+        "bottom",
+        "top",
+    ]
+    ordering = groups.defragment(group_order=group_order)
+    np.testing.assert_array_equal(
+        ordering, np.array([8, 9, 10, 11, 6, 7, 2, 3, 4, 5, 0, 1])
+    )
+
+
+def test_defragment_and_reindex():
+    # Prepare.
+    original = Mesh(
+        v=cube_at_origin.v,
+        f=cube_at_origin.f,
+        face_groups=GroupMap.from_dict(
+            non_overlapping_group_data, cube_at_origin.num_f
+        ),
+    )
+
+    # Act.
+    defragmented = reindex_faces(
+        mesh=original,
+        ordering=original.face_groups.defragment(
+            group_order=[
+                "left_side",
+                "right_side",
+                "front_side",
+                "back_side",
+                "bottom",
+                "top",
+            ]
+        ),
+    )
+
+    # Confidence check.
+    np.testing.assert_array_equal(defragmented.v, original.v)
+    assert not np.all(defragmented.f == original.f)
+
+    # Assert.
+    np.testing.assert_array_equal(
+        defragmented.v[defragmented.f[defragmented.face_groups["front_side"]]],
+        original.v[original.f[original.face_groups["front_side"]]],
+    )
+    np.testing.assert_array_equal(
+        defragmented.v[defragmented.f[defragmented.face_groups["top"]]],
+        original.v[original.f[original.face_groups["top"]]],
+    )
+
+
+def test_defragment_errors():
+    groups = create_group_map()
+
+    with pytest.raises(
+        ValueError,
+        match=r"group_order is missing groups: back_side, bottom, front_side, right_side, sides, top, top_and_bottom",
+    ):
+        groups.defragment(group_order=["left_side"])
+
+    with pytest.raises(
+        ValueError,
+        match=r"group_order contains unknown groups: foo",
+    ):
+        groups.defragment(
+            group_order=[
+                "bottom",
+                "top",
+                "back_side",
+                "right_side",
+                "front_side",
+                "left_side",
+                "sides",
+                "top_and_bottom",
+                "empty",
+                "foo",
+            ]
+        )
+
+    with pytest.raises(
+        ValueError, match=r"Group \"sides\" overlaps with previous groups"
+    ):
+        groups.defragment()

@@ -39,20 +39,22 @@ cube_faces = np.array(
     ]
 )
 
+groups = {
+    "bottom": [0, 1],
+    "top": [2, 3],
+    "back_side": [4, 5],
+    "right_side": [6, 7],
+    "front_side": [8, 9],
+    "left_side": [10, 11],
+    "sides": [4, 5, 6, 7, 8, 9, 10, 11],
+    "top_and_bottom": [0, 1, 2, 3],
+    "empty": [],
+}
+
 
 def create_group_map():
     return GroupMap.from_dict(
-        {
-            "bottom": [0, 1],
-            "top": [2, 3],
-            "back_side": [4, 5],
-            "right_side": [6, 7],
-            "front_side": [8, 9],
-            "left_side": [10, 11],
-            "sides": [4, 5, 6, 7, 8, 9, 10, 11],
-            "top_and_bottom": [0, 1, 2, 3],
-            "empty": [],
-        },
+        groups,
         12,
     )
 
