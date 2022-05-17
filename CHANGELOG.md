@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.2
+
+- Support polliwog 3.0.0 prereleases.
+
+
 ## 2.4.1
 
 - GroupMap: Fix `defragment()`.
