@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.3
+
+- Revert previous change. This version does not support polliwog 3.0.0
+  prereleases.
+
+
 ## 2.4.2
 
 - Support polliwog 3.0.0 prereleases.
