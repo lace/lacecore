@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lacecore"
-version = "2.4.2"
+version = "3.0.0a0"
 description = "Polygonal meshes optimized for cloud computation"
 authors = ["Paul Melnikow <github@paulmelnikow.com>", "Metabolize, Minnow Software, Body Labs, and other contributors"]
 license = "BSD-2-Clause"
