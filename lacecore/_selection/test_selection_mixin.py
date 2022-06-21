@@ -288,7 +288,9 @@ def test_pick_face_groups():
 def test_sliced_by_plane():
     extent = np.max(cube_at_origin.v, axis=0)
 
-    sliced = cube_at_origin.sliced_by_plane(Plane(extent - 0.05, np.array([1, 1, 1])))
+    sliced = cube_at_origin.sliced_by_plane(
+        Plane(extent - 0.05, vg.normalize(np.array([1, 1, 1])))
+    )
 
     np.testing.assert_array_almost_equal(np.min(sliced.v, axis=0), extent - 0.15)
     np.testing.assert_array_almost_equal(np.max(sliced.v, axis=0), extent)
@@ -319,7 +321,7 @@ def test_sliced_by_plane_two_planes():
     extent = np.max(cube_at_origin.v, axis=0)
 
     sliced = cube_at_origin.sliced_by_plane(
-        Plane(extent - 0.05, np.array([1, 1, 1])),
+        Plane(extent - 0.05, vg.normalize(np.array([1, 1, 1]))),
         Plane(extent - 0.1, vg.basis.x),
     )
 
@@ -333,7 +335,7 @@ def test_sliced_by_plane_selection():
     extent = np.max(cube_at_origin.v, axis=0)
 
     sliced = cube_at_origin.sliced_by_plane(
-        Plane(extent - 0.05, np.array([1, 1, 1])),
+        Plane(extent - 0.05, vg.normalize(np.array([1, 1, 1]))),
         # This should leave untouched the bottom, which lies along the xy-plane,
         # where `z == 0`.
         only_for_selection=lambda selection: selection.pick_face_groups("top", "sides"),
