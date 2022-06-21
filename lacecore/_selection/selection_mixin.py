@@ -259,7 +259,7 @@ class SelectionMixin:
             vertices, faces, face_mapping = slice_triangles_by_plane(
                 vertices=working.v,
                 faces=working.f,
-                point_on_plane=plane.reference_point,
+                plane_reference_point=plane.reference_point,
                 plane_normal=plane.normal,
                 faces_to_slice=faces_to_slice,
                 ret_face_mapping=True,
