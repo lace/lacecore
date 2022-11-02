@@ -793,7 +793,7 @@ obj = ["tinymetabobjloader"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<4"
-content-hash = "c82da830f60fcdfd2fcf01545ebc9c8e06b5b0f6930230cf91d6a72b1047937a"
+content-hash = "1dd02e32d52309bbf42fb54659ff2b245508a08b3f9a928ee6bd984dc80d591c"
 
 [metadata.files]
 alabaster = [
