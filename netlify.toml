@@ -1,9 +1,7 @@
 [build]
-  publish = "doc/build"
-  # https://github.com/netlify/build-image/issues/221#issuecomment-504385202
-  # https://github.com/netlify/build-image/issues/221#issuecomment-644662189
-  command = """
-pip install -q poetry==1.2.2 &&
-poetry install &&
-sphinx-build -W -b singlehtml doc doc/build
-"""
+  base = "doc"
+  publish = "build"
+  command = "../dev.py doc"
+  # With the default ignore setting, changes to the inline doc in the modules do
+  # not trigger builds.
+  ignore = "false"
