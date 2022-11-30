@@ -35,12 +35,12 @@ def assert_is_cube_mesh(mesh):
 
 
 def test_loads_from_local_path():
-    mesh = load_obj("./examples/tinyobjloader/models/cube.obj")
+    mesh = load_obj("./examples/models/cube.obj")
     assert_is_cube_mesh(mesh)
 
 
 def test_loads_from_string():
-    with open("./examples/tinyobjloader/models/cube.obj", "r") as f:
+    with open("./examples/models/cube.obj", "r") as f:
         contents = f.read()
     mesh = load_obj_string(contents)
     assert_is_cube_mesh(mesh)
@@ -63,7 +63,7 @@ def test_loads_from_local_path_with_nonexistent_file():
 
 def test_loads_from_local_path_with_mixed_arities():
     with pytest.raises(ArityException):
-        load_obj("./examples/tinyobjloader/models/smoothing-group-two-squares.obj")
+        load_obj("./examples/models/smoothing-group-two-squares.obj")
 
 
 def test_triangulation_is_abc_acd(write_tmp_mesh):
