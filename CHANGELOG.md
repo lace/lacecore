@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0a1
+
+- Allow any version of numpy
+- Test in Python 3.9
+
+
 ## 3.0.0a0
 
 - Support polliwog 3.0.0 prereleases.
