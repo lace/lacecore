@@ -62,6 +62,8 @@ def black_check():
 @cli.command()
 def doc():
     execute("rm -rf build/ doc/build/ doc/api/")
+    execute("pip install -q poetry==1.2.2")
+    execute("poetry install")
     execute("sphinx-build -W -b singlehtml doc doc/build")
 
 
