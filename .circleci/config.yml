@@ -35,12 +35,6 @@ jobs:
       - *show_versions
 
       - run:
-          name: Clone submodule
-          command: |
-            git submodule sync
-            git submodule update --init
-
-      - run:
           name: Run tests
           when: always
           command: ./dev.py coverage
