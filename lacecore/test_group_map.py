@@ -34,7 +34,8 @@ def test_group_map_get_item():
     with pytest.raises(ValueError, match="assignment destination is read-only"):
         groups["empty"][3] = True
     with pytest.raises(KeyError, match="Unknown group: nope"):
-        groups["nope"]
+        # Assign for CodeQL.
+        _ = groups["nope"]
 
 
 def test_group_map_iteration():
