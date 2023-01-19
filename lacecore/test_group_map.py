@@ -108,7 +108,7 @@ def test_group_map_indices_out_of_range():
 
 
 def test_group_map_with_copy_true_makes_readonly_copy():
-    masks = np.zeros((3, 12), dtype=np.bool)
+    masks = np.zeros((3, 12), dtype=bool)
     groups = GroupMap(
         num_elements=12, group_names=["a", "b", "c"], masks=masks, copy_masks=True
     )
@@ -121,7 +121,7 @@ def test_group_map_with_copy_true_makes_readonly_copy():
 
 
 def test_group_map_with_copy_false_makes_read_only():
-    masks = np.zeros((3, 12), dtype=np.bool)
+    masks = np.zeros((3, 12), dtype=bool)
     GroupMap(
         num_elements=12, group_names=["a", "b", "c"], masks=masks, copy_masks=False
     )
@@ -136,7 +136,7 @@ def test_invalid_num_elements_throws_error():
         GroupMap(
             num_elements=-1,
             group_names=["a", "b", "c"],
-            masks=np.zeros((3, 12), dtype=np.bool),
+            masks=np.zeros((3, 12), dtype=bool),
         )
     with pytest.raises(
         ValueError, match="num_elements should be a non-negative integer"
@@ -144,7 +144,7 @@ def test_invalid_num_elements_throws_error():
         GroupMap(
             num_elements="foo",
             group_names=["a", "b", "c"],
-            masks=np.zeros((3, 12), dtype=np.bool),
+            masks=np.zeros((3, 12), dtype=bool),
         )
 
 
@@ -153,7 +153,7 @@ def test_invalid_group_name_throws_error():
         GroupMap(
             num_elements=12,
             group_names=[1, 2, 3],
-            masks=np.zeros((3, 12), dtype=np.bool),
+            masks=np.zeros((3, 12), dtype=bool),
         )
 
 
@@ -162,7 +162,7 @@ def test_invalid_mask_throws_error():
         GroupMap(
             num_elements=12,
             group_names=["a", "b", "c"],
-            masks=np.zeros((3, 12), dtype=np.int),
+            masks=np.zeros((3, 12), dtype=int),
         )
 
 

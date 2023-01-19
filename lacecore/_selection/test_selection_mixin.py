@@ -260,7 +260,7 @@ def test_pick_vertices_list():
 
 
 def test_pick_vertices_mask():
-    wanted_v_mask = np.zeros(8, dtype=np.bool)
+    wanted_v_mask = np.zeros(8, dtype=bool)
     wanted_v_mask[[3, 7, 4]] = True
     submesh = cube_at_origin.picking_vertices(wanted_v_mask)
 

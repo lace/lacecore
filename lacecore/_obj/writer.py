@@ -16,7 +16,7 @@ def write(fp, mesh):
         fp.write("v {} {} {}\n".format(*vertex))
 
     face_groups = mesh.face_groups or GroupMap.from_dict({}, len(mesh.f))
-    last_group_mask = np.zeros(len(face_groups.keys()), dtype=np.bool)
+    last_group_mask = np.zeros(len(face_groups.keys()), dtype=bool)
     for i, face in enumerate(mesh.f):
         this_group_mask = face_groups.mask_for_element(i)
         if np.any(last_group_mask != this_group_mask):
