@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0a2
+
+- Support NumPy 1.24+
+
+
 ## 3.0.0a1
 
 - Allow any version of numpy
