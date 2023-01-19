@@ -24,12 +24,12 @@ def reconcile_selection(faces, face_mask, vertex_mask, prune_orphan_vertices):
     check_arity(faces)
     vg.shape.check(locals(), "face_mask", (num_faces,))
     num_vertices = vg.shape.check(locals(), "vertex_mask", (-1,))
-    if face_mask.dtype != np.bool or vertex_mask.dtype != np.bool:
+    if face_mask.dtype != bool or vertex_mask.dtype != bool:
         raise ValueError("Expected face_mask and vertex_mask to be boolean arrays")
     check_indices(faces, num_vertices, "faces")
 
     # Invalidate faces containing any vertex which is being removed.
-    reconciled_face_mask = np.zeros_like(face_mask, dtype=np.bool)
+    reconciled_face_mask = np.zeros_like(face_mask, dtype=bool)
     reconciled_face_mask[face_mask] = np.all(vertex_mask[faces[face_mask]], axis=1)
 
     # Optionally, invalidate vertices for faces which are being removed.

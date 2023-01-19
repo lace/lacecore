@@ -31,8 +31,8 @@ class Selection:
     ):
         self._target = target
         self._union_with = union_with
-        self._vertex_mask = np.ones(target.num_v, dtype=np.bool)
-        self._face_mask = np.ones(target.num_f, dtype=np.bool)
+        self._vertex_mask = np.ones(target.num_v, dtype=bool)
+        self._face_mask = np.ones(target.num_f, dtype=bool)
 
     def _keep_faces(self, mask):
         self._face_mask = np.logical_and(self._face_mask, mask)
@@ -189,12 +189,12 @@ class Selection:
     @staticmethod
     def _mask_like(value, num_elements):
         value = np.asarray(value)
-        if value.dtype == np.bool:
+        if value.dtype == bool:
             vg.shape.check(locals(), "value", (num_elements,))
             return value
         else:
             check_indices(value, num_elements, "mask")
-            mask = np.zeros(num_elements, dtype=np.bool)
+            mask = np.zeros(num_elements, dtype=bool)
             mask[value] = True
             return mask
 

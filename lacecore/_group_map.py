@@ -25,7 +25,7 @@ class GroupMap:
         if not all(isinstance(group_name, str) for group_name in group_names):
             raise ValueError("group_names should be a list of strings")
         vg.shape.check(locals(), "masks", (len(group_names), num_elements))
-        if masks.dtype != np.bool:
+        if masks.dtype != bool:
             raise ValueError("Expected masks to be a bool array")
 
         if copy_masks:
@@ -45,7 +45,7 @@ class GroupMap:
             group_data (dict): The group data.
             num_elements (int): The total number of elements.
         """
-        masks = np.zeros((len(group_data), num_elements), dtype=np.bool)
+        masks = np.zeros((len(group_data), num_elements), dtype=bool)
         for i, element_indices in enumerate(group_data.values()):
             try:
                 masks[i][element_indices] = True

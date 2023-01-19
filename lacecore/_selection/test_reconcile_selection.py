@@ -13,7 +13,7 @@ def test_reconcile_selection_validation():
         reconcile_selection(
             faces=example_mesh.f,
             face_mask=np.zeros(example_mesh.num_f),
-            vertex_mask=np.zeros(example_mesh.num_v, dtype=np.bool),
+            vertex_mask=np.zeros(example_mesh.num_v, dtype=bool),
             prune_orphan_vertices=False,
         )
     with pytest.raises(
@@ -21,7 +21,7 @@ def test_reconcile_selection_validation():
     ):
         reconcile_selection(
             faces=example_mesh.f,
-            face_mask=np.zeros(example_mesh.num_f, dtype=np.bool),
+            face_mask=np.zeros(example_mesh.num_f, dtype=bool),
             vertex_mask=np.zeros(example_mesh.num_v),
             prune_orphan_vertices=False,
         )
