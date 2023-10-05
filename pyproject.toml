@@ -38,7 +38,7 @@ cli = ["click", "tinymetabobjloader"]
 obj = ["tinymetabobjloader"]
 
 [tool.poetry.dev-dependencies]
-black = "22.10.0"
+black = "23.3.0"
 coverage = "6.5.0"
 executor = "23.2"
 flake8 = "5.0.4"
