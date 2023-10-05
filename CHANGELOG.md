@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0a3
+
+- Add `convert_units` script
+
+
 ## 3.0.0a2
 
 - Support NumPy 1.24+
