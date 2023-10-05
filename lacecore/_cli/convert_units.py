@@ -21,23 +21,27 @@ def convert_units(
     import os
     from lacecore import load_obj
 
+    def pif(message: str) -> None:
+        if verbose:
+            click.echo(message, err=True)
+
     for this_mesh_path in mesh_path:
         if outdir is None:
             filename, extension = os.path.splitext(os.path.basename(this_mesh_path))
             output_path = f"{filename}_{to_units}{extension}"
         else:
-            output_path = os.join(outdir, os.path.basename(this_mesh_path))
+            output_path = os.path.join(outdir, os.path.basename(this_mesh_path))
 
-        if verbose:
-            print(f"Converting {this_mesh_path} from {from_units} to {to_units}")
+        pif(
+            f"Converting {this_mesh_path} from {from_units} to {to_units}",
+        )
 
         load_obj(this_mesh_path).units_converted(
             from_units=from_units, to_units=to_units
         ).write_obj(output_path)
 
-        if verbose:
-            print(f"  Wrote {output_path}")
+        pif(f"  Wrote {output_path}")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     convert_units()
