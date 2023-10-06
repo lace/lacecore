@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0a3
+
+- Add `convert_units` script. To install, use `pip install lacecore[cli]==3.0.0a3`.
+
+
 ## 3.0.0a2
 
 - Support NumPy 1.24+
