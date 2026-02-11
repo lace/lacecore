@@ -24,7 +24,7 @@ classifiers = [
 convert_units = "lacecore_cli.convert_units:convert_units"
 
 [tool.poetry.dependencies]
-python = ">=3.7,<4"
+python = ">=3.10,<4"
 click = {version = ">=8.1.3,<9", optional = true}
 numpy = "*"
 ounce = ">=1.1.0,<2.0"
@@ -43,13 +43,13 @@ coverage = "7.2.7"
 executor = "23.2"
 flake8 = "5.0.4"
 flake8-import-order = "0.18.2"
-myst-parser = "0.18.1"
+myst-parser = "4.0.1"
 pytest = "7.4.2"
 pytest-cov = "4.1.0"
 # Lint requires setuptools.
 setuptools = "68.0.0"
-Sphinx = "4.3.2"
-sphinxcontrib-apidoc = "0.3.0"
+Sphinx = "8.1.3"
+sphinxcontrib-apidoc = "0.6.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
