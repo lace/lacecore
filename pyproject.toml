@@ -30,12 +30,12 @@ numpy = "*"
 ounce = ">=1.1.0,<2.0"
 polliwog = ">=3.0.0a3"
 # polliwog = {git = "https://github.com/lace/polliwog.git", branch = "slice-mapping"}
-tinymetabobjloader = {version = "2.0.0a0", optional = true}
+tinyobjloader = {version = "2.0.0rc9", optional = true}
 vg = ">=2.0.0"
 
 [tool.poetry.extras]
-cli = ["click", "tinymetabobjloader"]
-obj = ["tinymetabobjloader"]
+cli = ["click", "tinyobjloader"]
+obj = ["tinyobjloader"]
 
 [tool.poetry.dev-dependencies]
 black = "23.3.0"
