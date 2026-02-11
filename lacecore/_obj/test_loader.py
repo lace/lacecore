@@ -17,7 +17,6 @@ def write_tmp_mesh(tmp_path):
 
 def assert_is_cube_mesh(mesh):
     assert mesh.num_v == 8
-    import pdb; pdb.set_trace()
     np.testing.assert_array_equal(mesh.v[0], np.array([0.0, 2.0, 2.0]))
     np.testing.assert_array_equal(mesh.f[0], np.array([0, 1, 2, 3]))
     np.testing.assert_array_equal(mesh.f[-1], np.array([1, 5, 6, 2]))
