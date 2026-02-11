@@ -9,7 +9,7 @@ def test_convert_units_cli(tmp_path, tmpdir) -> None:
     obj_path_m = str(tmp_path / "cube.obj")
     shapes.cube(np.zeros(3), 3.0).write_obj(obj_path_m)
 
-    runner = CliRunner(mix_stderr=False)
+    runner = CliRunner()
 
     with tmpdir.as_cwd():
         result = runner.invoke(convert_units, ["m", "cm", obj_path_m])
@@ -27,7 +27,7 @@ def test_convert_units_cli_with_outdir(tmp_path, tmpdir) -> None:
     obj_path_m = str(tmp_path / "cube.obj")
     shapes.cube(np.zeros(3), 3.0).write_obj(obj_path_m)
 
-    runner = CliRunner(mix_stderr=False)
+    runner = CliRunner()
     result = runner.invoke(
         convert_units, ["--outdir", str(tmpdir), "m", "cm", obj_path_m]
     )
