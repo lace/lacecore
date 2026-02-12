@@ -51,4 +51,4 @@ runs:
           grep -v "^numpy" | \
           ./.venv/bin/pip install -r /dev/stdin
         . .venv/bin/activate && pip install -e . --no-deps
-        poetry show
+        pip freeze
