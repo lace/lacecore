@@ -39,7 +39,9 @@ runs:
 
     - name: Revise the NumPy version
       shell: bash
-      run: poetry add numpy==${{ inputs.numpy-version }}
+      run: |
+        poetry add python==${{ inputs.python-version }}
+        poetry add numpy==${{ inputs.numpy-version }}
 
     - name: Install dependencies using Poetry
       shell: bash
