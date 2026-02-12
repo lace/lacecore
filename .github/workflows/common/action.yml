@@ -44,6 +44,8 @@ runs:
     - name: Install dependencies (excluding numpy) using Poetry
       shell: bash
       run: |
-        poetry export -f requirements.txt --without-hashes | grep -v "^numpy" | ./.venv/bin/pip install -r /dev/stdin
+        poetry export -f requirements.txt --with=dev --extras=obj --without-hashes | \
+          grep -v "^numpy" | \
+          ./.venv/bin/pip install -r /dev/stdin
         . .venv/bin/activate && pip install -e . --no-deps
         poetry show
