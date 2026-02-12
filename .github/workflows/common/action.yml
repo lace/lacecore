@@ -39,11 +39,11 @@ runs:
 
     - name: Pre-install NumPy ${{ inputs.numpy-version }}
       shell: bash
-      run: ./.venv/bin/pip install numpy==${{ inputs.numpy-version }}
+      run: . .venv/bin/activate && pip install numpy==${{ inputs.numpy-version }}
 
     - name: Install dependencies (excluding numpy) using Poetry
       shell: bash
       run: |
         poetry export -f requirements.txt --without-hashes | grep -v "^numpy" | ./.venv/bin/pip install -r /dev/stdin
-        ./.venv/bin/pip install -e . --no-deps
+        . .venv/bin/activate && pip install -e . --no-deps
         poetry show
