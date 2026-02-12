@@ -75,6 +75,7 @@ jobs:
     - uses: ./.github/workflows/common
       with:
         python-version: ${{ matrix.python-version }}
+        numpy-version: ${{ matrix.numpy-version }}
 
     - name: Run tests
       run: ./dev.py coverage
