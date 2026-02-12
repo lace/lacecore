@@ -7,6 +7,12 @@ inputs:
   'poetry-version':
     required: false
     default: '1.2.2'
+  'numpy-version':
+    required: false
+    default: '1.21.1'
+  'extras-param':
+    required: false
+    default: ''
 
 runs:
   using: "composite"
@@ -26,17 +32,21 @@ runs:
       uses: actions/cache@v3
       with:
         path: .venv
-        key: venv-${{ runner.os }}-${{ inputs.python-version }}-${{ hashFiles('poetry.lock') }}
-        restore-keys: |
-          venv-${{ runner.os }}-${{ inputs.python-version }}-
+        key: venv-v2-${{ runner.os }}-${{ inputs.python-version }}-${{ inputs.numpy-version }}-${{ inputs.extras-param }}-${{ hashFiles('poetry.lock') }}
 
     - name: Create the in-project virtualenv if it doesn't exist
       shell: bash
       run: test -d .venv || python -m venv .venv
 
-    - name: Install dependencies using Poetry
+    - name: Install NumPy ${{ inputs.numpy-version }}
+      shell: bash
+      run: . .venv/bin/activate && pip install numpy==${{ inputs.numpy-version }}
+
+    - name: Install dependencies (excluding numpy)
       shell: bash
       run: |
-        poetry --version
-        poetry install --no-ansi --no-interaction --extras obj
-        poetry show
+        poetry export -f requirements.txt ${{ inputs.extras-param }} --without-hashes | \
+          grep -v "^numpy" | \
+          ./.venv/bin/pip install -r /dev/stdin
+        . .venv/bin/activate && pip install -e . --no-deps
+        pip freeze
