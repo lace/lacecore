@@ -18,6 +18,8 @@ jobs:
       uses: actions/checkout@v4
 
     - uses: ./.github/workflows/common
+      with:
+        extras-param: '--extras format'
 
     - name: Check code format
       run: ./dev.py black-check
@@ -46,6 +48,8 @@ jobs:
       uses: actions/checkout@v4
 
     - uses: ./.github/workflows/common
+      with:
+        extras-param: '--extras lint'
 
     - name: Check lint
       run: ./dev.py lint
@@ -76,6 +80,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         numpy-version: ${{ matrix.numpy-version }}
+        extras-param: '--extras test'
 
     - name: Run tests
       run: ./dev.py coverage
@@ -90,6 +95,8 @@ jobs:
       uses: actions/checkout@v4
 
     - uses: ./.github/workflows/common
+      with:
+        extras-param: '--extras doc'
 
     - name: Build the package
       run: poetry build

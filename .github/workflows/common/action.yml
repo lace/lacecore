@@ -10,6 +10,9 @@ inputs:
   'numpy-version':
     required: false
     default: '1.21.1'
+  'extras-param':
+    required: false
+    default: ''
 
 runs:
   using: "composite"
@@ -44,7 +47,7 @@ runs:
     - name: Install dependencies (excluding numpy) using Poetry
       shell: bash
       run: |
-        poetry export -f requirements.txt --with=dev --extras=obj --without-hashes | \
+        poetry export -f requirements.txt ${{ inputs.extras-param }} --without-hashes | \
           grep -v "^numpy" | \
           ./.venv/bin/pip install -r /dev/stdin
         . .venv/bin/activate && pip install -e . --no-deps
