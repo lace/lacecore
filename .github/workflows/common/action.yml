@@ -37,15 +37,13 @@ runs:
       shell: bash
       run: test -d .venv || python -m venv .venv
 
-    - name: Revise the NumPy version
+    - name: Pre-install NumPy ${{ inputs.numpy-version }}
       shell: bash
-      run: |
-        poetry env use python==${{ inputs.python-version }}
-        poetry add --lock numpy==${{ inputs.numpy-version }}
+      run: pip install numpy==${{ inputs.numpy-version }}
 
-    - name: Install dependencies using Poetry
+    - name: Install dependencies (excluding numpy) using Poetry
       shell: bash
       run: |
-        poetry --version
-        poetry install --no-ansi --no-interaction --extras obj
+        poetry export -f requirements.txt --without-hashes | grep -v "^numpy" | pip install -r /dev/stdin
+        pip install -e . --no-deps
         poetry show
