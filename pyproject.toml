@@ -32,24 +32,25 @@ polliwog = ">=3.0.0a3"
 # polliwog = {git = "https://github.com/lace/polliwog.git", branch = "slice-mapping"}
 tinymetabobjloader = {version = "2.0.0a0", optional = true}
 vg = ">=2.0.0"
+black = {version = "23.3.0", optional = true}
+coverage = {version = "7.2.7", optional = true}
+executor = {version = "23.2", optional = true}
+flake8 = {version = "5.0.4", optional = true}
+flake8-import-order = {version = "0.18.2", optional = true}
+myst-parser = {version = "0.18.1", optional = true}
+pytest = {version = "7.4.2", optional = true}
+pytest-cov = {version = "4.1.0", optional = true}
+setuptools = {version = "68.0.0", optional = true}
+Sphinx = {version = "4.3.2", optional = true}
+sphinxcontrib-apidoc = {version = "0.3.0", optional = true}
 
 [tool.poetry.extras]
 cli = ["click", "tinymetabobjloader"]
 obj = ["tinymetabobjloader"]
-
-[tool.poetry.dev-dependencies]
-black = "23.3.0"
-coverage = "7.2.7"
-executor = "23.2"
-flake8 = "5.0.4"
-flake8-import-order = "0.18.2"
-myst-parser = "0.18.1"
-pytest = "7.4.2"
-pytest-cov = "4.1.0"
-# Lint requires setuptools.
-setuptools = "68.0.0"
-Sphinx = "4.3.2"
-sphinxcontrib-apidoc = "0.3.0"
+doc = ["executor", "click", "sphinx", "sphinxcontrib-apidoc", "myst-parser"]
+lint = ["executor", "click", "setuptools", "flake8", "flake8-import-order"]
+format = ["executor", "click", "black"]
+test = ["executor", "click", "pytest", "pytest-cov", "executor", "coverage"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
