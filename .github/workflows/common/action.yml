@@ -40,8 +40,8 @@ runs:
     - name: Revise the NumPy version
       shell: bash
       run: |
-        poetry add python==${{ inputs.python-version }}
-        poetry add numpy==${{ inputs.numpy-version }}
+        poetry env use python==${{ inputs.python-version }}
+        poetry add --lock numpy==${{ inputs.numpy-version }}
 
     - name: Install dependencies using Poetry
       shell: bash
