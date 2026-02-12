@@ -50,16 +50,22 @@ jobs:
     - name: Check lint
       run: ./dev.py lint
 
-  run_tests:
-    name: Run tests and check coverage
+  run_tests_matrix:
+    name: Run tests - Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || (github.event_name == 'schedule' && github.ref == 'refs/heads/main')
+
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
     - uses: ./.github/workflows/common
+      with:
+        python-version: ${{ matrix.python-version }}
 
     - name: Run tests and check coverage
       run: ./dev.py coverage
