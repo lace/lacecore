@@ -7,6 +7,9 @@ inputs:
   'poetry-version':
     required: false
     default: '1.2.2'
+  'numpy-version':
+    required: false
+    default: '1.21.1'
 
 runs:
   using: "composite"
@@ -33,6 +36,10 @@ runs:
     - name: Create the in-project virtualenv if it doesn't exist
       shell: bash
       run: test -d .venv || python -m venv .venv
+
+    - name: Revise the NumPy version
+      shell: bash
+      run: poetry add numpy==${{ inputs.numpy-version }}
 
     - name: Install dependencies using Poetry
       shell: bash
