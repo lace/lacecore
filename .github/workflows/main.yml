@@ -50,14 +50,22 @@ jobs:
     - name: Check lint
       run: ./dev.py lint
 
-  run_tests_matrix:
-    name: Run tests - Python ${{ matrix.python-version }}
+  run_tests:
+    name: Run tests - Python ${{ matrix.python-version }} with NumPy ${{ matrix.numpy-version }}
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || (github.event_name == 'schedule' && github.ref == 'refs/heads/main')
 
     strategy:
       matrix:
-        python-version: ['3.9', '3.10', '3.11', '3.12']
+        include:
+          - python-version: '3.9'
+            numpy-version: '1.21.1'
+          - python-version: '3.10'
+            numpy-version: '1.23.0'
+          - python-version: '3.11'
+            numpy-version: '1.24.1'
+          - python-version: '3.12'
+            numpy-version: '1.26.0'
 
     steps:
     - name: Checkout repository
@@ -67,13 +75,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Run tests and check coverage
-      run: ./dev.py coverage
+    - name: Install NumPy ${{ matrix.numpy-version }}
+      run: poetry add numpy==${{ matrix.numpy-version }}
 
-    - name: Run tests on NumPy 1.24.1
-      run: |
-        pip install numpy==1.24.1
-        ./dev.py test
+    - name: Run tests
+      run: ./dev.py coverage
 
   build_and_upload:
     name: Build and upload
