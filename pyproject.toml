@@ -24,7 +24,7 @@ classifiers = [
 convert_units = "lacecore_cli.convert_units:convert_units"
 
 [tool.poetry.dependencies]
-python = ">=3.7,<4"
+python = ">=3.10,<4"
 click = {version = ">=8.1.3,<9", optional = true}
 numpy = "*"
 ounce = ">=1.1.0,<2.0"
@@ -37,12 +37,12 @@ coverage = {version = "7.2.7", optional = true}
 executor = {version = "23.2", optional = true}
 flake8 = {version = "5.0.4", optional = true}
 flake8-import-order = {version = "0.18.2", optional = true}
-myst-parser = {version = "0.18.1", optional = true}
+myst-parser = {version = "4.0.1", optional = true}
 pytest = {version = "7.4.2", optional = true}
 pytest-cov = {version = "4.1.0", optional = true}
 setuptools = {version = "68.0.0", optional = true}
-Sphinx = {version = "4.3.2", optional = true}
-sphinxcontrib-apidoc = {version = "0.3.0", optional = true}
+Sphinx = {version = "8.1.3", optional = true}
+sphinxcontrib-apidoc = {version = "0.6.0", optional = true}
 
 [tool.poetry.extras]
 cli = ["click", "tinymetabobjloader"]
