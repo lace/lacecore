@@ -25,7 +25,9 @@ def cli():
 
 @cli.command()
 def install():
-    execute("poetry install --sync --extras cli --extras obj")
+    execute(
+        "poetry install --sync --extras doc --extras lint --extras format --extras test --extras cli --extras obj"
+    )
 
 
 @cli.command()
