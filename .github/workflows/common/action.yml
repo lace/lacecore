@@ -9,7 +9,7 @@ inputs:
     default: '1.2.2'
   'numpy-version':
     required: false
-    default: '1.21.1'
+    default: '1.26.4'
   'extras-param':
     required: false
     default: ''
@@ -40,7 +40,9 @@ runs:
 
     - name: Install NumPy ${{ inputs.numpy-version }}
       shell: bash
-      run: . .venv/bin/activate && pip install numpy==${{ inputs.numpy-version }}
+      run: |
+        . .venv/bin/activate
+        pip install --only-binary :all: numpy==${{ inputs.numpy-version }}
 
     - name: Install dependencies (excluding numpy)
       shell: bash
