@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0a4
+
+- BREAKING CHANGE: Require Python 3.10+.
+- Upgrade tinymetabobjloader in preparation for a switch to the upstream tinyobjloader.
+
+
 ## 3.0.0a3
 
 - Add `convert_units` script. To install, use `pip install lacecore[cli]==3.0.0a3`.
