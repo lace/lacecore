@@ -50,7 +50,10 @@ def test_loads_from_string_with_error():
     contents = """
     f 0 0 0
     """
-    with pytest.raises(LoadException, match="^Failed parse `f' line"):
+    with pytest.raises(
+        LoadException,
+        match=r"^A zero value index found \(will have a value of -1 for normal",
+    ):
         load_obj_string(contents)
 
 

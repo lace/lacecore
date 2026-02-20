@@ -677,8 +677,8 @@ test = ["pytest"]
 
 [[package]]
 name = "tinymetabobjloader"
-version = "2.0.0a0"
-description = "Occasional fork of tinyobjloader"
+version = "2.0.0rc14.dev2"
+description = "Tiny but powerful Wavefront OBJ loader"
 category = "main"
 optional = true
 python-versions = "*"
@@ -743,7 +743,7 @@ test = ["executor", "click", "pytest", "pytest-cov", "executor", "coverage"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10,<4"
-content-hash = "e93be778ea9827e39d01f848f6a2c67fb92554b2f6ee29c77cfe45406b100bae"
+content-hash = "9c5e0c0ca54eb2f832068d43d9be2e32af0ae96d055e2e64fe52767020e836e0"
 
 [metadata.files]
 alabaster = [
@@ -1462,33 +1462,45 @@ sphinxcontrib-serializinghtml = [
     {file = "sphinxcontrib_serializinghtml-2.0.0.tar.gz", hash = "sha256:e9d912827f872c029017a53f0ef2180b327c3f7fd23c87229f7a8e8b70031d4d"},
 ]
 tinymetabobjloader = [
-    {file = "tinymetabobjloader-2.0.0a0-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:3718a0908e779ae00ea55b485bbbc81d02e01ebabcd1f6f5a7dd8deaabe38568"},
-    {file = "tinymetabobjloader-2.0.0a0-cp27-cp27m-manylinux2010_i686.whl", hash = "sha256:a3a71e7b3b9a112983f02cf660836ad9be1cd561e4ccbae8d6973873d4f1f10f"},
-    {file = "tinymetabobjloader-2.0.0a0-cp27-cp27m-manylinux2010_x86_64.whl", hash = "sha256:70b7dd46a05fbdea1c98101f39daa32671c4467f799413d28ede195d167f3c65"},
-    {file = "tinymetabobjloader-2.0.0a0-cp27-cp27mu-manylinux2010_i686.whl", hash = "sha256:61f69e5819cbf54c5c2ffcf0f5ececc22ed4278d4ba604b974fd9b90ae39859e"},
-    {file = "tinymetabobjloader-2.0.0a0-cp27-cp27mu-manylinux2010_x86_64.whl", hash = "sha256:712bcd85889c9a9667a8770e772ca03c62fe0f4a552c4ab2fc61f619624a0092"},
-    {file = "tinymetabobjloader-2.0.0a0-cp35-cp35m-macosx_10_9_x86_64.whl", hash = "sha256:c4375ab61cf98ddc9bb560000afa850634c883fef75125a9963539f4fedca1ea"},
-    {file = "tinymetabobjloader-2.0.0a0-cp35-cp35m-manylinux2010_i686.whl", hash = "sha256:f4f43b9bc48ee6fcee172346c1e0089a9b9dbe2a2ac2b9d1cab04598473438ba"},
-    {file = "tinymetabobjloader-2.0.0a0-cp35-cp35m-manylinux2010_x86_64.whl", hash = "sha256:0845f0ae29f899bbba2d4ffd02302e30007a5a24cef8c432b32157f1d4bbf1ea"},
-    {file = "tinymetabobjloader-2.0.0a0-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:38b4f475035a23d5d39d22014f413243e441a91ac5b084b12a4ea4bc44d90639"},
-    {file = "tinymetabobjloader-2.0.0a0-cp36-cp36m-manylinux2010_i686.whl", hash = "sha256:607f190ce27200dd06f7cf7a8f6306df8f723726662c4b702d813b7eac4c9cf4"},
-    {file = "tinymetabobjloader-2.0.0a0-cp36-cp36m-manylinux2010_x86_64.whl", hash = "sha256:39e1e2de095b7f4644e7a05350ed7f101c67e19e7c177efec9a628eb73bd8da8"},
-    {file = "tinymetabobjloader-2.0.0a0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:ebbc420adcbbf1f4c9f1bd4592c064317c2a8a4532d2c8928398290a0751415b"},
-    {file = "tinymetabobjloader-2.0.0a0-cp37-cp37m-manylinux2010_i686.whl", hash = "sha256:e6d2318c6b5c9b8179ed1ce9fcba1ff38e1f9e993f80f41dcccbdc77efec4256"},
-    {file = "tinymetabobjloader-2.0.0a0-cp37-cp37m-manylinux2010_x86_64.whl", hash = "sha256:991de7433d32fafddbb22943c74454d8f8b591665c203920c2f2c2b61fed7d07"},
-    {file = "tinymetabobjloader-2.0.0a0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:7e15b6f4197cfe1e30afd9efa0fbf50dc4757f1ead5f40459adc06ac8651a03b"},
-    {file = "tinymetabobjloader-2.0.0a0-cp38-cp38-manylinux2010_i686.whl", hash = "sha256:4301779bf8571ffde113fdd0980c067bfb438be8798db5825154a1dcf2f877b7"},
-    {file = "tinymetabobjloader-2.0.0a0-cp38-cp38-manylinux2010_x86_64.whl", hash = "sha256:9256c42a7e8b39d7cf602a85abdce24ac6c62e36fd15562fe38c0c2c0976fe83"},
-    {file = "tinymetabobjloader-2.0.0a0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:f57d1e4b56efa88809546a7c7578e0491c6017ff23ba1dc96999e8eee8f86daf"},
-    {file = "tinymetabobjloader-2.0.0a0-cp39-cp39-manylinux2010_i686.whl", hash = "sha256:929c2a75dc722837288db0f7b07a521bf1ccd040f3e339f800ebe9db5458a204"},
-    {file = "tinymetabobjloader-2.0.0a0-cp39-cp39-manylinux2010_x86_64.whl", hash = "sha256:794d8cce696b94ce4ea91d4695b03eb0845f7d357234d4022eff764354cc21fd"},
-    {file = "tinymetabobjloader-2.0.0a0-pp27-pypy_73-macosx_10_9_x86_64.whl", hash = "sha256:8d9c00325ef16858f3306db20e946c9fd53ce10787eac82e9b583def3658ebed"},
-    {file = "tinymetabobjloader-2.0.0a0-pp27-pypy_73-manylinux2010_x86_64.whl", hash = "sha256:717bd3d89cb3d96414165b139664bccbfcbc799d1aca255a38cd1ee824e57020"},
-    {file = "tinymetabobjloader-2.0.0a0-pp36-pypy36_pp73-macosx_10_9_x86_64.whl", hash = "sha256:a97c9f5d33f99d88f7211cf4efcf8861f1716864085af4bfe780d341819b4ea5"},
-    {file = "tinymetabobjloader-2.0.0a0-pp36-pypy36_pp73-manylinux2010_x86_64.whl", hash = "sha256:e3d24ba9230b549eb607de33195276f3182f7ebc62de25bfa0069f9088fe649a"},
-    {file = "tinymetabobjloader-2.0.0a0-pp37-pypy37_pp73-macosx_10_9_x86_64.whl", hash = "sha256:219b025e85c6af96947f598ce2e8b460c2cb213b646605aad16bb733b65cba0f"},
-    {file = "tinymetabobjloader-2.0.0a0-pp37-pypy37_pp73-manylinux2010_x86_64.whl", hash = "sha256:8e0d9d9c6fa1d53e0a26c1646eaf4ca2c7b4ad8b9b0fda3f85812875796d540a"},
-    {file = "tinymetabobjloader-2.0.0a0.tar.gz", hash = "sha256:008c2ed502a02bf3cd4efd34e9e651b48571d13fbd55955e629b67394ea2bebd"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:2a752c5bb0aa73cdb6b15687b503232a4b794adf93fa7d5865222d340fd5f5e9"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:213d7986f7e8b115460053832b478dfaaa4109dcd2c7b1f5f978890c4107e85e"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:bc579c06b12e26334f5d613ad632c144a98dc0328a6741f3dec299e9253d9159"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp310-cp310-win_amd64.whl", hash = "sha256:6a4a8f9ec9e64accdb06f0866c7199628e2fd63eaadd3de9a0bdaa4935e05739"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp310-cp310-win_arm64.whl", hash = "sha256:5e39417fa568bb596eb450e831baf7de469c73123c4cb3b748dfc5d40112fcf1"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:19be156282972000e4e2959761d6ed642d7ff8094a8b3ac133a853e3ba405b29"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:1189f2a8d2db94dec5b80aa38ee2ea4d38448f4657042c40648fb7a4367fdec6"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:c4acb4a6d40869f12d4673fca253f32183f593b21ef99072c49414eb4823dc1d"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp311-cp311-win_amd64.whl", hash = "sha256:7f0c92c6782103932b90b0ad9a466f88b4ee2a1ddcee872dba4706a9eda7b1a0"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp311-cp311-win_arm64.whl", hash = "sha256:d1ced4a141d7c7a2bcc3a303f7f2b0d6b4617197fbf2fefa18690c439b20e782"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:8219219e34cf1e73c91531b92c0460b57bb0bb4ec0aa5313a16052db35d1f079"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:54c9ebe2150e31b6ea4c748d81ad1c3258643b94bc30bb377a33e54d683b445d"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:deb7554794c9007547b6f45bfe4a7e223e44560113b75d88e6bb53139d9bcd22"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp312-cp312-win_amd64.whl", hash = "sha256:e1c20e0797e4bfee56402c3a31233b31d3c021d11af2faaeb0ea7b1471eb846b"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp312-cp312-win_arm64.whl", hash = "sha256:4deb12e662ebf54e39a1428fec69780f8735977e66c026345d0a1fa1e5a8d049"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:fb78b7decee24136a361fe1e9ce85fa117266c93434f7244c0c3b36f702cdb9a"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:c3aa956d4a8d49604dce4cd0e354f843a57a4d07d1cf0db4a224423e4c82f9d4"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:87004bba00d01d086c6ee9720ba79aa751c9ca36c41b83733794527e809416df"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp313-cp313-win_amd64.whl", hash = "sha256:ccae9c4fc6c3803855acc0d2fa9df844321cc99b2f93a00c3274f23a0230bdfe"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp313-cp313-win_arm64.whl", hash = "sha256:cbcf5864aaa193e8d9f17d87848b34871f97cb496d171ef247517e2a221f535a"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:352a9956d9db59e408b282b7724ac3bda398800ff568eca629ede3dd355d8502"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:02b4389bdae85868639355b7b96ce56188119f9ab5b34a381cd2001e4209942f"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:491a94df79b466a68cf545f0b26c036ce24ff60810bc3b28e6f6e6d767484949"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp314-cp314-win_amd64.whl", hash = "sha256:e31158803649edd0e004447e4aa07652e9ff0c2031376b6dedb3d9c1a817839a"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp314-cp314-win_arm64.whl", hash = "sha256:c1500cc13d1daceabccdd5b16105b6a0385dcb29e5558e433d0a350845d563d5"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:f1151019a2700b54c0074e1189ce121ba8735db6bef59b717bbc17136cea1fe6"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp314-cp314t-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:e2e29e5217353dfc813ace79bcd7fec50853a9115150bdd901707d4019dc53c9"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:c1faca6bd29be44a08a0049f6436bcf6ce172237b8c259435a8882a65b2da797"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp314-cp314t-win_amd64.whl", hash = "sha256:e3126352bf302bfa5062775672c213105d6b4ea01dfd1f490863bf4711d43ef0"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp314-cp314t-win_arm64.whl", hash = "sha256:cf33e5a71186ab964a678e4f02a2f7759e50b57d11ff3bade7ae83549baaaf33"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:a8eed2733edb171a0c5234dc93dbdbc8b1a735e61ff64b580c585e4b9cdcc418"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp38-cp38-musllinux_1_2_x86_64.whl", hash = "sha256:f23b50dcffe970c5b1b50a64c01d323295475aedd22343e70ec4b29ecaf2e428"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp38-cp38-win_amd64.whl", hash = "sha256:bbfa065a90c1f92e6ed36ef35de4fe26793184bf43140495bc178a0aa416c9db"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:9becf7eb2d28e0f606b592d7892a04ddc3b77ac6224fbb6afbd3ae6cd3988d39"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp39-cp39-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:dc7003f6a9476f7bccb24223ed1dd0c7f5389391d3ba24a4b44c5b3d99eaa86d"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp39-cp39-musllinux_1_2_x86_64.whl", hash = "sha256:eba4a482642ee28212b6268300a056e88ef62ba78fe784cf9321169ea3c93873"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp39-cp39-win_amd64.whl", hash = "sha256:b1b1ea4919cf430bc2b1e64d6e0869b5ed36dfbfa2a9d81df367f2393d910268"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2-cp39-cp39-win_arm64.whl", hash = "sha256:b2a204cc3a8768a3c458c03bc5521930b2ea9c751ecf064426a28c384a4b2dda"},
+    {file = "tinymetabobjloader-2.0.0rc14.dev2.tar.gz", hash = "sha256:4b645df3e7af70520b0c1e2bce7469322d55996a42e433792f65b03842a0f1cc"},
 ]
 tomli = [
     {file = "tomli-2.4.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:b5ef256a3fd497d4973c11bf142e9ed78b150d36f5773f1ca6088c230ffc5867"},
