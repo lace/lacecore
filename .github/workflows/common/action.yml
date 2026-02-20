@@ -40,7 +40,9 @@ runs:
 
     - name: Install NumPy ${{ inputs.numpy-version }}
       shell: bash
-      run: . .venv/bin/activate && pip install numpy==${{ inputs.numpy-version }}
+      run: |
+        . .venv/bin/activate
+        pip install --only-binary :all: numpy==${{ inputs.numpy-version }}
 
     - name: Install dependencies (excluding numpy)
       shell: bash
