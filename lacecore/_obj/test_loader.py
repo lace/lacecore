@@ -72,8 +72,7 @@ def test_triangulation_is_abc_acd(write_tmp_mesh):
     the axes of triangulation based on the vertex positions. This is
     undesirable in lacecore as it scrambles correspondence.
     """
-    mesh_path = write_tmp_mesh(
-        """
+    mesh_path = write_tmp_mesh("""
 v 0 0 0
 v 0 0 0
 v 0 0 0
@@ -84,8 +83,7 @@ v 46.524185 82.81955 8.825487
 v 46.59864 83.086678 8.88121
 v 46.461926 82.834091 8.953863
 f 5 6 7 8
-    """
-    )
+    """)
 
     # ABC + ACD
     expected_triangle_faces = np.array([[0, 1, 2], [0, 2, 3], [4, 5, 6], [4, 6, 7]])
@@ -95,8 +93,7 @@ f 5 6 7 8
 
 
 def test_mesh_with_mixed_tris_and_quads_returns_expected(write_tmp_mesh):
-    mesh_path = write_tmp_mesh(
-        """
+    mesh_path = write_tmp_mesh("""
 v 0 1 1
 v 0 2 2
 v 0 3 3
@@ -104,8 +101,7 @@ v 0 4 4
 v 0 5 5
 f 1 2 3 4
 f 1 4 5
-    """
-    )
+    """)
 
     expected_triangle_faces = np.array([[0, 1, 2], [0, 2, 3], [0, 3, 4]])
     mesh = load_obj(mesh_path, triangulate=True)
@@ -114,11 +110,9 @@ f 1 4 5
 
 
 def test_mesh_with_no_faces_has_empty_triangle_f(write_tmp_mesh):
-    mesh_path = write_tmp_mesh(
-        """
+    mesh_path = write_tmp_mesh("""
 v 0.0 0.0 0.0
-    """
-    )
+    """)
 
     mesh = load_obj(mesh_path)
     np.testing.assert_array_equal(mesh.v, np.zeros((1, 3)))
@@ -127,16 +121,14 @@ v 0.0 0.0 0.0
 
 
 def test_mesh_with_ngons_raises_expected_error(write_tmp_mesh):
-    mesh_path = write_tmp_mesh(
-        """
+    mesh_path = write_tmp_mesh("""
 v 0 0 0
 v 0 0 0
 v 0 0 0
 v 0 0 0
 v 0 0 0
 f 1 2 3 4 5
-    """
-    )
+    """)
 
     with pytest.raises(
         ArityException,

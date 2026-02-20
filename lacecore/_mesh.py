@@ -6,7 +6,6 @@ from ._obj.writer import write as write_obj
 from ._selection.selection_mixin import SelectionMixin
 from ._transform.transform_mixin import TransformMixin
 
-
 FACE_DTYPE = np.int64
 
 

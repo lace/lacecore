@@ -26,7 +26,7 @@ def test_prune_orphan_vertices_has_no_effect_when_selecting_vertices():
 def test_ret_indices_of_original_faces_and_vertices():
     expected_vertex_indices = [2, 3, 6, 7]
     expected_face_indices = [8, 9]
-    (submesh, indices_of_original_faces, indices_of_original_vertices) = (
+    submesh, indices_of_original_faces, indices_of_original_vertices = (
         cube_at_origin.select()
         .vertices_at_or_above(2, np.array([1.0, 1.0, 1.0]))
         .end(ret_indices_of_original_faces_and_vertices=True)

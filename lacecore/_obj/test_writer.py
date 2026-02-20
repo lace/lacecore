@@ -22,13 +22,10 @@ def test_write_pointcloud():
     )
     write_obj(f, mesh)
 
-    assert (
-        f.getvalue()
-        == """\
+    assert f.getvalue() == """\
 v 1.0 2.0 3.0
 v 4.0 5.0 6.0
 """
-    )
 
 
 def test_write_mesh_without_face_groups():
@@ -42,9 +39,7 @@ def test_write_mesh_without_face_groups():
     )
     write_obj(f, mesh)
 
-    assert (
-        f.getvalue()
-        == """\
+    assert f.getvalue() == """\
 v 1.0 2.0 3.0
 v 4.0 5.0 6.0
 v 7.0 8.0 9.0
@@ -52,7 +47,6 @@ v 10.0 11.0 12.0
 f 1 2 3
 f 1 2 4
 """
-    )
 
 
 def test_write_quads():
@@ -66,16 +60,13 @@ def test_write_quads():
     )
     write_obj(f, mesh)
 
-    assert (
-        f.getvalue()
-        == """\
+    assert f.getvalue() == """\
 v 1.0 2.0 3.0
 v 4.0 5.0 6.0
 v 7.0 8.0 9.0
 v 10.0 11.0 12.0
 f 1 2 3 4
 """
-    )
 
 
 def test_write_mesh_with_face_groups():
@@ -85,9 +76,7 @@ def test_write_mesh_with_face_groups():
     mesh = Mesh(v=mesh.v, f=mesh.f, face_groups=create_group_map())
     write_obj(f, mesh)
 
-    assert (
-        f.getvalue()
-        == """\
+    assert f.getvalue() == """\
 v 0.0 0.0 0.0
 v 3.0 0.0 0.0
 v 3.0 0.0 3.0
@@ -115,4 +104,3 @@ g left_side sides
 f 4 8 5
 f 4 5 1
 """
-    )
