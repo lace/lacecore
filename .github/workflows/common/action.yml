@@ -9,7 +9,7 @@ inputs:
     default: '1.2.2'
   'numpy-version':
     required: false
-    default: '1.21.1'
+    default: '1.26.4'
   'extras-param':
     required: false
     default: ''
