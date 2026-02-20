@@ -90,7 +90,7 @@ def reindex_faces(mesh, ordering):
     return Mesh(
         v=mesh.v,
         f=mesh.f[ordering],
-        face_groups=None
-        if mesh.face_groups is None
-        else mesh.face_groups.reindexed(ordering),
+        face_groups=(
+            None if mesh.face_groups is None else mesh.face_groups.reindexed(ordering)
+        ),
     )

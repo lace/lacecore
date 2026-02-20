@@ -3,7 +3,6 @@ import numpy as np
 from polliwog import Plane
 from vg.compat import v2 as vg
 
-
 cube_vertices = np.array(
     [
         [0.0, 0.0, 0.0],

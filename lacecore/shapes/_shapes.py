@@ -1,7 +1,6 @@
 from polliwog import shapes
 from .._mesh import Mesh
 
-
 __all__ = [
     "rectangular_prism",
     "cube",

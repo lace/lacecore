@@ -40,13 +40,11 @@ def unstack(stacked_result, slice_lengths, safe=True):
 
 def create_reader_and_config():
     if ObjReader is None:  # pragma: no cover
-        raise ImportError(
-            """
+        raise ImportError("""
             tinyobjloader library has not been installed.
             You will not be able to load OBJ files.
             To fix, run `pip install lacecore[obj]`.
-            """
-        )
+            """)
     reader = ObjReader()
     config = ObjReaderConfig()
     # There is some complex code in tinyobjloader which occasionally switches
