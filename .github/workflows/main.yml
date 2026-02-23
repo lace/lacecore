@@ -69,9 +69,17 @@ jobs:
             numpy-version: '1.26.4'
           - python-version: '3.12'
             numpy-version: '1.26.4'
+          - python-version: '3.13'
+            numpy-version: '1.26.4'
+          - python-version: '3.14'
+            numpy-version: '1.26.4'
           - python-version: '3.11'
             numpy-version: '2.4.2'
           - python-version: '3.12'
+            numpy-version: '2.4.2'
+          - python-version: '3.13'
+            numpy-version: '2.4.2'
+          - python-version: '3.14'
             numpy-version: '2.4.2'
 
     steps:
