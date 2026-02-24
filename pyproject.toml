@@ -34,7 +34,7 @@ tinymetabobjloader = {version = "2.0.0rc14.dev2", optional = true}
 vg = ">=2.0.0"
 black = {version = "26.1.0", optional = true}
 coverage = {version = "7.13.4", optional = true}
-executor = {version = "23.2", optional = true}
+sh = {version = ">=2.0", optional = true}
 flake8 = {version = "7.3.0", optional = true}
 flake8-import-order = {version = "0.19.2", optional = true}
 myst-parser = {version = "4.0.1", optional = true}
@@ -47,10 +47,10 @@ sphinxcontrib-apidoc = {version = "0.6.0", optional = true}
 [tool.poetry.extras]
 cli = ["click", "tinymetabobjloader"]
 obj = ["tinymetabobjloader"]
-doc = ["executor", "click", "sphinx", "sphinxcontrib-apidoc", "myst-parser"]
-lint = ["executor", "click", "setuptools", "flake8", "flake8-import-order"]
-format = ["executor", "click", "black"]
-test = ["executor", "click", "pytest", "pytest-cov", "executor", "coverage"]
+doc = ["sh", "click", "sphinx", "sphinxcontrib-apidoc", "myst-parser"]
+lint = ["sh", "click", "setuptools", "flake8", "flake8-import-order"]
+format = ["sh", "click", "black"]
+test = ["sh", "click", "pytest", "pytest-cov", "coverage"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
