@@ -49,6 +49,6 @@ runs:
       run: |
         poetry export -f requirements.txt ${{ inputs.extras-param }} --without-hashes | \
           grep -v "^numpy" | \
-          ./.venv/bin/pip install -r /dev/stdin
+          ./.venv/bin/pip install -r /dev/stdin --no-deps
         . .venv/bin/activate && pip install -e . --no-deps
         pip freeze
