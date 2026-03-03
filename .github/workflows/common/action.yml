@@ -1,16 +1,16 @@
 name: Prepare environment
 
 inputs:
-  'python-version':
+  python-version:
     required: false
     default: '3.10'
-  'poetry-version':
+  poetry-version:
     required: false
     default: '1.2.2'
-  'numpy-version':
+  numpy-version:
     required: false
     default: '1.26.4'
-  'extras-param':
+  extras-param:
     required: false
     default: ''
 
@@ -32,7 +32,7 @@ runs:
       uses: actions/cache@v3
       with:
         path: .venv
-        key: venv-v2-${{ runner.os }}-${{ inputs.python-version }}-${{ inputs.numpy-version }}-${{ inputs.extras-param }}-${{ hashFiles('poetry.lock') }}
+        key: venv-v3-${{ runner.os }}-${{ inputs.python-version }}-${{ inputs.numpy-version }}-${{ inputs.extras-param }}-${{ hashFiles('poetry.lock') }}
 
     - name: Create the in-project virtualenv if it doesn't exist
       shell: bash
@@ -49,6 +49,6 @@ runs:
       run: |
         poetry export -f requirements.txt ${{ inputs.extras-param }} --without-hashes | \
           grep -v "^numpy" | \
-          ./.venv/bin/pip install -r /dev/stdin
+          ./.venv/bin/pip install -r /dev/stdin --no-deps
         . .venv/bin/activate && pip install -e . --no-deps
         pip freeze
