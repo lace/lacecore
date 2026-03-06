@@ -91,6 +91,16 @@ class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
         """
         return self.f.shape[1] == 4
 
+    @property
+    def vertices_of_faces(self):
+        """
+        A `kx3` array of coordinates indices which make up the faces.
+        
+        Return:
+            np.ndarray: A `kx3x3` array of coordinates which make up the faces.
+        """
+        return self.v[self.f]
+
     def write_obj(self, filename):
         """
         Save a mesh's faces, vertices, and face groups to a Wavefront OBJ file.
