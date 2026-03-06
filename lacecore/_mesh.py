@@ -95,7 +95,7 @@ class Mesh(AnalysisMixin, SelectionMixin, TransformMixin):
     def vertices_of_faces(self):
         """
         A `kx3` array of coordinates indices which make up the faces.
-        
+
         Return:
             np.ndarray: A `kx3x3` array of coordinates which make up the faces.
         """
