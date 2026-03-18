@@ -32,7 +32,7 @@ polliwog = ">=3.0.0a3"
 # polliwog = {git = "https://github.com/lace/polliwog.git", branch = "slice-mapping"}
 tinymetabobjloader = {version = "2.0.0rc14.dev2", optional = true}
 vg = ">=2.0.0"
-black = {version = "26.1.0", optional = true}
+black = {version = "26.3.1", optional = true}
 coverage = {version = "7.13.4", optional = true}
 sh = {version = ">=2.0", optional = true}
 flake8 = {version = "7.3.0", optional = true}
