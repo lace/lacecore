@@ -14,6 +14,14 @@ def test_is_quad():
     assert shapes.cube(np.zeros(3), 3.0).is_quad is False
 
 
+def test_vertices_of_faces():
+    cube = shapes.cube(np.zeros(3), 3.0)
+    vertices_of_faces = cube.vertices_of_faces
+
+    assert vertices_of_faces.shape == (12, 3, 3)
+    np.testing.assert_array_equal(vertices_of_faces, cube.v[cube.f])
+
+
 def test_write_obj(tmp_path):
     obj_path = str(tmp_path / "cube.obj")
     shapes.cube(np.zeros(3), 3.0).write_obj(obj_path)
