@@ -1,0 +1,37 @@
+from lacecore._obj.loader import LoadException, _get_arity, create_reader_and_config
+
+
+def read_groups(reader):
+    shapes = reader.GetShapes()
+
+    if _get_arity(shapes) != 3:
+        raise ValueError("Only supported for triangulated meshes")
+
+    groups, start = [], 0
+
+    for shape in shapes:
+        these_face_indices = shape.mesh.numpy_indices().reshape(-1, 3)[:, 0]
+        groups.append(
+            {"name": shape.name, "start": start, "count": len(these_face_indices)}
+        )
+        start += len(these_face_indices)
+
+    return groups
+
+
+def extract_group_slices(mesh_path):
+    reader, config = create_reader_and_config()
+    success = reader.ParseFromFile(mesh_path, config)
+    if not success:
+        raise LoadException(reader.Warning() or reader.Error())
+    return read_groups(reader)
+
+
+def main():
+    import json
+
+    print(json.dumps(extract_group_slices("examples/tinyobjloader/models/cube.obj")))
+
+
+if __name__ == "__main__":
+    main()
